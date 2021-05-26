@@ -1,0 +1,8 @@
+builders:
+  infoGeneratorBuilder:
+    import: "package:theme_color_palette/theme_color_palette.dart"
+    builder_factories: ["infoGeneratorBuilder"] # Names of the functions
+    build_extensions: { ".dart": [".info.g.part"] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
