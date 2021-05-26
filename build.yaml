@@ -6,3 +6,10 @@ builders:
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
+  classExtrasGeneratorBuilder:
+    import: "package:theme_color_palette/theme_color_palette.dart"
+    builder_factories: ["classExtrasGeneratorBuilder"] # Names of the functions
+    build_extensions: { ".dart": [".fields.g.part"] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
