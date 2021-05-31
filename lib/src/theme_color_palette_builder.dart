@@ -7,6 +7,8 @@ typedef Json = Map<String, dynamic>;
 /// A List of Json
 typedef Jsons = List<Json>;
 
+typedef Names = List<String>;
+
 /// Theme Color Palette Builder
 class ThemeColorPaletteBuilder implements Builder {
   @override
@@ -23,7 +25,7 @@ class ThemeColorPaletteBuilder implements Builder {
     final copyAssetId = inputId.changeExtension('.g.dart');
     final content = await buildStep.readAsString(inputId);
     final json = dart_convert.json.decode(content) as Json;
-    final colorPalette = ColorPalette.fromJson(json);
+    final colorPalette = ColorPalette.fromJson(json: json);
 
     final buffer = StringBuffer()
       ..writeln("import 'package:flutter/material.dart';")
@@ -34,10 +36,16 @@ class ThemeColorPaletteBuilder implements Builder {
 }
 
 mixin ClassInstanceName {
-  String get name;
+  List<String> get names;
 
-  String get className => name[0].toUpperCase() + name.substring(1);
-  String get instanceName => name[0].toLowerCase() + name.substring(1);
+  String _firstLowerCase(String input) =>
+      input[0].toLowerCase() + input.substring(1);
+
+  String _firstUpperCase(String input) =>
+      input[0].toUpperCase() + input.substring(1);
+
+  String get className => names.map(_firstUpperCase).join(r'$');
+  String get instanceName => _firstLowerCase(names.last);
 }
 
 enum ObjectType {
@@ -57,22 +65,22 @@ extension ObjectTypeExtension on ObjectType {
   }
 }
 
-// ignore: one_member_abstracts
 abstract class JsonToDart {
-  factory JsonToDart.fromJson(Json json) {
+  factory JsonToDart.fromJson(
+      {required Json json, List<String> parentName = const []}) {
     final type = ObjectTypeExtension.fromString(json['type'] as String);
     switch (type) {
       case ObjectType.collection:
-        return SharedCollection.fromJson(json);
+        return SharedCollection.fromJson(json: json, parentName: parentName);
       case ObjectType.color:
-        return Color.fromJson(json);
+        return Color.fromJson(json: json, parentName: parentName);
     }
   }
   String dartDefine();
 
   String dartInstance();
 
-  String get name;
+  List<String> get names;
 }
 
 const divider = r'$';
@@ -82,17 +90,19 @@ String fullClassName(Iterable<String> names) => names.join(divider);
 /// The color palette containing everything
 class ColorPalette implements JsonToDart {
   /// [ColorPalette] from Json
-  ColorPalette.fromJson(Json map)
-      : shared = (map['shared'] as List)
-            .map((collection) => SharedCollection.fromJson(collection as Json))
+  ColorPalette.fromJson(
+      {required Json json, List<String> parentName = const []})
+      : shared = (json['shared'] as List)
+            .map((collection) => SharedCollection.fromJson(
+                json: collection as Json, parentName: parentName))
             .toList();
-  // specific = Specific.fromJson(map['specific'] as Json);
+  // specific = Specific.fromJson(json['specific'] as Json);
 
   /// Shared
   final List<SharedCollection> shared;
 
   @override
-  String get name => throw UnimplementedError();
+  List<String> get names => throw UnimplementedError();
 
   // final Specific specific;
 
@@ -122,13 +132,16 @@ class ColorPalette implements JsonToDart {
 }
 
 class SharedCollection with ClassInstanceName implements JsonToDart {
-  SharedCollection.fromJson(Json map)
-      : name = map['name'] as String,
-        colors = (map['values'] as List)
-            .map<JsonToDart>((value) => JsonToDart.fromJson(value as Json))
+  SharedCollection.fromJson(
+      {required Json json, List<String> parentName = const []})
+      : names = [...parentName, json['name'] as String],
+        colors = (json['values'] as List)
+            .map<JsonToDart>((value) => JsonToDart.fromJson(
+                json: value as Json,
+                parentName: [...parentName, json['name'] as String]))
             .toList();
   @override
-  final String name;
+  final List<String> names;
 
   @override
   String get className => fullClassName([baseName, super.className]);
@@ -159,93 +172,94 @@ class SharedCollection with ClassInstanceName implements JsonToDart {
   }
 }
 
-class Specific implements JsonToDart {
-  Specific.fromJson(Json json)
-      : themeNames = List<String>.from(json['themes'] as List),
-        collections = (json['values'] as List)
-            .map((collection) => SpecificCollection.fromJson(
-                json: collection as Json, themeName: ''))
-            .toList();
+// class Specific implements JsonToDart {
+//   Specific.fromJson(Json json)
+//       : themeNames = List<String>.from(json['themes'] as List),
+//         collections = (json['values'] as List)
+//             .map((collection) => SpecificCollection.fromJson(
+//                 json: collection as Json, themeName: ''))
+//             .toList();
 
-  final List<String> themeNames;
+//   final List<String> themeNames;
 
-  final List<SpecificCollection> collections;
+//   final List<SpecificCollection> collections;
 
-  final String name = '';
+//   @override
+//   final List<String> names = [baseName];
 
-  @override
-  String dartDefine({int indent = 0}) {
-    final buffer = StringBuffer();
-    for (final themeName in themeNames) {
-      final _className = baseName + themeName;
+//   @override
+//   String dartDefine({int indent = 0}) {
+//     final buffer = StringBuffer();
+//     for (final themeName in themeNames) {
+//       final _className = baseName + themeName;
 
-      buffer
-        ..writeLine(0, 'class $_className extends $baseName {')
-        ..writeLine(1, 'const $_className();');
+//       buffer
+//         ..writeLine(0, 'class $_className extends $baseName {')
+//         ..writeLine(1, 'const $_className();');
 
-      buffer..writeLine(0, '}');
-    }
-    return buffer.toString();
-  }
+//       buffer..writeLine(0, '}');
+//     }
+//     return buffer.toString();
+//   }
 
-  @override
-  String dartInstance() {
-    throw UnimplementedError();
-  }
-}
+//   @override
+//   String dartInstance() {
+//     throw UnimplementedError();
+//   }
+// }
 
-class SpecificCollection with ClassInstanceName implements JsonToDart {
-  SpecificCollection.fromJson({
-    required Json json,
-    required this.themeName,
-  })  : name = json['name'] as String,
-        colors = (json['values'] as List)
-            .map<Color>((value) => Color.fromJson(value as Json))
-            .toList();
-  @override
-  final String name;
+// class SpecificCollection with ClassInstanceName implements JsonToDart {
+//   SpecificCollection.fromJson({
+//     required Json json,
+//     required this.themeName,
+//   })  : name = json['name'] as String,
+//         colors = (json['values'] as List)
+//             .map<Color>((value) => Color.fromJson(value as Json))
+//             .toList();
+//   @override
+//   final String name;
 
-  final String themeName;
+//   final String themeName;
 
-  @override
-  String get className => fullClassName([
-        baseName + themeName,
-        super.className,
-      ]);
-  final List<Color> colors;
+//   @override
+//   String get className => fullClassName([
+//         baseName + themeName,
+//         super.className,
+//       ]);
+//   final List<Color> colors;
 
-  String dartDefine({int indent = 0}) {
-    final buffer = StringBuffer()
-      ..writeLine(0, 'class $className {')
-      ..writeLine(1, 'const $className(');
-    for (final color in colors) {
-      buffer.writeLine(2, 'required this.${color.name}');
-    }
-    buffer
-      ..writeLine(1, ');')
-      ..writeln();
-    for (final color in colors) {
-      buffer.writeLine(1, 'final Color ${color.name};');
-    }
-    buffer..writeln('}')..writeln();
-    return buffer.toString();
-  }
+//   String dartDefine({int indent = 0}) {
+//     final buffer = StringBuffer()
+//       ..writeLine(0, 'class $className {')
+//       ..writeLine(1, 'const $className(');
+//     for (final color in colors) {
+//       buffer.writeLine(2, 'required this.${color.name}');
+//     }
+//     buffer
+//       ..writeLine(1, ');')
+//       ..writeln();
+//     for (final color in colors) {
+//       buffer.writeLine(1, 'final Color ${color.name};');
+//     }
+//     buffer..writeln('}')..writeln();
+//     return buffer.toString();
+//   }
 
-  @override
-  String dartInstance() {
-    throw UnimplementedError();
-  }
-}
+//   @override
+//   String dartInstance() {
+//     throw UnimplementedError();
+//   }
+// }
 
 /// So no overlap with flutter [Colour]
 class Color with ClassInstanceName implements JsonToDart {
-  Color.fromJson(Json map)
-      : name = map['name'] as String,
-        color = map['value'] as String;
+  Color.fromJson({required Json json, Names parentName = const []})
+      : names = [...parentName, json['name'] as String],
+        color = json['value'] as String;
   // color = f.Colors.white;
 
   @override
-  final String name;
+  final List<String> names;
   // final f.Color color;
   final String color;
 
