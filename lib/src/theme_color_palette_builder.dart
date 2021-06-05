@@ -2,9 +2,9 @@ import 'dart:convert' as dart_convert;
 import 'package:build/build.dart';
 
 /// TODO():
+/// Imports
 /// int
 /// font weight
-/// Imports
 /// Value parameters
 ///   - Color with opacity
 ///   - Color add opacity
@@ -75,7 +75,7 @@ abstract class JsonToDart {
       case ObjectType.collection:
         return Collection.fromJson(json: json, parentName: parentName);
       case ObjectType.value:
-        return Value.fromJson(json: json, parentName: parentName);
+        return Value(json: json, parentName: parentName);
     }
   }
 
@@ -109,6 +109,10 @@ abstract class JsonToDart {
     final buffer = StringBuffer()..writeLine(0, comment)..writeLine(0, 'class $className {');
     if (isShared) {
       buffer..writeLine(1, comment)..writeLine(1, '${dartConstructor()};');
+      // Add the themed constructors so every collection has a theme constructor that can be called during the imports
+      for (final theme in themes) {
+        buffer..writeLine(1, comment)..writeLine(1, '${dartConstructor(theme)};');
+      }
     } else {
       for (final theme in themes) {
         final initializers = values.where((value) => !value.isShared).map((value) {
@@ -138,11 +142,11 @@ abstract class JsonToDart {
   }
 
   String dartConstructor([String? theme]) {
-    if (isShared) {
+    if (theme == null) {
+      assert(isShared);
       return 'const $className()';
     } else {
-      assert(theme != null);
-      return 'const $className.${firstLowerCase(theme!)}()';
+      return 'const $className.${firstLowerCase(theme)}()';
     }
   }
 
@@ -213,31 +217,30 @@ extension ValueTypeExtension on ValueType {
   }
 }
 
-abstract class Value<TypeInJson> extends JsonToDart {
+class Value extends JsonToDart {
   Value({required Json json, Names parentName = const []})
-      : sharedValue = json['shared'] as bool ? ThemedValue(json['value'] as Json) : null,
+      : sharedValue = json['shared'] as bool
+            ? ThemedValue.fromJson(
+                json: json['value'] as Json,
+                type: ValueTypeExtension.fromString(json['type'] as String),
+              )
+            : null,
         themedValues = json['shared'] as bool
             ? {}
-            : (json['values'] as Map<String, dynamic>)
-                .map((key, value) => MapEntry(key, ThemedValue<TypeInJson>((json['values'] as Map<String, dynamic>)[key] as Json))),
+            : (json['values'] as Map<String, dynamic>).map((key, value) => MapEntry(
+                key,
+                ThemedValue.fromJson(
+                  json: (json['values'] as Map<String, dynamic>)[key] as Json,
+                  type: ValueTypeExtension.fromString(json['type'] as String),
+                  theme: key,
+                ))),
         super(json: json, parentName: parentName);
 
-  static Value fromJson({required Json json, List<String> parentName = const []}) {
-    final type = ValueTypeExtension.fromString(json['type'] as String);
-    switch (type) {
-      case ValueType.doubleNumber:
-        return Double.fromJson(json: json, parentName: parentName);
-      case ValueType.color:
-      default:
-        return Color.fromJson(json: json, parentName: parentName);
-    }
-  }
+  final Map<String, ThemedValue> themedValues;
 
-  final Map<String, ThemedValue<TypeInJson>> themedValues;
+  final ThemedValue? sharedValue;
 
-  final ThemedValue<TypeInJson>? sharedValue;
-
-  ThemedValue<TypeInJson> themedValue([String? theme]) {
+  ThemedValue themedValue([String? theme]) {
     assert(isShared || theme != null);
     if (isShared) {
       return sharedValue!;
@@ -249,65 +252,82 @@ abstract class Value<TypeInJson> extends JsonToDart {
   @override
   String get className;
 
-  String dartConstructorForUnimportedValue([String? theme]);
-
   @override
   String dartConstructor([String? theme]) {
     assert(isShared || theme != null);
-    if (isShared) {
-      return dartConstructorForUnimportedValue(theme);
+    final _value = themedValue(theme);
+
+    if (_value.isImported) {
+      // return dartConstructorForUnimportedValue(theme);
+      return _value.importedValue;
     }
-    return themedValue(theme).importedValue;
+    // print('dart Constructor $this $theme $isShared ${names}');
+    // return themedValue(theme).importedValue;
+    return _value.dartConstructorForUnimportedValue;
   }
 
   @override
   String dartDefine({List<String> themes = const []}) => '';
 }
 
-class ThemedValue<TypeInJson> {
-  ThemedValue(Json json)
+abstract class ThemedValue<TypeInJson> {
+  ThemedValue({required Json json, this.theme})
       : import = List<String>.from(json['import'] as List),
         value = json['value'] as TypeInJson?;
 
+  static ThemedValue fromJson({required Json json, required ValueType type, String? theme}) {
+    switch (type) {
+      case ValueType.doubleNumber:
+        return Double.fromJson(json: json, theme: theme);
+      case ValueType.color:
+      default:
+        return Color.fromJson(json: json, theme: theme);
+    }
+  }
+
   final List<String> import;
+
+  final String? theme;
+
+  bool get isThemed => theme != null;
 
   bool get isImported => import.isNotEmpty;
 
+  String get dartConstructorForUnimportedValue;
+
   String get importedValue {
-    final _class = import.sublist(0, import.length - 2).map((name) => JsonToDart.firstUpperCase(name)).join(divider);
+    final _class = import.sublist(0, import.length - 1).map(JsonToDart.firstUpperCase).join(divider);
     final _attribute = JsonToDart.firstLowerCase(import.last);
-    // TODO(Valentin) How to now whether it has a names constructor or not?
-    return 'const $_class().$_attribute';
+    if (!isThemed) {
+      return 'const $_class().$_attribute';
+    }
+    return 'const $_class.${JsonToDart.firstLowerCase(theme!)}().$_attribute';
   }
 
   final TypeInJson? value;
 }
 
-class Color extends Value<String> {
-  Color.fromJson({required Json json, Names parentName = const []}) : super(json: json, parentName: parentName);
+class Color extends ThemedValue<String> {
+  Color.fromJson({required Json json, String? theme}) : super(json: json, theme: theme);
 
   @override
   String get className => 'Color';
 
   @override
-  String dartConstructorForUnimportedValue([String? theme]) {
-    assert(isShared || theme != null);
-    final _colorValue = themedValue(theme);
-    return 'const Color(0x$_colorValue)';
+  String get dartConstructorForUnimportedValue {
+    return 'const Color(0x$value)';
   }
 }
 
-class Double extends Value<double> {
-  Double.fromJson({required Json json, Names parentName = const []}) : super(json: json, parentName: parentName);
+class Double extends ThemedValue<double> {
+  Double.fromJson({required Json json, String? theme}) : super(json: json, theme: theme);
 
   @override
   String get className => 'double';
 
   @override
-  String dartConstructorForUnimportedValue([String? theme]) {
-    assert(isShared || theme != null);
-    final _value = themedValue(theme);
-    return '$_value';
+  String get dartConstructorForUnimportedValue {
+    return '$value';
   }
 }
 
