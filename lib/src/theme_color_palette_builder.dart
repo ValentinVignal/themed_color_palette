@@ -2,8 +2,15 @@ import 'dart:convert' as dart_convert;
 import 'package:build/build.dart';
 
 /// TODO(Valentin):
-/// - Imports
-/// - doubles
+/// - [x] Generate the file
+/// - [x] Handle colors
+/// - [x] Nested collection
+/// - [x] Imports
+/// - [ ] doubles
+/// - [ ] int
+/// - [ ] font weight
+/// - [ ] color option
+/// - [ ] Save intermediate variables
 
 // ! -------------------- Types --------------------
 
@@ -193,29 +200,31 @@ abstract class JsonToDart {
 /// The color palette containing everything
 class ColorPalette extends JsonToDart {
   /// [ColorPalette] from Json
-  ColorPalette.fromJson({required Json json, List<String> parentName = const []})
-      : collections = (json['collections'] as List)
-            .map((collection) => JsonToDart.fromJson(json: collection as Json, parentName: [...parentName, json['name'] as String]))
-            .toList(),
-        super(json: json, parentName: parentName) {
+  ColorPalette.fromJson({required Json json, List<String> parentName = const []}) : super(json: json, parentName: parentName) {
     Themes.themes.addAll(List<String>.from(json['themes'] as List));
+    baseName = names.first;
+    collections.addAll((json['collections'] as List)
+        .map((collection) => JsonToDart.fromJson(json: collection as Json, parentName: [...parentName, json['name'] as String]))
+        .toList());
   }
 
   // /// Shared
-  final List<JsonToDart> collections;
+  final List<JsonToDart> collections = [];
+
+  static String baseName = '';
 
   @override
   List<JsonToDart> get values => collections;
 }
 
 class Collection extends JsonToDart {
-  Collection.fromJson({required Json json, Names parentName = const []})
-      : collections = (json['values'] as List)
-            .map<JsonToDart>((value) => JsonToDart.fromJson(json: value as Json, parentName: [...parentName, json['name'] as String]))
-            .toList(),
-        super(json: json, parentName: parentName);
+  Collection.fromJson({required Json json, Names parentName = const []}) : super(json: json, parentName: parentName) {
+    collections.addAll((json['values'] as List)
+        .map<JsonToDart>((value) => JsonToDart.fromJson(json: value as Json, parentName: [...parentName, json['name'] as String]))
+        .toList());
+  }
 
-  final List<JsonToDart> collections;
+  final List<JsonToDart> collections = [];
 
   @override
   List<JsonToDart> get values => collections;
@@ -286,6 +295,9 @@ abstract class Value {
   static String _allValuesKey({required Names path, required String theme}) =>
       '${path.map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
 
+  static String _allValuesImportKey({required Names path, required String theme}) =>
+      '${[ColorPalette.baseName, ...path].map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
+
   static Value fromJson({
     required dynamic value,
     required ValueType type,
@@ -324,7 +336,13 @@ class Color extends Value {
     required dynamic color,
     required Names path,
     required String theme,
-  })  : color = color as String,
+  })  : color = color is String
+            ? color
+            : (allValues[Value._allValuesImportKey(
+                path: List<String>.from((color as Map)['import'] as List),
+                theme: theme,
+              )]! as Color)
+                .color,
         super(value: color, path: path, theme: theme);
 
   @override
