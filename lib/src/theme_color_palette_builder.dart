@@ -10,7 +10,7 @@ import 'package:build/build.dart';
 /// - [ ] int
 /// - [ ] font weight
 /// - [ ] color option
-/// - [ ] Save intermediate variables
+/// - [.] Save intermediate variables
 
 // ! -------------------- Types --------------------
 
@@ -55,12 +55,12 @@ class ThemeColorPaletteBuilder implements Builder {
 
 const divider = r'$';
 
+const themeDivider = r'$$';
+
 mixin Themes {
   static final List<String> themes = [];
   static String get defaultTheme => themes.first;
 }
-
-final allValues = <String, Value>{};
 
 // ! -------------------- Objects --------------------
 
@@ -129,6 +129,13 @@ abstract class JsonToDart {
   String get className => names.map(firstUpperCase).join(divider);
 
   /// ```dart
+  /// r"_parentName1$ParentName2$ObjectName";
+  /// ```
+  String get constantNameBase => '_${firstLowerCase(names.map(firstUpperCase).join(divider))}';
+
+  String constantName(String theme) => '$constantNameBase$themeDivider${firstLowerCase(theme)}';
+
+  /// ```dart
   /// 'objectName';
   /// ```
   String get instanceName => firstLowerCase(names.last);
@@ -137,6 +144,10 @@ abstract class JsonToDart {
 
   static String firstLowerCase(String input) => input[0].toLowerCase() + input.substring(1);
   static String firstUpperCase(String input) => input[0].toUpperCase() + input.substring(1);
+
+  static String constantNameFromPath({required Names path, required String theme}) {
+    return '_${firstLowerCase([ColorPalette.baseName, ...path].map(firstUpperCase).join(divider))}$themeDivider${firstLowerCase(theme)}';
+  }
 
   /// ```dart
   /// /// Description
@@ -148,10 +159,14 @@ abstract class JsonToDart {
   /// }
   /// ```
   String dartDefine() {
-    final buffer = StringBuffer()..writeLine(0, comment)..writeLine(0, 'class $className {');
+    final buffer = StringBuffer()
+      ..writeLine(0, '// -------------------- $className --------------------')
+      ..writeln()
+      ..writeLine(0, comment)
+      ..writeLine(0, 'class $className {');
     for (final theme in Themes.themes) {
       final initializers = values.map((value) {
-        return '${value.instanceName} = ${value.dartConstructor(theme)}';
+        return '${value.instanceName} = ${value.constantName(theme)}';
       });
 
       buffer
@@ -168,6 +183,11 @@ abstract class JsonToDart {
     buffer
       ..writeLine(0, '}')
       ..writeln();
+
+    for (final theme in Themes.themes) {
+      buffer.writeLine(0, 'const ${constantName(theme)} = ${dartConstructor(theme)}');
+    }
+    buffer..writeln()..writeln();
 
     for (final value in values) {
       buffer.write(value.dartDefine());
@@ -274,13 +294,22 @@ class ThemedValue extends JsonToDart {
 
   @override
   String dartConstructor(String theme) {
-    final _value = themedValues[theme];
-
-    return _value!.dartConstructor;
+    final _value = themedValues[theme]!;
+    if (_value.isImported) {
+      return JsonToDart.constantNameFromPath(path: _value.import, theme: theme);
+    }
+    return _value.dartConstructor;
   }
 
   @override
-  String dartDefine({List<String> themes = const []}) => '';
+  String dartDefine() {
+    final buffer = StringBuffer();
+    for (final theme in Themes.themes) {
+      buffer.writeLine(0, 'const ${constantName(theme)} = ${dartConstructor(theme)};');
+    }
+    buffer..writeln()..writeln();
+    return buffer.toString();
+  }
 }
 
 abstract class Value {
@@ -288,15 +317,7 @@ abstract class Value {
     required dynamic value,
     required this.path,
     required this.theme,
-  }) : import = List<String>.from((value is Map ? value['import'] as List? : null) ?? []) {
-    allValues[_allValuesKey(path: path, theme: theme)] = this;
-  }
-
-  static String _allValuesKey({required Names path, required String theme}) =>
-      '${path.map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
-
-  static String _allValuesImportKey({required Names path, required String theme}) =>
-      '${[ColorPalette.baseName, ...path].map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
+  }) : import = List<String>.from((value is Map ? value['import'] as List? : null) ?? []);
 
   static Value fromJson({
     required dynamic value,
@@ -336,19 +357,13 @@ class Color extends Value {
     required dynamic color,
     required Names path,
     required String theme,
-  })  : color = color is String
-            ? color
-            : (allValues[Value._allValuesImportKey(
-                path: List<String>.from((color as Map)['import'] as List),
-                theme: theme,
-              )]! as Color)
-                .color,
+  })  : color = color is String ? color : null,
         super(value: color, path: path, theme: theme);
 
   @override
   String get className => 'Color';
 
-  final String color;
+  final String? color;
 
   @override
   String get dartConstructor {
