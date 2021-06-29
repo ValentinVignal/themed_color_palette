@@ -6,11 +6,11 @@ import 'package:build/build.dart';
 /// - [x] Handle colors
 /// - [x] Nested collection
 /// - [x] Imports
-/// - [ ] doubles
-/// - [ ] int
+/// - [x] doubles
+/// - [x] int
 /// - [ ] font weight
 /// - [ ] color option
-/// - [.] Save intermediate variables
+/// - [x] Save intermediate variables
 
 // ! -------------------- Types --------------------
 
@@ -253,6 +253,7 @@ class Collection extends JsonToDart {
 enum ValueType {
   color,
   doubleNumber,
+  intNumber,
 }
 
 extension ValueTypeExtension on ValueType {
@@ -260,6 +261,8 @@ extension ValueTypeExtension on ValueType {
     switch (type) {
       case 'double':
         return ValueType.doubleNumber;
+      case 'int':
+        return ValueType.intNumber;
       case 'color':
       default:
         return ValueType.color;
@@ -294,7 +297,8 @@ class ThemedValue extends JsonToDart {
 
   @override
   String dartConstructor(String theme) {
-    final _value = themedValues[theme]!;
+    final _value = themedValues[theme] ?? themedValues[Themes.themes.first]!;
+
     if (_value.isImported) {
       return JsonToDart.constantNameFromPath(path: _value.import, theme: theme);
     }
@@ -327,7 +331,9 @@ abstract class Value {
   }) {
     switch (type) {
       case ValueType.doubleNumber:
-      // // return Double.fromJson(json: json, theme: theme);
+        return Double.fromJson(value: value, path: path, theme: theme);
+      case ValueType.intNumber:
+        return Int.fromJson(value: value, path: path, theme: theme);
       case ValueType.color:
       default:
         return Color.fromJson(color: value, path: path, theme: theme);
@@ -371,17 +377,37 @@ class Color extends Value {
   }
 }
 
-// class Double extends ThemedValue<double> {
-//   Double.fromJson({required Json json, String? theme}) : super(json: json, theme: theme);
+class Double extends Value {
+  Double.fromJson({required dynamic value, required Names path, required String theme})
+      : value = value is double ? value : null,
+        super(value: value, path: path, theme: theme);
 
-//   @override
-//   String get className => 'double';
+  @override
+  String get className => 'double';
 
-//   @override
-//   String get dartConstructorForUnimportedValue {
-//     return '$value';
-//   }
-// }
+  final double? value;
+
+  @override
+  String get dartConstructor {
+    return value.toString();
+  }
+}
+
+class Int extends Value {
+  Int.fromJson({required dynamic value, required Names path, required String theme})
+      : value = value is int ? value : null,
+        super(value: value, path: path, theme: theme);
+
+  @override
+  String get className => 'int';
+
+  final int? value;
+
+  @override
+  String get dartConstructor {
+    return value.toString();
+  }
+}
 
 extension StringBufferExtension on StringBuffer {
   static String indent(int indent) => '\t' * indent;
