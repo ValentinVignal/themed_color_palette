@@ -8,10 +8,11 @@ import 'package:build/build.dart';
 /// - [x] Imports
 /// - [x] doubles
 /// - [x] int
-/// - [ ] font weight
-/// - [ ] color option
+/// - [x] font weight
+/// - [x] color with opacity
 /// // - [x] Save intermediate variables
 /// - [x] Save variable in global map instead
+/// - [ ] imported color wih opacity
 /// - [ ] Static consts
 
 // ! -------------------- Types --------------------
@@ -241,6 +242,7 @@ enum ValueType {
   color,
   doubleNumber,
   intNumber,
+  fontWeight,
 }
 
 extension ValueTypeExtension on ValueType {
@@ -250,6 +252,8 @@ extension ValueTypeExtension on ValueType {
         return ValueType.doubleNumber;
       case 'int':
         return ValueType.intNumber;
+      case 'fontWeight':
+        return ValueType.fontWeight;
       case 'color':
       default:
         return ValueType.color;
@@ -317,6 +321,8 @@ abstract class Value {
         return Double.fromJson(value: value, path: path, theme: theme);
       case ValueType.intNumber:
         return Int.fromJson(value: value, path: path, theme: theme);
+      case ValueType.fontWeight:
+        return FontWeight.fromJson(fontWeight: value, path: path, theme: theme);
       case ValueType.color:
       default:
         return Color.fromJson(color: value, path: path, theme: theme);
@@ -347,6 +353,7 @@ class Color extends Value {
                 theme: theme,
               )]! as Color)
                 .color,
+        opacity = color is Map ? color['withOpacity'] as double? : null,
         super(value: color, path: path, theme: theme);
 
   @override
@@ -354,9 +361,20 @@ class Color extends Value {
 
   final String color;
 
+  final double? opacity;
+
+  String get value {
+    if (opacity == null) {
+      return color;
+    }
+    return opacityDoubleToHexadecimal(opacity!) + color.substring(2);
+  }
+
+  static String opacityDoubleToHexadecimal(double value) => (100 * value).toInt().toRadixString(16);
+
   @override
   String get dartConstructor {
-    return 'const Color(0x$color)';
+    return 'const Color(0x$value)';
   }
 }
 
@@ -374,7 +392,7 @@ class Double extends Value {
   @override
   String get className => 'double';
 
-  final double? value;
+  final double value;
 
   @override
   String get dartConstructor {
@@ -396,11 +414,105 @@ class Int extends Value {
   @override
   String get className => 'int';
 
-  final int? value;
+  final int value;
 
   @override
   String get dartConstructor {
     return value.toString();
+  }
+}
+
+enum FontWeightEnum {
+  w100,
+  w200,
+  w300,
+  w400,
+  w500,
+  w600,
+  w700,
+  w800,
+  w900,
+}
+
+extension FontWeightEnumExtension on FontWeightEnum {
+  static FontWeightEnum fromString(String string) {
+    switch (string) {
+      case 'w100':
+      case 'thin':
+        return FontWeightEnum.w100;
+      case 'w200':
+      case 'extraLight':
+        return FontWeightEnum.w200;
+      case 'w300':
+      case 'light':
+        return FontWeightEnum.w300;
+      case 'w500':
+      case 'medium':
+        return FontWeightEnum.w500;
+      case 'w600':
+      case 'semiBold':
+        return FontWeightEnum.w600;
+      case 'w700':
+      case 'bold':
+        return FontWeightEnum.w700;
+      case 'w800':
+      case 'extraBold':
+        return FontWeightEnum.w800;
+      case 'w900':
+      case 'black':
+        return FontWeightEnum.w900;
+      case 'w400':
+      case 'normal':
+      case 'regular':
+      case 'plain':
+      default:
+        return FontWeightEnum.w400;
+    }
+  }
+
+  String get string {
+    switch (this) {
+      case FontWeightEnum.w100:
+        return 'w100';
+      case FontWeightEnum.w200:
+        return 'w200';
+      case FontWeightEnum.w300:
+        return 'w300';
+      case FontWeightEnum.w400:
+        return 'w400';
+      case FontWeightEnum.w500:
+        return 'w500';
+      case FontWeightEnum.w600:
+        return 'w600';
+      case FontWeightEnum.w700:
+        return 'w700';
+      case FontWeightEnum.w800:
+        return 'w800';
+      case FontWeightEnum.w900:
+        return 'w900';
+    }
+  }
+}
+
+class FontWeight extends Value {
+  FontWeight.fromJson({required dynamic fontWeight, required Names path, required String theme})
+      : fontWeight = fontWeight is String
+            ? FontWeightEnumExtension.fromString(fontWeight)
+            : (allValues[Value._allValuesImportKey(
+                path: List<String>.from((fontWeight as Map)['import'] as List),
+                theme: theme,
+              )]! as FontWeight)
+                .fontWeight,
+        super(value: fontWeight, path: path, theme: theme);
+
+  @override
+  String get className => 'FontWeight';
+
+  final FontWeightEnum fontWeight;
+
+  @override
+  String get dartConstructor {
+    return 'FontWeight.${fontWeight.string}';
   }
 }
 
