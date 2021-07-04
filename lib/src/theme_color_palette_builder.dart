@@ -10,7 +10,9 @@ import 'package:build/build.dart';
 /// - [x] int
 /// - [ ] font weight
 /// - [ ] color option
-/// - [x] Save intermediate variables
+/// // - [x] Save intermediate variables
+/// - [x] Save variable in global map instead
+/// - [ ] Static consts
 
 // ! -------------------- Types --------------------
 
@@ -55,12 +57,12 @@ class ThemeColorPaletteBuilder implements Builder {
 
 const divider = r'$';
 
-const themeDivider = r'$$';
-
 mixin Themes {
   static final List<String> themes = [];
   static String get defaultTheme => themes.first;
 }
+
+final allValues = <String, Value>{};
 
 // ! -------------------- Objects --------------------
 
@@ -129,13 +131,6 @@ abstract class JsonToDart {
   String get className => names.map(firstUpperCase).join(divider);
 
   /// ```dart
-  /// r"_parentName1$ParentName2$ObjectName";
-  /// ```
-  String get constantNameBase => '_${firstLowerCase(names.map(firstUpperCase).join(divider))}';
-
-  String constantName(String theme) => '$constantNameBase$themeDivider${firstLowerCase(theme)}';
-
-  /// ```dart
   /// 'objectName';
   /// ```
   String get instanceName => firstLowerCase(names.last);
@@ -144,10 +139,6 @@ abstract class JsonToDart {
 
   static String firstLowerCase(String input) => input[0].toLowerCase() + input.substring(1);
   static String firstUpperCase(String input) => input[0].toUpperCase() + input.substring(1);
-
-  static String constantNameFromPath({required Names path, required String theme}) {
-    return '_${firstLowerCase([ColorPalette.baseName, ...path].map(firstUpperCase).join(divider))}$themeDivider${firstLowerCase(theme)}';
-  }
 
   /// ```dart
   /// /// Description
@@ -166,7 +157,7 @@ abstract class JsonToDart {
       ..writeLine(0, 'class $className {');
     for (final theme in Themes.themes) {
       final initializers = values.map((value) {
-        return '${value.instanceName} = ${value.constantName(theme)}';
+        return '${value.instanceName} = ${value.dartConstructor(theme)}';
       });
 
       buffer
@@ -182,12 +173,8 @@ abstract class JsonToDart {
     }
     buffer
       ..writeLine(0, '}')
+      ..writeln()
       ..writeln();
-
-    for (final theme in Themes.themes) {
-      buffer.writeLine(0, 'const ${constantName(theme)} = ${dartConstructor(theme)}');
-    }
-    buffer..writeln()..writeln();
 
     for (final value in values) {
       buffer.write(value.dartDefine());
@@ -297,23 +284,11 @@ class ThemedValue extends JsonToDart {
 
   @override
   String dartConstructor(String theme) {
-    final _value = themedValues[theme] ?? themedValues[Themes.themes.first]!;
-
-    if (_value.isImported) {
-      return JsonToDart.constantNameFromPath(path: _value.import, theme: theme);
-    }
-    return _value.dartConstructor;
+    return (themedValues[theme] ?? themedValues[Themes.themes.first]!).dartConstructor;
   }
 
   @override
-  String dartDefine() {
-    final buffer = StringBuffer();
-    for (final theme in Themes.themes) {
-      buffer.writeLine(0, 'const ${constantName(theme)} = ${dartConstructor(theme)};');
-    }
-    buffer..writeln()..writeln();
-    return buffer.toString();
-  }
+  String dartDefine() => '';
 }
 
 abstract class Value {
@@ -321,7 +296,15 @@ abstract class Value {
     required dynamic value,
     required this.path,
     required this.theme,
-  }) : import = List<String>.from((value is Map ? value['import'] as List? : null) ?? []);
+  }) : import = List<String>.from((value is Map ? value['import'] as List? : null) ?? []) {
+    allValues[_allValuesKey(path: path, theme: theme)] = this;
+  }
+
+  static String _allValuesKey({required Names path, required String theme}) =>
+      '${path.map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
+
+  static String _allValuesImportKey({required Names path, required String theme}) =>
+      '${[ColorPalette.baseName, ...path].map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
 
   static Value fromJson({
     required dynamic value,
@@ -350,12 +333,6 @@ abstract class Value {
   String get dartConstructor;
 
   String get className;
-
-  String get importedValue {
-    final _class = import.sublist(0, import.length - 1).map(JsonToDart.firstUpperCase).join(divider);
-    final _attribute = JsonToDart.firstLowerCase(import.last);
-    return 'const $_class.${JsonToDart.firstLowerCase(theme)}().$_attribute';
-  }
 }
 
 class Color extends Value {
@@ -363,13 +340,19 @@ class Color extends Value {
     required dynamic color,
     required Names path,
     required String theme,
-  })  : color = color is String ? color : null,
+  })  : color = color is String
+            ? color
+            : (allValues[Value._allValuesImportKey(
+                path: List<String>.from((color as Map)['import'] as List),
+                theme: theme,
+              )]! as Color)
+                .color,
         super(value: color, path: path, theme: theme);
 
   @override
   String get className => 'Color';
 
-  final String? color;
+  final String color;
 
   @override
   String get dartConstructor {
@@ -379,7 +362,13 @@ class Color extends Value {
 
 class Double extends Value {
   Double.fromJson({required dynamic value, required Names path, required String theme})
-      : value = value is double ? value : null,
+      : value = value is double
+            ? value
+            : (allValues[Value._allValuesImportKey(
+                path: List<String>.from((value as Map)['import'] as List),
+                theme: theme,
+              )]! as Double)
+                .value,
         super(value: value, path: path, theme: theme);
 
   @override
@@ -395,7 +384,13 @@ class Double extends Value {
 
 class Int extends Value {
   Int.fromJson({required dynamic value, required Names path, required String theme})
-      : value = value is int ? value : null,
+      : value = value is int
+            ? value
+            : (allValues[Value._allValuesImportKey(
+                path: List<String>.from((value as Map)['import'] as List),
+                theme: theme,
+              )]! as Int)
+                .value,
         super(value: value, path: path, theme: theme);
 
   @override
