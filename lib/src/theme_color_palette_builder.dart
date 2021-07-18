@@ -353,7 +353,15 @@ class Color extends Value {
                 theme: theme,
               )]! as Color)
                 .color,
-        opacity = color is Map ? color['withOpacity'] as double? : null,
+        opacity = color is Map
+            ? (color['withOpacity'] is Map
+                ? (allValues[Value._allValuesImportKey(
+                    path: List<String>.from((color['withOpacity'] as Map)['import'] as List),
+                    theme: theme,
+                  )]! as Double)
+                    .value
+                : color['withOpacity'] as double?)
+            : null,
         super(value: color, path: path, theme: theme);
 
   @override
