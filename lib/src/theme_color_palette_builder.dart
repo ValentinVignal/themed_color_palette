@@ -12,8 +12,8 @@ import 'package:build/build.dart';
 /// - [x] color with opacity
 /// // - [x] Save intermediate variables
 /// - [x] Save variable in global map instead
-/// - [ ] imported color wih opacity
-/// - [ ] Static consts
+/// - [x] imported color wih opacity
+/// - [x] Static consts
 
 // ! -------------------- Types --------------------
 
@@ -126,6 +126,9 @@ abstract class JsonToDart {
   /// Override this getter to return the parameters
   List<JsonToDart> get values => [];
 
+  /// Override this getter to add static constant values
+  List<SharedValue> get constants => [];
+
   /// ```dart
   /// r"ParentName1$ParentName2$ObjectName";
   /// ```
@@ -168,15 +171,25 @@ abstract class JsonToDart {
           [dartConstructor(theme), if (initializers.isNotEmpty) ': ', initializers.join(', '), ';'].join(),
         );
     }
+    // Shared attributes
+    if (constants.isNotEmpty) {
+      buffer.writeln();
+      for (final value in constants) {
+        buffer..writeLine(1, value.comment)..writeLine(1, value.dartParameter);
+      }
+    }
+
+    // Themed attributes
     buffer.writeln();
     for (final value in values) {
       buffer..writeLine(1, value.comment)..writeLine(1, value.dartParameter);
     }
+    // Ends the class
     buffer
       ..writeLine(0, '}')
       ..writeln()
       ..writeln();
-
+    // Instance the used values
     for (final value in values) {
       buffer.write(value.dartDefine());
     }
@@ -208,28 +221,32 @@ abstract class JsonToDart {
 /// The color palette containing everything
 class ColorPalette extends JsonToDart {
   /// [ColorPalette] from Json
-  ColorPalette.fromJson({required Json json, List<String> parentName = const []}) : super(json: json, parentName: parentName) {
+  ColorPalette.fromJson({required Json json}) : super(json: json, parentName: const []) {
     Themes.themes.addAll(List<String>.from(json['themes'] as List));
     baseName = names.first;
-    collections.addAll((json['collections'] as List)
-        .map((collection) => JsonToDart.fromJson(json: collection as Json, parentName: [...parentName, json['name'] as String]))
-        .toList());
+    sharedValues.addAll((json['constants'] as List).map((value) => SharedValue(json: value as Json, parentName: [sharedBaseName])).toList());
+    collections.addAll((json['collections'] as List).map((collection) => JsonToDart.fromJson(json: collection as Json, parentName: [baseName])).toList());
   }
-
-  // /// Shared
-  final List<JsonToDart> collections = [];
 
   static String baseName = '';
 
+  static const sharedBaseName = '.shared';
+
+  final List<JsonToDart> collections = [];
+
+  final List<SharedValue> sharedValues = [];
+
   @override
   List<JsonToDart> get values => collections;
+
+  @override
+  List<SharedValue> get constants => sharedValues;
 }
 
 class Collection extends JsonToDart {
   Collection.fromJson({required Json json, Names parentName = const []}) : super(json: json, parentName: parentName) {
-    collections.addAll((json['values'] as List)
-        .map<JsonToDart>((value) => JsonToDart.fromJson(json: value as Json, parentName: [...parentName, json['name'] as String]))
-        .toList());
+    collections.addAll(
+        (json['values'] as List).map<JsonToDart>((value) => JsonToDart.fromJson(json: value as Json, parentName: [...parentName, names.last])).toList());
   }
 
   final List<JsonToDart> collections = [];
@@ -295,6 +312,36 @@ class ThemedValue extends JsonToDart {
   String dartDefine() => '';
 }
 
+class SharedValue extends JsonToDart {
+  SharedValue({required Json json, Names parentName = const []})
+      : value = Value.fromJson(
+          value: json['value'],
+          path: [...parentName, json['name'] as String],
+          theme: null,
+          type: ValueTypeExtension.fromString(json['type'] as String),
+        ),
+        type = ValueTypeExtension.fromString(json['type'] as String),
+        super(json: json, parentName: parentName);
+
+  final Value value;
+
+  final ValueType type;
+
+  @override
+  String get className => value.className;
+
+  @override
+  String dartConstructor(String theme) => throw Exception('This should not have been called');
+
+  @override
+  String dartDefine() => throw Exception('This should not have been called');
+
+  @override
+  String get dartParameter {
+    return 'static const $instanceName = ${value.dartConstructor}';
+  }
+}
+
 abstract class Value {
   Value({
     required dynamic value,
@@ -304,17 +351,36 @@ abstract class Value {
     allValues[_allValuesKey(path: path, theme: theme)] = this;
   }
 
-  static String _allValuesKey({required Names path, required String theme}) =>
-      '${path.map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
+  // The value key when the value is saved
+  static String _allValuesKey({required Names path, required String? theme}) {
+    final _pathString = path.map(JsonToDart.firstUpperCase).join(divider);
+    if (theme == null) {
+      // This is a shared value
+      return _pathString;
+    } else {
+      // This is a themed value
+      return '$_pathString.${JsonToDart.firstLowerCase(theme)}';
+    }
+  }
 
-  static String _allValuesImportKey({required Names path, required String theme}) =>
-      '${[ColorPalette.baseName, ...path].map(JsonToDart.firstUpperCase).join(divider)}.${JsonToDart.firstLowerCase(theme)}';
+  // The value key when the value is imported
+  static String _allValuesImportKey({required Names path, required String? theme}) {
+    final isShared = path.first == ColorPalette.sharedBaseName;
+    final _pathString = [if (!isShared) ColorPalette.baseName, ...path].map(JsonToDart.firstUpperCase).join(divider);
+    if (isShared) {
+      // This is a shared value
+      return _pathString;
+    } else {
+      // This is a themed value
+      return '$_pathString.${JsonToDart.firstLowerCase(theme!)}';
+    }
+  }
 
   static Value fromJson({
     required dynamic value,
     required ValueType type,
     required Names path,
-    required String theme,
+    required String? theme,
   }) {
     switch (type) {
       case ValueType.doubleNumber:
@@ -330,7 +396,9 @@ abstract class Value {
   }
 
   final Names path;
-  final String theme;
+
+  /// If `null` it means this is a shared value
+  final String? theme;
 
   final List<String> import;
 
@@ -345,7 +413,7 @@ class Color extends Value {
   Color.fromJson({
     required dynamic color,
     required Names path,
-    required String theme,
+    required String? theme,
   })  : color = color is String
             ? color
             : (allValues[Value._allValuesImportKey(
@@ -378,7 +446,7 @@ class Color extends Value {
     return opacityDoubleToHexadecimal(opacity!) + color.substring(2);
   }
 
-  static String opacityDoubleToHexadecimal(double value) => (100 * value).toInt().toRadixString(16);
+  static String opacityDoubleToHexadecimal(double value) => (255 * value).round().toRadixString(16);
 
   @override
   String get dartConstructor {
@@ -387,8 +455,11 @@ class Color extends Value {
 }
 
 class Double extends Value {
-  Double.fromJson({required dynamic value, required Names path, required String theme})
-      : value = value is double
+  Double.fromJson({
+    required dynamic value,
+    required Names path,
+    required String? theme,
+  })  : value = value is double
             ? value
             : (allValues[Value._allValuesImportKey(
                 path: List<String>.from((value as Map)['import'] as List),
@@ -409,8 +480,11 @@ class Double extends Value {
 }
 
 class Int extends Value {
-  Int.fromJson({required dynamic value, required Names path, required String theme})
-      : value = value is int
+  Int.fromJson({
+    required dynamic value,
+    required Names path,
+    required String? theme,
+  })  : value = value is int
             ? value
             : (allValues[Value._allValuesImportKey(
                 path: List<String>.from((value as Map)['import'] as List),
@@ -503,8 +577,11 @@ extension FontWeightEnumExtension on FontWeightEnum {
 }
 
 class FontWeight extends Value {
-  FontWeight.fromJson({required dynamic fontWeight, required Names path, required String theme})
-      : fontWeight = fontWeight is String
+  FontWeight.fromJson({
+    required dynamic fontWeight,
+    required Names path,
+    required String? theme,
+  })  : fontWeight = fontWeight is String
             ? FontWeightEnumExtension.fromString(fontWeight)
             : (allValues[Value._allValuesImportKey(
                 path: List<String>.from((fontWeight as Map)['import'] as List),
