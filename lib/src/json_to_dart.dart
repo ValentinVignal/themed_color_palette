@@ -78,6 +78,7 @@ abstract class JsonToDart {
   /// }
   /// ```
   String dartDefine() {
+    print('heelo');
     final buffer = StringBuffer()
       ..writeLine(0, '// -------------------- $className --------------------')
       ..writeln()
@@ -88,12 +89,19 @@ abstract class JsonToDart {
         return '${value.instanceName} = ${value.dartConstructor(theme)}';
       });
 
-      buffer
-        ..writeLine(1, comment)
-        ..writeLine(
+      buffer.writeLine(1, comment);
+      if (initializers.isEmpty) {
+        buffer.writeLine(
           1,
           [dartConstructor(theme), if (initializers.isNotEmpty) ': ', initializers.join(', '), ';'].join(),
         );
+      } else {
+        buffer.writeLine(1, dartConstructor(theme) + ':');
+        for (final entry in initializers.toList().asMap().entries) {
+          final initializer = entry.value + (entry.key == initializers.length - 1 ? ';' : ',');
+          buffer.writeLine(2, initializer);
+        }
+      }
     }
     // Shared attributes
     if (constants.isNotEmpty) {

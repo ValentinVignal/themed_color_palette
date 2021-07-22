@@ -30,6 +30,6 @@ class SharedValue extends JsonToDart {
 
   @override
   String get dartParameter {
-    return 'static const $instanceName = ${value.dartConstructor}';
+    return 'static const $instanceName = ${value.dartConstructor};';
   }
 }
