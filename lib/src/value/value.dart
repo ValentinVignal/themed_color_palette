@@ -36,6 +36,7 @@ abstract class Value {
     }
   }
 
+  /// Value from Json
   static Value fromJson({
     required dynamic value,
     required ValueType type,

@@ -78,7 +78,6 @@ abstract class JsonToDart {
   /// }
   /// ```
   String dartDefine() {
-    print('heelo');
     final buffer = StringBuffer()
       ..writeLine(0, '// -------------------- $className --------------------')
       ..writeln()
