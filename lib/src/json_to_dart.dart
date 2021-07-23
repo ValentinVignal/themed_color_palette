@@ -13,7 +13,8 @@ abstract class JsonToDart {
     required Json json,
     required Names parentName,
   })  : _names = [...parentName, json['name'] as String],
-        description = json['description'] as String? ?? '';
+        description = json['description'] as String? ?? '',
+        flutterThemeValue = json['flutter'] as String?;
 
   /// From json constructor
   factory JsonToDart.fromJson({required Json json, List<String> parentName = const []}) {
@@ -60,6 +61,19 @@ abstract class JsonToDart {
   /// ```
   String get instanceName => firstLowerCase(names.last);
 
+  /// The value to use in the flutter material theme
+  final String? flutterThemeValue;
+
+  /// Whether or not it is deprecated
+  bool get isDeprecated => flutterThemeValue?.isNotEmpty ?? false;
+
+  /// The deprecation message
+  String get deprecationDecorator {
+    print('here');
+    assert(isDeprecated, 'The object is not deprecated');
+    return "@Deprecated('Use ${flutterThemeValue!} instead')";
+  }
+
   // *  ---------- static ----------
 
   /// Set the first letter of a string in lower case
@@ -81,8 +95,12 @@ abstract class JsonToDart {
     final buffer = StringBuffer()
       ..writeLine(0, '// -------------------- $className --------------------')
       ..writeln()
-      ..writeLine(0, comment)
-      ..writeLine(0, 'class $className {');
+      ..writeLine(0, comment);
+
+    if (isDeprecated) {
+      buffer.writeLine(0, deprecationDecorator);
+    }
+    buffer.writeLine(0, 'class $className {');
     for (final theme in Themes.themes) {
       final initializers = values.map((value) {
         return '${value.instanceName} = ${value.dartConstructor(theme)}';
@@ -113,7 +131,11 @@ abstract class JsonToDart {
     // Themed attributes
     buffer.writeln();
     for (final value in values) {
-      buffer..writeLine(1, value.comment)..writeLine(1, value.dartParameter);
+      buffer.writeLine(1, value.comment);
+      if (value.isDeprecated) {
+        buffer.writeLine(1, value.deprecationDecorator);
+      }
+      buffer.writeLine(1, value.dartParameter);
     }
     // Ends the class
     buffer
