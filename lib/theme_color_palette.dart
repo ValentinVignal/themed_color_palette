@@ -27,6 +27,8 @@ class ThemeColorPaletteBuilder implements Builder {
     final colorPalette = ColorPalette.fromJson(json: json);
 
     final buffer = StringBuffer()
+      ..writeln('// ! GENERATED CODE - DO NOT MANUALLY EDIT')
+      ..writeln()
       ..writeln("import 'package:flutter/material.dart';")
       ..writeln()
       ..write(colorPalette.dartDefine());
