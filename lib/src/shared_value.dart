@@ -5,12 +5,12 @@ class SharedValue extends JsonToDart {
   /// Shared value
   SharedValue({required Json json, Names parentName = const []})
       : value = Value.fromJson(
-          value: json['value'],
-          path: [...parentName, json['name'] as String],
+          value: json['.value'],
+          path: [...parentName, json['.name'] as String],
           theme: null,
-          type: ValueTypeExtension.fromString(json['type'] as String),
+          type: ValueTypeExtension.fromString(json['.type'] as String),
         ),
-        type = ValueTypeExtension.fromString(json['type'] as String),
+        type = ValueTypeExtension.fromString(json['.type'] as String),
         super(json: json, parentName: parentName);
 
   /// Value

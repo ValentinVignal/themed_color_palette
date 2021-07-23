@@ -6,9 +6,9 @@ class ThemedValue extends JsonToDart {
   ThemedValue({
     required Json json,
     Names parentName = const [],
-  })  : type = ValueTypeExtension.fromString(json['type'] as String),
+  })  : type = ValueTypeExtension.fromString(json['.type'] as String),
         super(json: json, parentName: parentName) {
-    final values = json['values'] as Json;
+    final values = json['.values'] as Json;
     final defaultValue = values[Themes.defaultTheme];
     themedValues.addEntries(
       Themes.themes.map(

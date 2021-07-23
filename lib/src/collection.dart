@@ -8,7 +8,7 @@ class Collection extends JsonToDart {
     Names parentName = const [],
   }) : super(json: json, parentName: parentName) {
     collections.addAll(
-      (json['values'] as List)
+      (json['.values'] as List)
           .map<JsonToDart>(
             (value) => JsonToDart.fromJson(
               json: value as Json,

@@ -12,13 +12,13 @@ abstract class JsonToDart {
   JsonToDart({
     required Json json,
     required Names parentName,
-  })  : _names = [...parentName, json['name'] as String],
-        description = json['description'] as String? ?? '',
-        flutterThemeValue = json['flutter'] as String?;
+  })  : _names = [...parentName, json['.name'] as String],
+        description = json['.description'] as String? ?? '',
+        flutterThemeValue = json['.flutter'] as String?;
 
   /// From json constructor
   factory JsonToDart.fromJson({required Json json, List<String> parentName = const []}) {
-    final type = ObjectTypeExtension.fromString(json['type'] as String?);
+    final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
         return Collection.fromJson(json: json, parentName: parentName);
@@ -69,7 +69,6 @@ abstract class JsonToDart {
 
   /// The deprecation message
   String get deprecationDecorator {
-    print('here');
     assert(isDeprecated, 'The object is not deprecated');
     return "@Deprecated('Use ${flutterThemeValue!} instead')";
   }

@@ -7,8 +7,8 @@ class Double extends Value {
     required dynamic value,
     required Names path,
     required String? theme,
-  })  : value = value is double
-            ? value
+  })  : value = value is num
+            ? value.toDouble()
             : (allValues[Value._allValuesImportKey(
                 path: List<String>.from((value as Map)['import'] as List),
                 theme: theme,
