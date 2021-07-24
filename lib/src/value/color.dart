@@ -23,7 +23,13 @@ class Color extends Value {
                     .value
                 : color['withOpacity'] as double?)
             : null,
-        super(value: color, path: path, theme: theme);
+        super(value: color, path: path, theme: theme) {
+    if (color is String && !_regExpColor.hasMatch(color)) {
+      errors.add('Color "${path.last}": $color is not in aarrggbb format (location: $path)');
+    }
+  }
+
+  static final _regExpColor = RegExp(r'^[a-fA-F0-9]{8}$');
 
   @override
   String get className => 'Color';

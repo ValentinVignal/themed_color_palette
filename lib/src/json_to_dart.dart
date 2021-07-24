@@ -13,7 +13,13 @@ abstract class JsonToDart {
     required Json json,
     required this.names,
   })  : description = json['.description'] as String? ?? '',
-        flutterThemeValue = json['.flutter'] as String?;
+        flutterThemeValue = (json['.flutter'] as String?) {
+    // Check the names
+    // Only check the last one as the previous ones have already been checked
+    if (!camelCaseRegExp.hasMatch(names.last)) {
+      errors.add('Variable "${names.last}" is not in camelCase (location: $names)');
+    }
+  }
 
   /// From json constructor
   factory JsonToDart.fromJson({required Json json, List<String> names = const []}) {

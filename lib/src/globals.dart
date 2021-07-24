@@ -14,3 +14,9 @@ mixin Themes {
 
 /// All the values
 final allValues = <String, Value>{};
+
+/// Errors
+final errors = <String>[];
+
+/// RegExp for camel case
+final camelCaseRegExp = RegExp(r'^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$');

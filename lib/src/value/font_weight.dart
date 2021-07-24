@@ -32,6 +32,29 @@ enum FontWeightEnum {
 
 /// Font weight enum extension
 extension FontWeightEnumExtension on FontWeightEnum {
+  static const possibleValues = [
+    'w100',
+    'thin',
+    'w200',
+    'extraLight',
+    'w300',
+    'light',
+    'w400',
+    'normal',
+    'regular',
+    'plain',
+    'w500',
+    'medium',
+    'w600',
+    'semiBold',
+    'w700',
+    'bold',
+    'w800',
+    'extraBold',
+    'black',
+    'w900',
+  ];
+
   /// Value front string
   static FontWeightEnum fromString(String string) {
     switch (string) {
@@ -107,7 +130,13 @@ class FontWeight extends Value {
                 theme: theme,
               )]! as FontWeight)
                 .fontWeight,
-        super(value: fontWeight, path: path, theme: theme);
+        super(value: fontWeight, path: path, theme: theme) {
+    if (fontWeight is String && !FontWeightEnumExtension.possibleValues.contains(fontWeight)) {
+      errors.add(
+        'Font weight "${path.last}": "$fontWeight" is not a valid value (possible values: ${FontWeightEnumExtension.possibleValues}, location: $path)',
+      );
+    }
+  }
 
   @override
   String get className => 'FontWeight';

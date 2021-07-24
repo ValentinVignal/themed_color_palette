@@ -1,4 +1,5 @@
 import 'dart:convert' as dart_convert;
+import 'dart:developer';
 
 import 'package:build/build.dart';
 import 'package:theme_color_palette/src/theme_color_palette.dart';
@@ -34,5 +35,11 @@ class ThemeColorPaletteBuilder implements Builder {
       ..write(colorPalette.dartDefine());
     // Write out the new asset
     await buildStep.writeAsString(copyAssetId, buffer.toString());
+
+    if (errors.isNotEmpty) {
+      log.warning(r' /!\ ----- Errors ----- /!\');
+      errors.forEach(log.warning);
+      throw Exception();
+    }
   }
 }

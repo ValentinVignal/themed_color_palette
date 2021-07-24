@@ -19,7 +19,9 @@ part 'string_buffer.dart';
 class ColorPalette extends JsonToDart {
   /// [ColorPalette] from Json
   ColorPalette.fromJson({required Json json}) : super(json: json, names: [json['.name'] as String]) {
-    Themes.themes.addAll(List<String>.from(json['.themes'] as List));
+    // Themes
+    _addThemes(List<String>.from(json['.themes'] as List));
+    // Check the themes have valid names (camelCase)
     baseName = names.first;
     sharedValues
         .addAll((json['.shared'] as Map).entries.map((entry) => SharedValue(json: entry.value as Json, names: [sharedBaseName, entry.key as String])).toList());
@@ -32,6 +34,17 @@ class ColorPalette extends JsonToDart {
 
   /// The based name for shared values
   static const sharedBaseName = '.shared';
+
+  static void _addThemes(List<String> themes) {
+    // Add it to the global variable
+    Themes.themes.addAll(themes);
+    // Check the names
+    for (final theme in themes) {
+      if (!camelCaseRegExp.hasMatch(theme)) {
+        errors.add('Theme "$theme" is not in camelCase');
+      }
+    }
+  }
 
   /// List of collections (themed)
   final List<JsonToDart> collections = [];
