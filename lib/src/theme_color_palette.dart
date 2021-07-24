@@ -42,4 +42,41 @@ class ColorPalette extends JsonToDart {
 
   @override
   List<SharedValue> get constants => sharedValues;
+
+  @override
+  String dartDefine() {
+    final buffer = StringBuffer()..writeLine(0, '/// Different Themes')..writeLine(0, 'enum Themes {');
+
+    // Add the enum
+    for (final theme in Themes.themes) {
+      buffer..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme')..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
+    }
+    buffer
+      ..writeLine(0, '}')
+      ..writeln();
+
+    // Extension on enum
+    final extensionBody = StringBuffer();
+    for (final theme in Themes.themes.sublist(1)) {
+      extensionBody..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')..writeLine(4, 'return ${dartConstructor(theme)};');
+    }
+    // Default theme
+    extensionBody
+      ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(Themes.defaultTheme)}:')
+      ..writeLine(3, 'default:')
+      ..writeLine(4, 'return ${dartConstructor(Themes.defaultTheme)};');
+    buffer.write('''
+extension ThemesExtension on Themes {
+  /// Color palette
+  ${JsonToDart.firstUpperCase(baseName)} get colorPalette {
+    switch (this) {
+$extensionBody
+    }
+  }
+}''');
+
+    // Color palette
+    buffer.write(super.dartDefine());
+    return buffer.toString();
+  }
 }
