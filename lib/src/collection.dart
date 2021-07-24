@@ -8,8 +8,8 @@ class Collection extends JsonToDart {
     Names names = const [],
   }) : super(json: json, names: names) {
     collections.addAll(
-      (json['.values'] as Map)
-          .entries
+      json.entries
+          .where((entry) => !entry.key.startsWith('.'))
           .map<JsonToDart>(
             (entry) => JsonToDart.fromJson(
               json: entry.value as Json,
