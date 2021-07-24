@@ -11,31 +11,28 @@ abstract class JsonToDart {
   /// Get the common parameters
   JsonToDart({
     required Json json,
-    required Names parentName,
-  })  : _names = [...parentName, json['.name'] as String],
-        description = json['.description'] as String? ?? '',
+    required this.names,
+  })  : description = json['.description'] as String? ?? '',
         flutterThemeValue = json['.flutter'] as String?;
 
   /// From json constructor
-  factory JsonToDart.fromJson({required Json json, List<String> parentName = const []}) {
+  factory JsonToDart.fromJson({required Json json, List<String> names = const []}) {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
-        return Collection.fromJson(json: json, parentName: parentName);
+        return Collection.fromJson(json: json, names: names);
       case ObjectType.value:
-        return ThemedValue(json: json, parentName: parentName);
+        return ThemedValue(json: json, names: names);
     }
   }
 
   // *  ---------- Attributes ----------
 
+  /// Names of the current object
   /// ```dart
   /// ['ParentName1', 'ParentName2', 'ObjectName'];
   /// ```
-  final Names _names;
-
-  /// Names of the current object
-  Names get names => _names;
+  final Names names;
 
   /// The description of the object
   final String description;

@@ -3,15 +3,15 @@ part of theme_color_palette;
 /// Shared value
 class SharedValue extends JsonToDart {
   /// Shared value
-  SharedValue({required Json json, Names parentName = const []})
+  SharedValue({required Json json, Names names = const []})
       : value = Value.fromJson(
           value: json['.value'],
-          path: [...parentName, json['.name'] as String],
+          path: names,
           theme: null,
           type: ValueTypeExtension.fromString(json['.type'] as String),
         ),
         type = ValueTypeExtension.fromString(json['.type'] as String),
-        super(json: json, parentName: parentName);
+        super(json: json, names: names);
 
   /// Value
   final Value value;

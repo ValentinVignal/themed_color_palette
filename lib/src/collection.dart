@@ -5,14 +5,15 @@ class Collection extends JsonToDart {
   /// Collection from json
   Collection.fromJson({
     required Json json,
-    Names parentName = const [],
-  }) : super(json: json, parentName: parentName) {
+    Names names = const [],
+  }) : super(json: json, names: names) {
     collections.addAll(
-      (json['.values'] as List)
+      (json['.values'] as Map)
+          .entries
           .map<JsonToDart>(
-            (value) => JsonToDart.fromJson(
-              json: value as Json,
-              parentName: [...parentName, names.last],
+            (entry) => JsonToDart.fromJson(
+              json: entry.value as Json,
+              names: [...names, entry.key as String],
             ),
           )
           .toList(),
