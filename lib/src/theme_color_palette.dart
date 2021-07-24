@@ -14,6 +14,8 @@ part 'collection.dart';
 part 'themed_value.dart';
 part 'shared_value.dart';
 part 'string_buffer.dart';
+part 'shared_collection.dart';
+part 'shared_json_to_dart.dart';
 
 /// The color palette containing everything
 class ColorPalette extends JsonToDart {
@@ -23,8 +25,10 @@ class ColorPalette extends JsonToDart {
     _addThemes(List<String>.from(json['.themes'] as List));
     // Check the themes have valid names (camelCase)
     baseName = names.first;
-    sharedValues
-        .addAll((json['.shared'] as Map).entries.map((entry) => SharedValue(json: entry.value as Json, names: [sharedBaseName, entry.key as String])).toList());
+    sharedValues.addAll((json['.shared'] as Map)
+        .entries
+        .map((entry) => SharedJsonToDart.fromJson(json: entry.value as Json, names: [sharedBaseName, entry.key as String]))
+        .toList());
     collections.addAll(
         (json['.themed'] as Map).entries.map((entry) => JsonToDart.fromJson(json: entry.value as Json, names: [baseName, entry.key as String])).toList());
   }
@@ -50,13 +54,13 @@ class ColorPalette extends JsonToDart {
   final List<JsonToDart> collections = [];
 
   /// List of shared values
-  final List<SharedValue> sharedValues = [];
+  final List<SharedJsonToDart> sharedValues = [];
 
   @override
   List<JsonToDart> get values => collections;
 
   @override
-  List<SharedValue> get constants => sharedValues;
+  List<SharedJsonToDart> get constants => sharedValues;
 
   @override
   String dartDefine() {
@@ -80,7 +84,8 @@ class ColorPalette extends JsonToDart {
       ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(Themes.defaultTheme)}:')
       ..writeLine(3, 'default:')
       ..writeLine(4, 'return ${dartConstructor(Themes.defaultTheme)};');
-    buffer.write('''
+    buffer
+      ..write('''
 extension ThemesExtension on Themes {
   /// Color palette
   ${JsonToDart.firstUpperCase(baseName)} get colorPalette {
@@ -88,10 +93,10 @@ extension ThemesExtension on Themes {
 $extensionBody
     }
   }
-}''');
+}''')
 
-    // Color palette
-    buffer.write(super.dartDefine());
+      // Color palette
+      ..write(super.dartDefine());
     return buffer.toString();
   }
 }

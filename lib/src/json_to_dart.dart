@@ -26,9 +26,17 @@ abstract class JsonToDart {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
-        return Collection.fromJson(json: json, names: names);
+        if (names.first == ColorPalette.sharedBaseName) {
+          return SharedCollection.fromJson(json: json, names: names);
+        } else {
+          return Collection.fromJson(json: json, names: names);
+        }
       case ObjectType.value:
-        return ThemedValue(json: json, names: names);
+        if (names.first == ColorPalette.sharedBaseName) {
+          return SharedValue(json: json, names: names);
+        } else {
+          return ThemedValue(json: json, names: names);
+        }
     }
   }
 
@@ -52,7 +60,7 @@ abstract class JsonToDart {
   List<JsonToDart> get values => [];
 
   /// Override this getter to add static constant values
-  List<SharedValue> get constants => [];
+  List<SharedJsonToDart> get constants => [];
 
   /// ```dart
   /// r"ParentName1$ParentName2$ObjectName";
@@ -126,7 +134,8 @@ abstract class JsonToDart {
     if (constants.isNotEmpty) {
       buffer.writeln();
       for (final value in constants) {
-        buffer..writeLine(1, value.comment)..writeLine(1, value.dartParameter);
+        // buffer..writeLine(1, value.comment)..writeLine(1, value.dartParameter);
+        buffer.write(value.dartParameter);
       }
     }
 
