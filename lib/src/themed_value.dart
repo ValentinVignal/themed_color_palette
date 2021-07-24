@@ -8,7 +8,7 @@ class ThemedValue extends JsonToDart {
     Names names = const [],
   })  : type = ValueTypeExtension.fromString(json['.type'] as String),
         super(json: json, names: names) {
-    final values = json['.values'] as Json;
+    final values = Map.fromEntries(json.entries.where((entry) => !entry.key.startsWith('.')));
     final defaultValue = values[Themes.defaultTheme];
     themedValues.addEntries(
       Themes.themes.map(

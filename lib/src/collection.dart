@@ -13,7 +13,7 @@ class Collection extends JsonToDart {
           .map<JsonToDart>(
             (entry) => JsonToDart.fromJson(
               json: entry.value as Json,
-              names: [...names, entry.key as String],
+              names: [...names, entry.key],
             ),
           )
           .toList(),
