@@ -20,7 +20,9 @@ part 'shared_json_to_dart.dart';
 /// The color palette containing everything
 class ColorPalette extends JsonToDart {
   /// [ColorPalette] from Json
-  ColorPalette.fromJson({required Json json}) : super(json: json, names: [json['.name'] as String]) {
+  ColorPalette.fromJson({required Json json})
+      : version = json['.version'] as String,
+        super(json: json, names: [json['.name'] as String]) {
     // Themes
     _addThemes(List<String>.from(json['.themes'] as List));
     // Check the themes have valid names (camelCase)
@@ -56,6 +58,9 @@ class ColorPalette extends JsonToDart {
   /// List of shared values
   final List<SharedJsonToDart> sharedValues = [];
 
+  /// Version number
+  final String version;
+
   @override
   List<JsonToDart> get values => collections;
 
@@ -64,7 +69,11 @@ class ColorPalette extends JsonToDart {
 
   @override
   String dartDefine() {
-    final buffer = StringBuffer()..writeLine(0, '/// Different Themes')..writeLine(0, 'enum Themes {');
+    final buffer = StringBuffer()
+      ..writeLine(0, '// Version: $version')
+      ..writeln()
+      ..writeLine(0, '/// Different Themes')
+      ..writeLine(0, 'enum Themes {');
 
     // Add the enum
     for (final theme in Themes.themes) {
