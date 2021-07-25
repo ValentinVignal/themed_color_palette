@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:build/build.dart';
 import 'package:theme_color_palette/src/theme_color_palette.dart';
+import 'package:yaml/yaml.dart';
 
 /// Theme Color Palette
 Builder themeColorPaletteGeneratorBuilder(BuilderOptions options) {
@@ -13,7 +14,7 @@ Builder themeColorPaletteGeneratorBuilder(BuilderOptions options) {
 class ThemeColorPaletteBuilder implements Builder {
   @override
   Map<String, List<String>> get buildExtensions => {
-        '.theme.json': ['.theme.g.dart'],
+        '.theme.yaml': ['.theme.g.dart'],
       };
 
   @override
@@ -24,8 +25,11 @@ class ThemeColorPaletteBuilder implements Builder {
     // Create a new target `AssetId` based on the current one
     final copyAssetId = inputId.changeExtension('.g.dart');
     final content = await buildStep.readAsString(inputId);
-    final json = dart_convert.json.decode(content) as Json;
-    final colorPalette = ColorPalette.fromJson(json: json);
+    final json = dart_convert.json.decode(dart_convert.json.encode(loadYaml(content)));
+
+    print('json');
+    print(json);
+    final colorPalette = ColorPalette.fromJson(json: json as Json);
 
     final buffer = StringBuffer()
       ..writeln('// ! GENERATED CODE - DO NOT MANUALLY EDIT')

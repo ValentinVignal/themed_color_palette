@@ -16,6 +16,6 @@ builders:
   themeColorPaletteGeneratorBuilder:
     import: "package:theme_color_palette/theme_color_palette.dart"
     builder_factories: ["themeColorPaletteGeneratorBuilder"]
-    build_extensions: { ".theme.json": [".theme.g.dart"] }
+    build_extensions: { ".theme.yaml": [".theme.g.dart"] }
     build_to: source
     auto_apply: dependents
