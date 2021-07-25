@@ -26,9 +26,6 @@ class ThemeColorPaletteBuilder implements Builder {
     final copyAssetId = inputId.changeExtension('.g.dart');
     final content = await buildStep.readAsString(inputId);
     final json = dart_convert.json.decode(dart_convert.json.encode(loadYaml(content)));
-
-    print('json');
-    print(json);
     final colorPalette = ColorPalette.fromJson(json: json as Json);
 
     final buffer = StringBuffer()
