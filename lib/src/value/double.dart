@@ -10,7 +10,7 @@ class Double extends Value {
   })  : value = value is num
             ? value.toDouble()
             : (allValues[Value._allValuesImportKey(
-                path: List<String>.from((value as Map)['import'] as List),
+                path: (value as Map)['import'] as String,
                 theme: theme,
               )]! as Double)
                 .value,

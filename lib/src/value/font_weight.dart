@@ -32,6 +32,7 @@ enum FontWeightEnum {
 
 /// Font weight enum extension
 extension FontWeightEnumExtension on FontWeightEnum {
+  /// Possible values
   static const possibleValues = [
     'w100',
     'thin',
@@ -126,7 +127,7 @@ class FontWeight extends Value {
   })  : fontWeight = fontWeight is String
             ? FontWeightEnumExtension.fromString(fontWeight)
             : (allValues[Value._allValuesImportKey(
-                path: List<String>.from((fontWeight as Map)['import'] as List),
+                path: (fontWeight as Map)['import'] as String,
                 theme: theme,
               )]! as FontWeight)
                 .fontWeight,

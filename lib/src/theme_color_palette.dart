@@ -1,5 +1,7 @@
 library theme_color_palette;
 
+import 'dart:math';
+
 part 'globals.dart';
 part 'types.dart';
 part 'json_to_dart.dart';
