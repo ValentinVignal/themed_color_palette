@@ -10,8 +10,8 @@ class SharedCollection extends SharedJsonToDart {
     collections.addAll(
       json.entries
           .where((entry) => !entry.key.startsWith('.'))
-          .map<JsonToDart>(
-            (entry) => JsonToDart.fromJson(
+          .map<SharedJsonToDart>(
+            (entry) => SharedJsonToDart.fromJson(
               json: entry.value as Json,
               names: [...names, entry.key],
             ),
@@ -21,7 +21,7 @@ class SharedCollection extends SharedJsonToDart {
   }
 
   /// List of sub-collections
-  final List<JsonToDart> collections = [];
+  final List<SharedJsonToDart> collections = [];
 
   @override
   String get dartParameter {

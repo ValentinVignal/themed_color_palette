@@ -1,6 +1,8 @@
 part of theme_color_palette;
 
+/// Shard Json to dart
 abstract class SharedJsonToDart extends JsonToDart {
+  /// Shard Json to dart
   SharedJsonToDart({
     required Json json,
     required Names names,

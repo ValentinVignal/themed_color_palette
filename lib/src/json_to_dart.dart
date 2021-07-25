@@ -26,17 +26,9 @@ abstract class JsonToDart {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
-        if (names.first == ColorPalette.sharedBaseName) {
-          return SharedCollection.fromJson(json: json, names: names);
-        } else {
-          return Collection.fromJson(json: json, names: names);
-        }
+        return Collection.fromJson(json: json, names: names);
       case ObjectType.value:
-        if (names.first == ColorPalette.sharedBaseName) {
-          return SharedValue(json: json, names: names);
-        } else {
-          return ThemedValue(json: json, names: names);
-        }
+        return ThemedValue(json: json, names: names);
     }
   }
 
