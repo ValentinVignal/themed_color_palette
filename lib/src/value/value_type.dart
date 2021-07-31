@@ -13,6 +13,9 @@ enum ValueType {
 
   /// Font Weight
   fontWeight,
+
+  /// Boolean
+  boolean,
 }
 
 /// Value type extension
@@ -26,6 +29,8 @@ extension ValueTypeExtension on ValueType {
         return ValueType.intNumber;
       case 'fontWeight':
         return ValueType.fontWeight;
+      case 'bool':
+        return ValueType.boolean;
       case 'color':
       default:
         return ValueType.color;

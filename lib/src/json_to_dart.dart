@@ -105,9 +105,11 @@ abstract class JsonToDart {
     if (isDeprecated) {
       buffer.writeLine(0, deprecationDecorator);
     }
-    buffer.writeLine(0, 'class $className {');
+    buffer
+      ..writeLine(0, 'class $className {')
 
-    /// Unnamed constructor
+      /// Unnamed constructor
+      ..writeLine(1, comment);
     if (values.isEmpty) {
       buffer.writeLine(1, 'const $className();');
     } else {

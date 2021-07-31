@@ -63,9 +63,10 @@ abstract class Value {
         return Int.fromJson(value: value, path: path, theme: theme);
       case ValueType.fontWeight:
         return FontWeight.fromJson(fontWeight: value, path: path, theme: theme);
+      case ValueType.boolean:
+        return Bool.fromJson(value: value, path: path, theme: theme);
       case ValueType.color:
       default:
-        print('color $value');
         return Color.fromJson(color: value, path: path, theme: theme);
     }
   }
