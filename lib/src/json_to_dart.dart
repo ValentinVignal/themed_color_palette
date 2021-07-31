@@ -13,6 +13,9 @@ abstract class JsonToDart {
     required Json json,
     required this.names,
   })  : description = json['.description'] as String? ?? '',
+        // Those are not unnecessary parenthesis.
+        // If we remove them, the linter take `?` from `String?` as a conditional operator
+        // ignore: unnecessary_parenthesis
         flutterThemeValue = (json['.flutter'] as String?) {
     // Check the names
     // Only check the last one as the previous ones have already been checked
@@ -103,6 +106,22 @@ abstract class JsonToDart {
       buffer.writeLine(0, deprecationDecorator);
     }
     buffer.writeLine(0, 'class $className {');
+
+    /// Unnamed constructor
+    if (values.isEmpty) {
+      buffer.writeLine(1, 'const $className();');
+    } else {
+      buffer.writeLine(1, 'const $className({');
+      for (final value in values) {
+        // TODO(Valentin): Replace with `required` when null safety is supported
+        buffer.writeLine(2, '@required this.${value.instanceName},');
+      }
+      buffer.writeLine(1, '});');
+    }
+
+    buffer.writeln();
+
+    /// Themed constructor
     for (final theme in Themes.themes) {
       final initializers = values.map((value) {
         return '${value.instanceName} = ${value.dartConstructor(theme)}';
