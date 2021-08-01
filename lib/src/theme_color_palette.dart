@@ -19,6 +19,7 @@ part 'string_buffer.dart';
 part 'shared_collection.dart';
 part 'shared_json_to_dart.dart';
 part 'value/bool.dart';
+part 'value/brightness.dart';
 
 /// The color palette containing everything
 class ColorPalette extends JsonToDart {

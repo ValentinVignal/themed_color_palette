@@ -16,6 +16,9 @@ enum ValueType {
 
   /// Boolean
   boolean,
+
+  /// Brightness
+  brightness
 }
 
 /// Value type extension
@@ -31,6 +34,8 @@ extension ValueTypeExtension on ValueType {
         return ValueType.fontWeight;
       case 'bool':
         return ValueType.boolean;
+      case 'brightness':
+        return ValueType.brightness;
       case 'color':
       default:
         return ValueType.color;

@@ -65,6 +65,8 @@ abstract class Value {
         return FontWeight.fromJson(fontWeight: value, path: path, theme: theme);
       case ValueType.boolean:
         return Bool.fromJson(value: value, path: path, theme: theme);
+      case ValueType.brightness:
+        return Brightness.fromJson(brightness: value, path: path, theme: theme);
       case ValueType.color:
       default:
         return Color.fromJson(color: value, path: path, theme: theme);
