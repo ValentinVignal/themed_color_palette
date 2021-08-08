@@ -5,7 +5,7 @@ class Color extends Value {
   /// Color
   Color.fromJson({
     required dynamic color,
-    required Names path,
+    required List<String> path,
     required String? theme,
   })  : color = color is String
             ? color

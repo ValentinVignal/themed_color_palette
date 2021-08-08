@@ -4,12 +4,12 @@ part of theme_color_palette;
 abstract class SharedJsonToDart extends JsonToDart {
   /// Shard Json to dart
   SharedJsonToDart({
-    required Json json,
-    required Names names,
+    required Map<String, dynamic> json,
+    required List<String> names,
   }) : super(json: json, names: names);
 
   /// From json constructor
-  factory SharedJsonToDart.fromJson({required Json json, List<String> names = const []}) {
+  factory SharedJsonToDart.fromJson({required Map<String, dynamic> json, List<String> names = const []}) {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:

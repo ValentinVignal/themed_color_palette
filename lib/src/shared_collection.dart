@@ -4,15 +4,15 @@ part of theme_color_palette;
 class SharedCollection extends SharedJsonToDart {
   /// Collection from json
   SharedCollection.fromJson({
-    required Json json,
-    Names names = const [],
+    required Map<String, dynamic> json,
+    List<String> names = const [],
   }) : super(json: json, names: names) {
     collections.addAll(
       json.entries
           .where((entry) => !entry.key.startsWith('.'))
           .map<SharedJsonToDart>(
             (entry) => SharedJsonToDart.fromJson(
-              json: entry.value as Json,
+              json: entry.value as Map<String, dynamic>,
               names: [...names, entry.key],
             ),
           )

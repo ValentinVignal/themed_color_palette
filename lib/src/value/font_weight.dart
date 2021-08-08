@@ -122,7 +122,7 @@ class FontWeight extends Value {
   /// Font weight from Json
   FontWeight.fromJson({
     required dynamic fontWeight,
-    required Names path,
+    required List<String> path,
     required String? theme,
   })  : fontWeight = fontWeight is String
             ? FontWeightEnumExtension.fromString(fontWeight)

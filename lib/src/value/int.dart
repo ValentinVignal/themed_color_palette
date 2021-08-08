@@ -5,7 +5,7 @@ class Int extends Value {
   /// Int
   Int.fromJson({
     required dynamic value,
-    required Names path,
+    required List<String> path,
     required String? theme,
   })  : value = value is int
             ? value

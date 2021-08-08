@@ -5,7 +5,7 @@ class Bool extends Value {
   /// Bool
   Bool.fromJson({
     required dynamic value,
-    required Names path,
+    required List<String> path,
     required String? theme,
   })  : value = value is bool
             ? value

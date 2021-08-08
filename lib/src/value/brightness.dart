@@ -42,7 +42,7 @@ class Brightness extends Value {
   /// Font weight from Json
   Brightness.fromJson({
     required dynamic brightness,
-    required Names path,
+    required List<String> path,
     required String? theme,
   })  : brightness = brightness is String
             ? BrightnessEnumExtension.fromString(brightness)

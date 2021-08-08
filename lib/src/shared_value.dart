@@ -3,7 +3,7 @@ part of theme_color_palette;
 /// Shared value
 class SharedValue extends SharedJsonToDart {
   /// Shared value
-  SharedValue({required Json json, Names names = const []})
+  SharedValue({required Map<String, dynamic> json, List<String> names = const []})
       : value = Value.fromJson(
           value: json['.value'],
           path: names,

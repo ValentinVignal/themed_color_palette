@@ -4,15 +4,15 @@ part of theme_color_palette;
 class Collection extends JsonToDart {
   /// Collection from json
   Collection.fromJson({
-    required Json json,
-    Names names = const [],
+    required Map<String, dynamic> json,
+    List<String> names = const [],
   }) : super(json: json, names: names) {
     collections.addAll(
       json.entries
           .where((entry) => !entry.key.startsWith('.'))
           .map<JsonToDart>(
             (entry) => JsonToDart.fromJson(
-              json: entry.value as Json,
+              json: entry.value as Map<String, dynamic>,
               names: [...names, entry.key],
             ),
           )

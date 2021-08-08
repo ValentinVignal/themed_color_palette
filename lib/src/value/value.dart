@@ -15,7 +15,7 @@ abstract class Value {
   static const importSeparator = '.';
 
   // The value key when the value is saved
-  static String _allValuesKey({required Names path, required String? theme}) {
+  static String _allValuesKey({required List<String> path, required String? theme}) {
     final _pathString = path.map(JsonToDart.firstLowerCase).join(importSeparator);
     if (theme == null) {
       // This is a shared value
@@ -53,7 +53,7 @@ abstract class Value {
   static Value fromJson({
     required dynamic value,
     required ValueType type,
-    required Names path,
+    required List<String> path,
     required String? theme,
   }) {
     switch (type) {
@@ -74,7 +74,7 @@ abstract class Value {
   }
 
   /// Path
-  final Names path;
+  final List<String> path;
 
   /// If `null` it means this is a shared value
   final String? theme;

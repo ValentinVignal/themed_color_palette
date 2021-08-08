@@ -24,7 +24,7 @@ part 'value/brightness.dart';
 /// The color palette containing everything
 class ColorPalette extends JsonToDart {
   /// [ColorPalette] from Json
-  ColorPalette.fromJson({required Json json})
+  ColorPalette.fromJson({required Map<String, dynamic> json})
       : version = json['.version'] as String,
         super(json: json, names: [json['.name'] as String]) {
     // Themes
@@ -33,10 +33,12 @@ class ColorPalette extends JsonToDart {
     baseName = names.first;
     sharedValues.addAll((json['.shared'] as Map)
         .entries
-        .map((entry) => SharedJsonToDart.fromJson(json: entry.value as Json, names: [sharedBaseName, entry.key as String]))
+        .map((entry) => SharedJsonToDart.fromJson(json: entry.value as Map<String, dynamic>, names: [sharedBaseName, entry.key as String]))
         .toList());
-    collections.addAll(
-        (json['.themed'] as Map).entries.map((entry) => JsonToDart.fromJson(json: entry.value as Json, names: [baseName, entry.key as String])).toList());
+    collections.addAll((json['.themed'] as Map)
+        .entries
+        .map((entry) => JsonToDart.fromJson(json: entry.value as Map<String, dynamic>, names: [baseName, entry.key as String]))
+        .toList());
   }
 
   /// The base name for themed values

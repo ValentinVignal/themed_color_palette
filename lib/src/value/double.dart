@@ -5,7 +5,7 @@ class Double extends Value {
   /// Double
   Double.fromJson({
     required dynamic value,
-    required Names path,
+    required List<String> path,
     required String? theme,
   })  : value = value is num
             ? value.toDouble()

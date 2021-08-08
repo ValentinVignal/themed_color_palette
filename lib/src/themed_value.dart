@@ -4,8 +4,8 @@ part of theme_color_palette;
 class ThemedValue extends JsonToDart {
   /// Themed Value
   ThemedValue({
-    required Json json,
-    Names names = const [],
+    required Map<String, dynamic> json,
+    List<String> names = const [],
   })  : type = ValueTypeExtension.fromString(json['.type'] as String),
         super(json: json, names: names) {
     final values = Map.fromEntries(json.entries.where((entry) => !entry.key.startsWith('.')));

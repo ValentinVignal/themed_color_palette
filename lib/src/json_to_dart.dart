@@ -10,7 +10,7 @@ part of theme_color_palette;
 abstract class JsonToDart {
   /// Get the common parameters
   JsonToDart({
-    required Json json,
+    required Map<String, dynamic> json,
     required this.names,
   })  : description = json['.description'] as String? ?? '',
         // Those are not unnecessary parenthesis.
@@ -25,7 +25,7 @@ abstract class JsonToDart {
   }
 
   /// From json constructor
-  factory JsonToDart.fromJson({required Json json, List<String> names = const []}) {
+  factory JsonToDart.fromJson({required Map<String, dynamic> json, List<String> names = const []}) {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
@@ -41,7 +41,7 @@ abstract class JsonToDart {
   /// ```dart
   /// ['ParentName1', 'ParentName2', 'ObjectName'];
   /// ```
-  final Names names;
+  final List<String> names;
 
   /// The description of the object
   final String description;
