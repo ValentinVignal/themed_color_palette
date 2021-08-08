@@ -1,5 +1,4 @@
 import 'dart:convert' as dart_convert;
-import 'dart:developer';
 
 import 'package:build/build.dart';
 import 'package:theme_color_palette/src/theme_color_palette.dart';
