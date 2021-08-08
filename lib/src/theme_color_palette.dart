@@ -3,7 +3,6 @@ library theme_color_palette;
 import 'dart:math';
 
 part 'globals.dart';
-part 'types.dart';
 part 'json_to_dart.dart';
 part 'object_type.dart';
 part 'value/value_type.dart';
@@ -101,6 +100,7 @@ class ColorPalette extends JsonToDart {
       ..writeLine(4, 'return ${dartConstructor(Themes.defaultTheme)};');
     buffer
       ..write('''
+/// Extension on [Themes]
 extension ThemesExtension on Themes {
   /// Color palette
   ${JsonToDart.firstUpperCase(baseName)} get colorPalette {
