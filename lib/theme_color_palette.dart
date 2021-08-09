@@ -30,7 +30,7 @@ class ThemeColorPaletteBuilder implements Builder {
     final buffer = StringBuffer()
       ..writeln('// ! GENERATED CODE - DO NOT MANUALLY EDIT')
       ..writeln()
-      ..writeln("import 'package:flutter/material.dart';")
+      ..writeln("part of '${inputId.changeExtension('').changeExtension('.dart').pathSegments.last}';")
       ..writeln()
       ..write(colorPalette.dartDefine());
     // Write out the new asset

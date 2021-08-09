@@ -12,7 +12,7 @@ abstract class JsonToDart {
   JsonToDart({
     required Map<String, dynamic> json,
     required this.names,
-  })  : description = json['.description'] as String? ?? '',
+  })   : description = json['.description'] as String? ?? '',
         // Those are not unnecessary parenthesis.
         // If we remove them, the linter take `?` from `String?` as a conditional operator
         // ignore: unnecessary_parenthesis
@@ -65,18 +65,20 @@ abstract class JsonToDart {
   /// ```dart
   /// 'objectName';
   /// ```
-  String get instanceName => firstLowerCase(names.last);
+  String get instanceName {
+    return (isPrivate ? '_' : '') + firstLowerCase(names.last);
+  }
 
   /// The value to use in the flutter material theme
   final String? flutterThemeValue;
 
-  /// Whether or not it is deprecated
-  bool get isDeprecated => flutterThemeValue?.isNotEmpty ?? false;
+  /// Whether or not it is private
+  bool get isPrivate => flutterThemeValue?.isNotEmpty ?? false;
 
-  /// The deprecation message
-  String get deprecationDecorator {
-    assert(isDeprecated, 'The object is not deprecated');
-    return "@Deprecated('Use ${flutterThemeValue!} instead')";
+  /// The Private message
+  String get privacyComment {
+    assert(isPrivate, 'The object is not private');
+    return '/// Use `${flutterThemeValue!}` instead';
   }
 
   // *  ---------- static ----------
@@ -102,8 +104,8 @@ abstract class JsonToDart {
       ..writeln()
       ..writeLine(0, comment);
 
-    if (isDeprecated) {
-      buffer.writeLine(0, deprecationDecorator);
+    if (isPrivate) {
+      buffer..writeLine(0, '///')..writeLine(0, privacyComment);
     }
     buffer
       ..writeLine(0, 'class $className {')
@@ -147,7 +149,6 @@ abstract class JsonToDart {
     if (constants.isNotEmpty) {
       buffer.writeln();
       for (final value in constants) {
-        // buffer..writeLine(1, value.comment)..writeLine(1, value.dartParameter);
         buffer.write(value.dartParameter);
       }
     }
@@ -156,8 +157,8 @@ abstract class JsonToDart {
     buffer.writeln();
     for (final value in values) {
       buffer.writeLine(1, value.comment);
-      if (value.isDeprecated) {
-        buffer.writeLine(1, value.deprecationDecorator);
+      if (value.isPrivate) {
+        buffer..writeLine(1, '///')..writeLine(1, value.privacyComment);
       }
       buffer.writeLine(1, value.dartParameter);
     }
