@@ -118,9 +118,22 @@ abstract class JsonToDart {
       buffer.writeLine(1, 'const $className({');
       for (final value in values) {
         // TODO(Valentin): Replace with `required` when null safety is supported
-        buffer.writeLine(2, '@required this.${value.instanceName},');
+        if (value.isPrivate) {
+          buffer.writeLine(2, '@required ${value.className} ${firstLowerCase(value.names.last)},');
+        } else {
+          buffer.writeLine(2, '@required this.${value.instanceName},');
+        }
       }
-      buffer.writeLine(1, '});');
+      if (values.any((value) => value.isPrivate)) {
+        buffer.writeLine(1, '}):');
+        final privateValues = values.where((value) => value.isPrivate);
+        for (final entry in privateValues.toList().asMap().entries) {
+          final initializer = '${entry.value.instanceName} = ${firstLowerCase(entry.value.names.last)}' + (entry.key == privateValues.length - 1 ? ';' : ',');
+          buffer.writeLine(2, initializer);
+        }
+      } else {
+        buffer.writeLine(1, '});');
+      }
     }
 
     buffer.writeln();
