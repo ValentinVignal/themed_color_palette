@@ -9,11 +9,15 @@ class Color extends Value {
     required String? theme,
   })  : color = color is String
             ? color
-            : (allValues[Value._allValuesImportKey(
-                path: (color as Map)['import'] as String,
-                theme: theme,
-              )]! as Color)
-                .color,
+            : ((color as Map).containsKey('value')
+                ? // This is a value
+
+                color['value'] as String
+                : (allValues[Value._allValuesImportKey(
+                    path: color['import'] as String,
+                    theme: theme,
+                  )]! as Color)
+                    .value),
         opacity = color is Map
             ? (color['withOpacity'] is Map
                 ? (allValues[Value._allValuesImportKey(
