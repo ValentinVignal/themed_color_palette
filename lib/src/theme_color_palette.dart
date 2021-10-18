@@ -108,7 +108,9 @@ extension ThemesExtension on Themes {
 $extensionBody
     }
   }
-}''')
+}
+
+''')
 
       // Color palette
       ..write(super.dartDefine());
