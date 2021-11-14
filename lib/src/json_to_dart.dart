@@ -163,6 +163,26 @@ abstract class JsonToDart {
         }
       }
     }
+
+    // fromJson constructor
+    buffer
+      ..writeln()
+      ..writeLine(1, '/// From json.');
+    final jsonInitializers = values.map((value) {
+      return '${value.instanceName} = json[\'${value.name}\'] as ${value.className}';
+    });
+    final fromJsonConstructorLine = '$className.fromJson(Map<String, dynamic> json)';
+    if (jsonInitializers.isEmpty) {
+      buffer.writeLine(1, '$fromJsonConstructorLine;');
+    } else {
+      buffer.writeLine(1, '$fromJsonConstructorLine:');
+      for (final entry in values.asMap().entries) {
+        final endLine = entry.key == values.length - 1 ? ';' : ',';
+        final value = entry.value;
+        buffer.writeLine(2, '${value.instanceName} = json[\'${value.name}\'] as ${value.className}$endLine');
+      }
+    }
+
     // Shared attributes
     if (constants.isNotEmpty) {
       for (final value in constants) {
