@@ -7,32 +7,37 @@ class Color extends Value {
     required dynamic color,
     required List<String> path,
     required String? theme,
-  })  : color = color is String
-            ? color
-            : ((color as Map).containsKey('value')
-                ? // This is a value
+  }) : super(value: color, path: path, theme: theme) {
+    if (color is String) {
+      this.color = color;
+      opacity = null;
+    } else {
+      color as Map;
+      if (color.containsKey('value')) {
+        this.color = color['value'] as String;
+      } else {
+        this.color = (allValues[Value._allValuesImportKey(
+          path: color['import'] as String,
+          theme: theme,
+        )]! as Color)
+            .value;
+      }
+      if (color['withOpacity'] is Map) {
+        opacity = (allValues[Value._allValuesImportKey(
+          path: (color['withOpacity'] as Map)['import'] as String,
+          theme: theme,
+        )]! as Double)
+            .value;
+      } else {
+        opacity = color['withOpacity'] as double?;
+      }
+    }
 
-                color['value'] as String
-                : (allValues[Value._allValuesImportKey(
-                    path: color['import'] as String,
-                    theme: theme,
-                  )]! as Color)
-                    .value),
-        opacity = color is Map
-            ? (color['withOpacity'] is Map
-                ? (allValues[Value._allValuesImportKey(
-                    path: (color['withOpacity'] as Map)['import'] as String,
-                    theme: theme,
-                  )]! as Double)
-                    .value
-                : color['withOpacity'] as double?)
-            : null,
-        super(value: color, path: path, theme: theme) {
     if (color is String && !_regExpColor.hasMatch(color)) {
       errors.add('Color "${path.last}": $color is not in aarrggbb format (location: $path)');
     }
     if (opacity != null) {
-      if (0 > opacity! || 1 < opacity!) {
+      if (.0 > opacity! || 1 < opacity!) {
         errors.add('Opacity of "${path.last}" ($opacity) is not in [0, 1] (location: $path)');
       }
     }
@@ -44,10 +49,10 @@ class Color extends Value {
   String get className => 'Color';
 
   /// Color value
-  final String color;
+  late final String color;
 
   /// Opacity if the color (if this is an imported color)
-  final double? opacity;
+  late final double? opacity;
 
   /// Final value of the color
   String get value {

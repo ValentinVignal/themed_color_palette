@@ -82,7 +82,9 @@ class ColorPalette extends JsonToDart {
 
     // Add the enum
     for (final theme in Themes.themes) {
-      buffer..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme')..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
+      buffer
+        ..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme')
+        ..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
     }
     buffer
       ..writeLine(0, '}')
@@ -91,7 +93,9 @@ class ColorPalette extends JsonToDart {
     // Extension on enum
     final extensionBody = StringBuffer();
     for (final theme in Themes.themes.sublist(1)) {
-      extensionBody..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')..writeLine(4, 'return ${dartConstructor(theme)};');
+      extensionBody
+        ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')
+        ..writeLine(4, 'return ${dartConstructor(theme)};');
     }
     // Default theme
     extensionBody
@@ -116,4 +120,7 @@ $extensionBody
       ..write(super.dartDefine());
     return buffer.toString();
   }
+
+  @override
+  String toJsonString() => throw Exception('This should not have been called');
 }

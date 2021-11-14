@@ -12,7 +12,7 @@ abstract class JsonToDart {
   JsonToDart({
     required Map<String, dynamic> json,
     required this.names,
-  })   : description = json['.description'] as String? ?? '',
+  })  : description = json['.description'] as String? ?? '',
         // Those are not unnecessary parenthesis.
         // If we remove them, the linter take `?` from `String?` as a conditional operator
         // ignore: unnecessary_parenthesis
@@ -110,7 +110,9 @@ abstract class JsonToDart {
       ..writeLine(0, comment);
 
     if (isPrivate) {
-      buffer..writeLine(0, '///')..writeLine(0, privacyComment);
+      buffer
+        ..writeLine(0, '///')
+        ..writeLine(0, privacyComment);
     }
     buffer
       ..writeLine(0, 'class $className {')
@@ -139,10 +141,10 @@ abstract class JsonToDart {
         buffer.writeLine(1, '});');
       }
     }
-    buffer.writeln();
 
     // Themed constructor.
     for (final theme in Themes.themes) {
+      buffer.writeln();
       final initializers = values.map((value) {
         return '${value.instanceName} = ${value.dartConstructor(theme)}';
       });
@@ -160,26 +162,27 @@ abstract class JsonToDart {
           buffer.writeLine(2, initializer);
         }
       }
-      buffer.writeln();
     }
     // Shared attributes
     if (constants.isNotEmpty) {
       for (final value in constants) {
         buffer
-          ..write(value.dartParameter)
-          ..writeln();
+          ..writeln()
+          ..write(value.dartParameter);
       }
     }
 
     // Themed attributes
     for (final value in values) {
-      buffer.writeLine(1, value.comment);
-      if (value.isPrivate) {
-        buffer..writeLine(1, '///')..writeLine(1, value.privacyComment);
-      }
       buffer
-        ..writeLine(1, value.dartParameter)
-        ..writeln();
+        ..writeln()
+        ..writeLine(1, value.comment);
+      if (value.isPrivate) {
+        buffer
+          ..writeLine(1, '///')
+          ..writeLine(1, value.privacyComment);
+      }
+      buffer.writeLine(1, value.dartParameter);
     }
 
     // Copy with
@@ -190,14 +193,27 @@ abstract class JsonToDart {
       buffer.writeLine(2, '${value.className}? ${value.name},');
     }
 
-    buffer..writeLine(1, '}) {')..writeLine(2, 'return $className(');
+    buffer
+      ..writeLine(1, '}) {')
+      ..writeLine(2, 'return $className(');
     for (final value in values) {
-      buffer.writeLine(3, '${value.name}: ${value.name} ?? this.${value.instanceName},');
+      buffer.writeLine(3, '${value.name}: ${value.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},');
     }
 
     buffer
       ..writeLine(2, ');')
       ..writeLine(1, '}')
+
+      // toJson
+
+      ..writeln()
+      ..writeLine(1, '/// To json method.')
+      ..writeLine(1, 'Map<String, dynamic> toJson() => {');
+    for (final value in values) {
+      buffer.writeLine(2, '\'${value.name}\': ${value.toJsonString()},');
+    }
+    buffer
+      ..writeLine(1, '};')
 
       // Ends the class
       ..writeLine(0, '}')
@@ -231,4 +247,7 @@ abstract class JsonToDart {
   String get dartParameter {
     return 'final $className $instanceName;';
   }
+
+  /// To json string method.
+  String toJsonString();
 }

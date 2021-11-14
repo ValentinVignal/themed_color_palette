@@ -247,7 +247,6 @@ class ThemeColorPalette {
   /// Use `theme.selectedRowColor` instead.
   final Color _selectedRowColor;
 
-
   ThemeColorPalette copyWith({
     Brightness? brightness,
     Color? accentColor,
@@ -275,13 +274,13 @@ class ThemeColorPalette {
     Color? selectedRowColor,
   }) {
     return ThemeColorPalette(
-      brightness: brightness ?? this._brightness,
-      accentColor: accentColor ?? this._accentColor,
-      primaryColor: primaryColor ?? this._primaryColor,
-      primaryColorLight: primaryColorLight ?? this._primaryColorLight,
+      brightness: brightness ?? _brightness,
+      accentColor: accentColor ?? _accentColor,
+      primaryColor: primaryColor ?? _primaryColor,
+      primaryColorLight: primaryColorLight ?? _primaryColorLight,
       secondaryColor: secondaryColor ?? this.secondaryColor,
-      errorColor: errorColor ?? this._errorColor,
-      disabledColor: disabledColor ?? this._disabledColor,
+      errorColor: errorColor ?? _errorColor,
+      disabledColor: disabledColor ?? _disabledColor,
       textEmphasis: textEmphasis ?? this.textEmphasis,
       iconEmphasis: iconEmphasis ?? this.iconEmphasis,
       border: border ?? this.border,
@@ -292,15 +291,43 @@ class ThemeColorPalette {
       notification: notification ?? this.notification,
       projectTimeline: projectTimeline ?? this.projectTimeline,
       pin: pin ?? this.pin,
-      hoverColor: hoverColor ?? this._hoverColor,
+      hoverColor: hoverColor ?? _hoverColor,
       appBarTheme: appBarTheme ?? this.appBarTheme,
       bottomAppBarTheme: bottomAppBarTheme ?? this.bottomAppBarTheme,
-      tooltipTheme: tooltipTheme ?? this._tooltipTheme,
-      popupMenuTheme: popupMenuTheme ?? this._popupMenuTheme,
-      dividerTheme: dividerTheme ?? this._dividerTheme,
-      selectedRowColor: selectedRowColor ?? this._selectedRowColor,
+      tooltipTheme: tooltipTheme ?? _tooltipTheme,
+      popupMenuTheme: popupMenuTheme ?? _popupMenuTheme,
+      dividerTheme: dividerTheme ?? _dividerTheme,
+      selectedRowColor: selectedRowColor ?? _selectedRowColor,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'brightness': _brightness,
+    'accentColor': _accentColor,
+    'primaryColor': _primaryColor,
+    'primaryColorLight': _primaryColorLight,
+    'secondaryColor': secondaryColor,
+    'errorColor': _errorColor,
+    'disabledColor': _disabledColor,
+    'textEmphasis': textEmphasis.toJson(),
+    'iconEmphasis': iconEmphasis.toJson(),
+    'border': border.toJson(),
+    'background': background.toJson(),
+    'floatingActionButton': floatingActionButton.toJson(),
+    'task': task.toJson(),
+    'form': form.toJson(),
+    'notification': notification.toJson(),
+    'projectTimeline': projectTimeline.toJson(),
+    'pin': pin.toJson(),
+    'hoverColor': _hoverColor,
+    'appBarTheme': appBarTheme.toJson(),
+    'bottomAppBarTheme': bottomAppBarTheme.toJson(),
+    'tooltipTheme': _tooltipTheme.toJson(),
+    'popupMenuTheme': _popupMenuTheme.toJson(),
+    'dividerTheme': _dividerTheme.toJson(),
+    'selectedRowColor': _selectedRowColor,
+  };
 }
 
 
@@ -369,7 +396,6 @@ class ThemeColorPalette$TextEmphasis {
   /// Reversed text emphasis
   final ThemeColorPalette$TextEmphasis$Reversed reversed;
 
-
   ThemeColorPalette$TextEmphasis copyWith({
     Color? accent,
     Color? success,
@@ -381,7 +407,7 @@ class ThemeColorPalette$TextEmphasis {
     ThemeColorPalette$TextEmphasis$Reversed? reversed,
   }) {
     return ThemeColorPalette$TextEmphasis(
-      accent: accent ?? this._accent,
+      accent: accent ?? _accent,
       success: success ?? this.success,
       error: error ?? this.error,
       high: high ?? this.high,
@@ -391,6 +417,18 @@ class ThemeColorPalette$TextEmphasis {
       reversed: reversed ?? this.reversed,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'accent': _accent,
+    'success': success,
+    'error': error,
+    'high': high,
+    'medium': medium,
+    'low': low,
+    'disabled': disabled,
+    'reversed': reversed.toJson(),
+  };
 }
 
 
@@ -432,7 +470,6 @@ class ThemeColorPalette$TextEmphasis$Reversed {
   /// Reversed disabled emphasis
   final Color disabled;
 
-
   ThemeColorPalette$TextEmphasis$Reversed copyWith({
     Color? high,
     Color? medium,
@@ -446,6 +483,14 @@ class ThemeColorPalette$TextEmphasis$Reversed {
       disabled: disabled ?? this.disabled,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'high': high,
+    'medium': medium,
+    'low': low,
+    'disabled': disabled,
+  };
 }
 
 
@@ -493,7 +538,6 @@ class ThemeColorPalette$IconEmphasis {
   /// Reversed icon emphasis
   final ThemeColorPalette$IconEmphasis$Reversed reversed;
 
-
   ThemeColorPalette$IconEmphasis copyWith({
     Color? high,
     Color? medium,
@@ -509,6 +553,15 @@ class ThemeColorPalette$IconEmphasis {
       reversed: reversed ?? this.reversed,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'high': high,
+    'medium': medium,
+    'low': low,
+    'disabled': disabled,
+    'reversed': reversed.toJson(),
+  };
 }
 
 
@@ -550,7 +603,6 @@ class ThemeColorPalette$IconEmphasis$Reversed {
   /// Reversed disabled emphasis
   final Color disabled;
 
-
   ThemeColorPalette$IconEmphasis$Reversed copyWith({
     Color? high,
     Color? medium,
@@ -564,6 +616,14 @@ class ThemeColorPalette$IconEmphasis$Reversed {
       disabled: disabled ?? this.disabled,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'high': high,
+    'medium': medium,
+    'low': low,
+    'disabled': disabled,
+  };
 }
 
 
@@ -602,7 +662,6 @@ class ThemeColorPalette$Border {
   /// Use `theme.dividerColor` instead.
   final Color _divider;
 
-
   ThemeColorPalette$Border copyWith({
     Color? high,
     Color? medium,
@@ -611,9 +670,16 @@ class ThemeColorPalette$Border {
     return ThemeColorPalette$Border(
       high: high ?? this.high,
       medium: medium ?? this.medium,
-      divider: divider ?? this._divider,
+      divider: divider ?? _divider,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'high': high,
+    'medium': medium,
+    'divider': _divider,
+  };
 }
 
 
@@ -679,7 +745,6 @@ class ThemeColorPalette$Background {
   /// Use `theme.cardColor` instead.
   final Color _card;
 
-
   ThemeColorPalette$Background copyWith({
     Color? disabled,
     Color? backgroundColor,
@@ -690,13 +755,23 @@ class ThemeColorPalette$Background {
   }) {
     return ThemeColorPalette$Background(
       disabled: disabled ?? this.disabled,
-      backgroundColor: backgroundColor ?? this._backgroundColor,
+      backgroundColor: backgroundColor ?? _backgroundColor,
       background1: background1 ?? this.background1,
-      scaffold: scaffold ?? this._scaffold,
-      canvas: canvas ?? this._canvas,
-      card: card ?? this._card,
+      scaffold: scaffold ?? _scaffold,
+      canvas: canvas ?? _canvas,
+      card: card ?? _card,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'disabled': disabled,
+    'backgroundColor': _backgroundColor,
+    'background1': background1,
+    'scaffold': _scaffold,
+    'canvas': _canvas,
+    'card': _card,
+  };
 }
 
 
@@ -747,7 +822,6 @@ class ThemeColorPalette$FloatingActionButton {
   /// Use `theme.floatingActionButtonTheme.disabledElevation` instead.
   final double _disabledElevation;
 
-
   ThemeColorPalette$FloatingActionButton copyWith({
     Color? disabledColor,
     Color? backgroundColor,
@@ -756,11 +830,19 @@ class ThemeColorPalette$FloatingActionButton {
   }) {
     return ThemeColorPalette$FloatingActionButton(
       disabledColor: disabledColor ?? this.disabledColor,
-      backgroundColor: backgroundColor ?? this._backgroundColor,
-      foregroundColor: foregroundColor ?? this._foregroundColor,
-      disabledElevation: disabledElevation ?? this._disabledElevation,
+      backgroundColor: backgroundColor ?? _backgroundColor,
+      foregroundColor: foregroundColor ?? _foregroundColor,
+      disabledElevation: disabledElevation ?? _disabledElevation,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'disabledColor': disabledColor,
+    'backgroundColor': _backgroundColor,
+    'foregroundColor': _foregroundColor,
+    'disabledElevation': _disabledElevation,
+  };
 }
 
 
@@ -796,7 +878,6 @@ class ThemeColorPalette$Task {
   /// Completed color
   final Color completed;
 
-
   ThemeColorPalette$Task copyWith({
     Color? notStarted,
     Color? workInProgress,
@@ -808,6 +889,13 @@ class ThemeColorPalette$Task {
       completed: completed ?? this.completed,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'notStarted': notStarted,
+    'workInProgress': workInProgress,
+    'completed': completed,
+  };
 }
 
 
@@ -849,7 +937,6 @@ class ThemeColorPalette$Form {
   /// Rejected color
   final Color rejected;
 
-
   ThemeColorPalette$Form copyWith({
     Color? draft,
     Color? actionRequired,
@@ -863,6 +950,14 @@ class ThemeColorPalette$Form {
       rejected: rejected ?? this.rejected,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'draft': draft,
+    'actionRequired': actionRequired,
+    'completed': completed,
+    'rejected': rejected,
+  };
 }
 
 
@@ -886,7 +981,6 @@ class ThemeColorPalette$Notification {
   /// Color of the notification bubble
   final Color countBubbleColor;
 
-
   ThemeColorPalette$Notification copyWith({
     Color? countBubbleColor,
   }) {
@@ -894,6 +988,11 @@ class ThemeColorPalette$Notification {
       countBubbleColor: countBubbleColor ?? this.countBubbleColor,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'countBubbleColor': countBubbleColor,
+  };
 }
 
 
@@ -953,7 +1052,6 @@ class ThemeColorPalette$ProjectTimeline {
   /// Color for the active part of the Timeline bar (Start -> Today/Completed)
   final Color progress;
 
-
   ThemeColorPalette$ProjectTimeline copyWith({
     Color? plannedLight,
     Color? planned,
@@ -973,6 +1071,17 @@ class ThemeColorPalette$ProjectTimeline {
       progress: progress ?? this.progress,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'plannedLight': plannedLight,
+    'planned': planned,
+    'start': start,
+    'completed': completed,
+    'today': today,
+    'active': active,
+    'progress': progress,
+  };
 }
 
 
@@ -1002,7 +1111,6 @@ class ThemeColorPalette$Pin {
   /// The background color when the pin is disabled
   final Color disabledBackgroundColor;
 
-
   ThemeColorPalette$Pin copyWith({
     Color? iconColor,
     Color? disabledBackgroundColor,
@@ -1012,6 +1120,12 @@ class ThemeColorPalette$Pin {
       disabledBackgroundColor: disabledBackgroundColor ?? this.disabledBackgroundColor,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'iconColor': iconColor,
+    'disabledBackgroundColor': disabledBackgroundColor,
+  };
 }
 
 
@@ -1047,16 +1161,21 @@ class ThemeColorPalette$AppBarTheme {
   /// Use `theme.appBarTheme.foregroundColor` instead.
   final Color _foregroundColor;
 
-
   ThemeColorPalette$AppBarTheme copyWith({
     Color? color,
     Color? foregroundColor,
   }) {
     return ThemeColorPalette$AppBarTheme(
-      color: color ?? this._color,
-      foregroundColor: foregroundColor ?? this._foregroundColor,
+      color: color ?? _color,
+      foregroundColor: foregroundColor ?? _foregroundColor,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'color': _color,
+    'foregroundColor': _foregroundColor,
+  };
 }
 
 
@@ -1083,14 +1202,18 @@ class ThemeColorPalette$BottomAppBarTheme {
   /// Use `theme.bottomAppBarTheme.color` instead.
   final Color _color;
 
-
   ThemeColorPalette$BottomAppBarTheme copyWith({
     Color? color,
   }) {
     return ThemeColorPalette$BottomAppBarTheme(
-      color: color ?? this._color,
+      color: color ?? _color,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'color': _color,
+  };
 }
 
 
@@ -1128,16 +1251,21 @@ class ThemeColorPalette$TooltipTheme {
   /// Use `theme.tooltipTheme.textStyle` instead.
   final ThemeColorPalette$TooltipTheme$TextStyle _textStyle;
 
-
   ThemeColorPalette$TooltipTheme copyWith({
     ThemeColorPalette$TooltipTheme$Decoration? decoration,
     ThemeColorPalette$TooltipTheme$TextStyle? textStyle,
   }) {
     return ThemeColorPalette$TooltipTheme(
-      decoration: decoration ?? this._decoration,
-      textStyle: textStyle ?? this._textStyle,
+      decoration: decoration ?? _decoration,
+      textStyle: textStyle ?? _textStyle,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'decoration': _decoration.toJson(),
+    'textStyle': _textStyle.toJson(),
+  };
 }
 
 
@@ -1175,16 +1303,21 @@ class ThemeColorPalette$TooltipTheme$Decoration {
   /// Use `theme.tooltipTheme.decoration` instead.
   final double _borderRadius;
 
-
   ThemeColorPalette$TooltipTheme$Decoration copyWith({
     Color? color,
     double? borderRadius,
   }) {
     return ThemeColorPalette$TooltipTheme$Decoration(
-      color: color ?? this._color,
-      borderRadius: borderRadius ?? this._borderRadius,
+      color: color ?? _color,
+      borderRadius: borderRadius ?? _borderRadius,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'color': _color,
+    'borderRadius': _borderRadius,
+  };
 }
 
 
@@ -1213,14 +1346,18 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
   /// Use `theme.tooltipTheme.textStyle.color` instead.
   final Color _color;
 
-
   ThemeColorPalette$TooltipTheme$TextStyle copyWith({
     Color? color,
   }) {
     return ThemeColorPalette$TooltipTheme$TextStyle(
-      color: color ?? this._color,
+      color: color ?? _color,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'color': _color,
+  };
 }
 
 
@@ -1249,14 +1386,18 @@ class ThemeColorPalette$PopupMenuTheme {
   /// Use `theme.popupMenuTheme.textStyle` instead.
   final ThemeColorPalette$PopupMenuTheme$TextStyle _textStyle;
 
-
   ThemeColorPalette$PopupMenuTheme copyWith({
     ThemeColorPalette$PopupMenuTheme$TextStyle? textStyle,
   }) {
     return ThemeColorPalette$PopupMenuTheme(
-      textStyle: textStyle ?? this._textStyle,
+      textStyle: textStyle ?? _textStyle,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'textStyle': _textStyle.toJson(),
+  };
 }
 
 
@@ -1285,14 +1426,18 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
   /// Use `theme.popupMenuTheme.textStyle.color` instead.
   final Color _color;
 
-
   ThemeColorPalette$PopupMenuTheme$TextStyle copyWith({
     Color? color,
   }) {
     return ThemeColorPalette$PopupMenuTheme$TextStyle(
-      color: color ?? this._color,
+      color: color ?? _color,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'color': _color,
+  };
 }
 
 
@@ -1330,16 +1475,21 @@ class ThemeColorPalette$DividerTheme {
   /// Use `theme.dividerTheme.thickness` instead.
   final double _thickness;
 
-
   ThemeColorPalette$DividerTheme copyWith({
     Color? color,
     double? thickness,
   }) {
     return ThemeColorPalette$DividerTheme(
-      color: color ?? this._color,
-      thickness: thickness ?? this._thickness,
+      color: color ?? _color,
+      thickness: thickness ?? _thickness,
     );
   }
+
+  /// To json method.
+  Map<String, dynamic> toJson() => {
+    'color': _color,
+    'thickness': _thickness,
+  };
 }
 
 

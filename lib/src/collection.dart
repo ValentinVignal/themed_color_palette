@@ -25,4 +25,9 @@ class Collection extends JsonToDart {
 
   @override
   List<JsonToDart> get values => collections;
+
+  @override
+  String toJsonString() {
+    return '$instanceName.toJson()';
+  }
 }
