@@ -35,9 +35,6 @@ class SharedValue extends SharedJsonToDart {
   String dartDefine() => throw Exception('This should not have been called');
 
   @override
-  String toJsonString() => throw Exception('This should not have been called');
-
-  @override
   String get dartParameter {
     return '''
   $comment

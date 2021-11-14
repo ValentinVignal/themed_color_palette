@@ -44,4 +44,7 @@ class ThemedValue extends JsonToDart {
 
   @override
   String toJsonString() => instanceName;
+
+  @override
+  String fromJsonString(String value) => '$value as $className';
 }

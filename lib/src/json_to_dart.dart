@@ -179,7 +179,8 @@ abstract class JsonToDart {
       for (final entry in values.asMap().entries) {
         final endLine = entry.key == values.length - 1 ? ';' : ',';
         final value = entry.value;
-        buffer.writeLine(2, '${value.instanceName} = json[\'${value.name}\'] as ${value.className}$endLine');
+        final jsonValue = 'json[\'${value.name}\']';
+        buffer.writeLine(2, '${value.instanceName} = ${value.fromJsonString(jsonValue)}$endLine');
       }
     }
 
@@ -270,4 +271,14 @@ abstract class JsonToDart {
 
   /// To json string method.
   String toJsonString();
+
+  /// From json string method.
+  ///
+  /// value will be a string like
+  /// ```dart
+  /// json['myKey']
+  /// ```
+  ///
+  /// This method should return the string that handles this value.
+  String fromJsonString(String value);
 }

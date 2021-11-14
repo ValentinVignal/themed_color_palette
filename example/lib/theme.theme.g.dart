@@ -124,7 +124,7 @@ class ThemeColorPalette {
     _dividerTheme = const ThemeColorPalette$DividerTheme.dark(),
     _selectedRowColor = const Color(0x14699fcf);
 
-  /// From json
+  /// From json.
   ThemeColorPalette.fromJson(Map<String, dynamic> json):
     _brightness = json['brightness'] as Brightness,
     _accentColor = json['accentColor'] as Color,
@@ -133,22 +133,22 @@ class ThemeColorPalette {
     secondaryColor = json['secondaryColor'] as Color,
     _errorColor = json['errorColor'] as Color,
     _disabledColor = json['disabledColor'] as Color,
-    textEmphasis = json['textEmphasis'] as ThemeColorPalette$TextEmphasis,
-    iconEmphasis = json['iconEmphasis'] as ThemeColorPalette$IconEmphasis,
-    border = json['border'] as ThemeColorPalette$Border,
-    background = json['background'] as ThemeColorPalette$Background,
-    floatingActionButton = json['floatingActionButton'] as ThemeColorPalette$FloatingActionButton,
-    task = json['task'] as ThemeColorPalette$Task,
-    form = json['form'] as ThemeColorPalette$Form,
-    notification = json['notification'] as ThemeColorPalette$Notification,
-    projectTimeline = json['projectTimeline'] as ThemeColorPalette$ProjectTimeline,
-    pin = json['pin'] as ThemeColorPalette$Pin,
+    textEmphasis = ThemeColorPalette$TextEmphasis.fromJson(json['textEmphasis'] as Map<String, dynamic>),
+    iconEmphasis = ThemeColorPalette$IconEmphasis.fromJson(json['iconEmphasis'] as Map<String, dynamic>),
+    border = ThemeColorPalette$Border.fromJson(json['border'] as Map<String, dynamic>),
+    background = ThemeColorPalette$Background.fromJson(json['background'] as Map<String, dynamic>),
+    floatingActionButton = ThemeColorPalette$FloatingActionButton.fromJson(json['floatingActionButton'] as Map<String, dynamic>),
+    task = ThemeColorPalette$Task.fromJson(json['task'] as Map<String, dynamic>),
+    form = ThemeColorPalette$Form.fromJson(json['form'] as Map<String, dynamic>),
+    notification = ThemeColorPalette$Notification.fromJson(json['notification'] as Map<String, dynamic>),
+    projectTimeline = ThemeColorPalette$ProjectTimeline.fromJson(json['projectTimeline'] as Map<String, dynamic>),
+    pin = ThemeColorPalette$Pin.fromJson(json['pin'] as Map<String, dynamic>),
     _hoverColor = json['hoverColor'] as Color,
-    appBarTheme = json['appBarTheme'] as ThemeColorPalette$AppBarTheme,
-    bottomAppBarTheme = json['bottomAppBarTheme'] as ThemeColorPalette$BottomAppBarTheme,
-    _tooltipTheme = json['tooltipTheme'] as ThemeColorPalette$TooltipTheme,
-    _popupMenuTheme = json['popupMenuTheme'] as ThemeColorPalette$PopupMenuTheme,
-    _dividerTheme = json['dividerTheme'] as ThemeColorPalette$DividerTheme,
+    appBarTheme = ThemeColorPalette$AppBarTheme.fromJson(json['appBarTheme'] as Map<String, dynamic>),
+    bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme.fromJson(json['bottomAppBarTheme'] as Map<String, dynamic>),
+    _tooltipTheme = ThemeColorPalette$TooltipTheme.fromJson(json['tooltipTheme'] as Map<String, dynamic>),
+    _popupMenuTheme = ThemeColorPalette$PopupMenuTheme.fromJson(json['popupMenuTheme'] as Map<String, dynamic>),
+    _dividerTheme = ThemeColorPalette$DividerTheme.fromJson(json['dividerTheme'] as Map<String, dynamic>),
     _selectedRowColor = json['selectedRowColor'] as Color;
 
   /// Default radius
@@ -397,7 +397,7 @@ class ThemeColorPalette$TextEmphasis {
     disabled = const Color(0x99ffffff),
     reversed = const ThemeColorPalette$TextEmphasis$Reversed.dark();
 
-  /// From json
+  /// From json.
   ThemeColorPalette$TextEmphasis.fromJson(Map<String, dynamic> json):
     _accent = json['accent'] as Color,
     success = json['success'] as Color,
@@ -406,7 +406,7 @@ class ThemeColorPalette$TextEmphasis {
     medium = json['medium'] as Color,
     low = json['low'] as Color,
     disabled = json['disabled'] as Color,
-    reversed = json['reversed'] as ThemeColorPalette$TextEmphasis$Reversed;
+    reversed = ThemeColorPalette$TextEmphasis$Reversed.fromJson(json['reversed'] as Map<String, dynamic>);
 
   /// Accent color
   ///
@@ -496,7 +496,7 @@ class ThemeColorPalette$TextEmphasis$Reversed {
     low = const Color(0x99000000),
     disabled = const Color(0x99000000);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$TextEmphasis$Reversed.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
     medium = json['medium'] as Color,
@@ -568,13 +568,13 @@ class ThemeColorPalette$IconEmphasis {
     disabled = const Color(0x99ffffff),
     reversed = const ThemeColorPalette$IconEmphasis$Reversed.dark();
 
-  /// From json
+  /// From json.
   ThemeColorPalette$IconEmphasis.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
     medium = json['medium'] as Color,
     low = json['low'] as Color,
     disabled = json['disabled'] as Color,
-    reversed = json['reversed'] as ThemeColorPalette$IconEmphasis$Reversed;
+    reversed = ThemeColorPalette$IconEmphasis$Reversed.fromJson(json['reversed'] as Map<String, dynamic>);
 
   /// High emphasis
   final Color high;
@@ -644,7 +644,7 @@ class ThemeColorPalette$IconEmphasis$Reversed {
     low = const Color(0x99000000),
     disabled = const Color(0x99000000);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$IconEmphasis$Reversed.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
     medium = json['medium'] as Color,
@@ -711,7 +711,7 @@ class ThemeColorPalette$Border {
     medium = const Color(0xff474747),
     _divider = const Color(0xff434343);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$Border.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
     medium = json['medium'] as Color,
@@ -785,7 +785,7 @@ class ThemeColorPalette$Background {
     _canvas = const Color(0xfff8f8f8),
     _card = const Color(0xff1e1e1e);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$Background.fromJson(Map<String, dynamic> json):
     disabled = json['disabled'] as Color,
     _backgroundColor = json['backgroundColor'] as Color,
@@ -879,7 +879,7 @@ class ThemeColorPalette$FloatingActionButton {
     _foregroundColor = const Color(0xff000000),
     _disabledElevation = 0.0;
 
-  /// From json
+  /// From json.
   ThemeColorPalette$FloatingActionButton.fromJson(Map<String, dynamic> json):
     disabledColor = json['disabledColor'] as Color,
     _backgroundColor = json['backgroundColor'] as Color,
@@ -951,7 +951,7 @@ class ThemeColorPalette$Task {
     workInProgress = const Color(0xffeaa60f),
     completed = const Color(0xff81bf48);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$Task.fromJson(Map<String, dynamic> json):
     notStarted = json['notStarted'] as Color,
     workInProgress = json['workInProgress'] as Color,
@@ -1013,7 +1013,7 @@ class ThemeColorPalette$Form {
     completed = const Color(0xff666666),
     rejected = const Color(0xffc73826);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$Form.fromJson(Map<String, dynamic> json):
     draft = json['draft'] as Color,
     actionRequired = json['actionRequired'] as Color,
@@ -1073,7 +1073,7 @@ class ThemeColorPalette$Notification {
   const ThemeColorPalette$Notification.dark():
     countBubbleColor = const Color(0xfff26716);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$Notification.fromJson(Map<String, dynamic> json):
     countBubbleColor = json['countBubbleColor'] as Color;
 
@@ -1130,7 +1130,7 @@ class ThemeColorPalette$ProjectTimeline {
     active = const Color(0xffeef3f8),
     progress = const Color(0xff2864ac);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$ProjectTimeline.fromJson(Map<String, dynamic> json):
     plannedLight = json['plannedLight'] as Color,
     planned = json['planned'] as Color,
@@ -1214,7 +1214,7 @@ class ThemeColorPalette$Pin {
     iconColor = const Color(0xffffffff),
     disabledBackgroundColor = const Color(0xff8d8d8d);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$Pin.fromJson(Map<String, dynamic> json):
     iconColor = json['iconColor'] as Color,
     disabledBackgroundColor = json['disabledBackgroundColor'] as Color;
@@ -1265,7 +1265,7 @@ class ThemeColorPalette$AppBarTheme {
     _color = const Color(0xff1e1e1e),
     _foregroundColor = const Color(0xffffffff);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$AppBarTheme.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
     _foregroundColor = json['foregroundColor'] as Color;
@@ -1316,7 +1316,7 @@ class ThemeColorPalette$BottomAppBarTheme {
   const ThemeColorPalette$BottomAppBarTheme.dark():
     _color = const Color(0xff2e2e2e);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$BottomAppBarTheme.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
@@ -1364,10 +1364,10 @@ class ThemeColorPalette$TooltipTheme {
     _decoration = const ThemeColorPalette$TooltipTheme$Decoration.dark(),
     _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle.dark();
 
-  /// From json
+  /// From json.
   ThemeColorPalette$TooltipTheme.fromJson(Map<String, dynamic> json):
-    _decoration = json['decoration'] as ThemeColorPalette$TooltipTheme$Decoration,
-    _textStyle = json['textStyle'] as ThemeColorPalette$TooltipTheme$TextStyle;
+    _decoration = ThemeColorPalette$TooltipTheme$Decoration.fromJson(json['decoration'] as Map<String, dynamic>),
+    _textStyle = ThemeColorPalette$TooltipTheme$TextStyle.fromJson(json['textStyle'] as Map<String, dynamic>);
 
   /// Tooltip decoration
   ///
@@ -1421,7 +1421,7 @@ class ThemeColorPalette$TooltipTheme$Decoration {
     _color = const Color(0xffffffff),
     _borderRadius = 4.0;
 
-  /// From json
+  /// From json.
   ThemeColorPalette$TooltipTheme$Decoration.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
     _borderRadius = json['borderRadius'] as double;
@@ -1474,7 +1474,7 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
   const ThemeColorPalette$TooltipTheme$TextStyle.dark():
     _color = const Color(0xff000000);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$TooltipTheme$TextStyle.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
@@ -1518,9 +1518,9 @@ class ThemeColorPalette$PopupMenuTheme {
   const ThemeColorPalette$PopupMenuTheme.dark():
     _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle.dark();
 
-  /// From json
+  /// From json.
   ThemeColorPalette$PopupMenuTheme.fromJson(Map<String, dynamic> json):
-    _textStyle = json['textStyle'] as ThemeColorPalette$PopupMenuTheme$TextStyle;
+    _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle.fromJson(json['textStyle'] as Map<String, dynamic>);
 
   /// Popup menu theme text style
   ///
@@ -1562,7 +1562,7 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
   const ThemeColorPalette$PopupMenuTheme$TextStyle.dark():
     _color = const Color(0xff699fcf);
 
-  /// From json
+  /// From json.
   ThemeColorPalette$PopupMenuTheme$TextStyle.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
@@ -1610,7 +1610,7 @@ class ThemeColorPalette$DividerTheme {
     _color = const Color(0xff434343),
     _thickness = 2.0;
 
-  /// From json
+  /// From json.
   ThemeColorPalette$DividerTheme.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
     _thickness = json['thickness'] as double;

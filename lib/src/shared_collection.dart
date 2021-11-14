@@ -30,7 +30,4 @@ class SharedCollection extends SharedJsonToDart {
 
   @override
   List<JsonToDart> get values => collections;
-
-  @override
-  String toJsonString() => throw Exception('This should not have been called');
 }

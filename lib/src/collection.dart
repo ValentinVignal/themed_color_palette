@@ -30,4 +30,9 @@ class Collection extends JsonToDart {
   String toJsonString() {
     return '$instanceName.toJson()';
   }
+
+  @override
+  String fromJsonString(String value) {
+    return '$className.fromJson($value as Map<String, dynamic>)';
+  }
 }

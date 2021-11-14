@@ -123,4 +123,7 @@ $extensionBody
 
   @override
   String toJsonString() => throw Exception('This should not have been called');
+
+  @override
+  String fromJsonString(String value) => throw Exception('This should not have been called');
 }
