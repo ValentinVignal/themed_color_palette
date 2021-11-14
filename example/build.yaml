@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      theme_color_palette|themeColorPaletteGeneratorBuilder:
+        enabled: true
+        generate_for:
+          - lib/*
