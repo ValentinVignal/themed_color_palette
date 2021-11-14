@@ -1,29 +1,29 @@
 part of theme_color_palette;
 
-/// All the value types
+/// All the value types.
 enum ValueType {
-  /// Color
+  /// Color.
   color,
 
-  /// Double
+  /// Double.
   doubleNumber,
 
-  /// Int
+  /// Int.
   intNumber,
 
-  /// Font Weight
+  /// Font Weight.
   fontWeight,
 
-  /// Boolean
+  /// Boolean.
   boolean,
 
-  /// Brightness
+  /// Brightness.
   brightness
 }
 
-/// Value type extension
+/// Value type extension.
 extension ValueTypeExtension on ValueType {
-  /// From String constructor
+  /// Get the [ValueType] from the [String].
   static ValueType fromString(String type) {
     switch (type) {
       case 'double':
@@ -37,8 +37,9 @@ extension ValueTypeExtension on ValueType {
       case 'brightness':
         return ValueType.brightness;
       case 'color':
-      default:
         return ValueType.color;
+      default:
+        throw UnsupportedError('Unsupported value type: $type');
     }
   }
 }

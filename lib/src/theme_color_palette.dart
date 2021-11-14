@@ -2,31 +2,31 @@ library theme_color_palette;
 
 import 'dart:math';
 
+part 'collection.dart';
 part 'globals.dart';
 part 'json_to_dart.dart';
 part 'object_type.dart';
-part 'value/value_type.dart';
+part 'shared_collection.dart';
+part 'shared_json_to_dart.dart';
+part 'shared_value.dart';
+part 'string_buffer.dart';
+part 'themed_value.dart';
+part 'value/bool.dart';
+part 'value/brightness.dart';
 part 'value/color.dart';
 part 'value/double.dart';
 part 'value/font_weight.dart';
 part 'value/int.dart';
 part 'value/value.dart';
-part 'collection.dart';
-part 'themed_value.dart';
-part 'shared_value.dart';
-part 'string_buffer.dart';
-part 'shared_collection.dart';
-part 'shared_json_to_dart.dart';
-part 'value/bool.dart';
-part 'value/brightness.dart';
+part 'value/value_type.dart';
 
-/// The color palette containing everything
+/// The color palette containing everything.
 class ColorPalette extends JsonToDart {
-  /// [ColorPalette] from Json
+  /// [ColorPalette] from Json.
   ColorPalette.fromJson({required Map<String, dynamic> json})
       : version = json['.version'] as String,
         super(json: json, names: [json['.name'] as String]) {
-    // Themes
+    // Themes.
     _addThemes(List<String>.from(json['.themes'] as List));
     // Check the themes have valid names (camelCase)
     baseName = names.first;

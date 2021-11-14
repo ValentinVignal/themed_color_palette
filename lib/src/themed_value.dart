@@ -1,8 +1,8 @@
 part of theme_color_palette;
 
-/// Themed Value
+/// Themed Value.
 class ThemedValue extends JsonToDart {
-  /// Themed Value
+  /// Themed Value.
   ThemedValue({
     required Map<String, dynamic> json,
     List<String> names = const [],
@@ -25,10 +25,10 @@ class ThemedValue extends JsonToDart {
     );
   }
 
-  /// Different values for each themes
+  /// Different values for each themes.
   final Map<String, Value> themedValues = {};
 
-  /// Value type
+  /// Value type.
   final ValueType type;
 
   @override

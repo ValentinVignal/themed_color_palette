@@ -1,6 +1,6 @@
 part of theme_color_palette;
 
-/// JsonToDart
+/// JsonToDart.
 ///
 /// Example with
 /// ```dart
@@ -8,7 +8,7 @@ part of theme_color_palette;
 /// name = ['ObjectName'];
 /// ```
 abstract class JsonToDart {
-  /// Get the common parameters
+  /// Get the common parameters.
   JsonToDart({
     required Map<String, dynamic> json,
     required this.names,
@@ -37,16 +37,16 @@ abstract class JsonToDart {
 
   // *  ---------- Attributes ----------
 
-  /// Names of the current object
+  /// Names of the current object.
   /// ```dart
   /// ['ParentName1', 'ParentName2', 'ObjectName'];
   /// ```
   final List<String> names;
 
-  /// The description of the object
-  final String description;
+  /// The description of the object.
+  late final String description;
 
-  /// Comment to put in the code
+  /// Comment to put in the code.
   String get comment {
     return description.split('\n').map((descriptionBlock) => '/// $descriptionBlock').join('\n');
   }
@@ -54,7 +54,7 @@ abstract class JsonToDart {
   /// Override this getter to return the parameters
   List<JsonToDart> get values => [];
 
-  /// Override this getter to add static constant values
+  /// Override this getter to add static constant values.
   List<SharedJsonToDart> get constants => [];
 
   /// ```dart
@@ -65,28 +65,33 @@ abstract class JsonToDart {
   /// ```dart
   /// 'objectName';
   /// ```
+  String get name => firstLowerCase(names.last);
+
+  /// ```dart
+  /// 'objectName' or '_objectName';
+  /// ```
   String get instanceName {
-    return (isPrivate ? '_' : '') + firstLowerCase(names.last);
+    return (isPrivate ? '_' : '') + name;
   }
 
-  /// The value to use in the flutter material theme
+  /// The value to use in the flutter material theme.
   final String? flutterThemeValue;
 
-  /// Whether or not it is private
+  /// Whether or not it is private.
   bool get isPrivate => flutterThemeValue?.isNotEmpty ?? false;
 
-  /// The Private message
+  /// The Private message.
   String get privacyComment {
     assert(isPrivate, 'The object is not private');
-    return '/// Use `${flutterThemeValue!}` instead';
+    return '/// Use `${flutterThemeValue!}` instead.';
   }
 
   // *  ---------- static ----------
 
-  /// Set the first letter of a string in lower case
+  /// Set the first letter of a string in lower case.
   static String firstLowerCase(String input) => input[0].toLowerCase() + input.substring(1);
 
-  /// Set the first letter of a string in upper case
+  /// Set the first letter of a string in upper case.
   static String firstUpperCase(String input) => input[0].toUpperCase() + input.substring(1);
 
   /// ```dart
@@ -118,7 +123,7 @@ abstract class JsonToDart {
       buffer.writeLine(1, 'const $className({');
       for (final value in values) {
         if (value.isPrivate) {
-          buffer.writeLine(2, 'required ${value.className} ${firstLowerCase(value.names.last)},');
+          buffer.writeLine(2, 'required ${value.className} ${value.name},');
         } else {
           buffer.writeLine(2, 'required this.${value.instanceName},');
         }
@@ -134,10 +139,9 @@ abstract class JsonToDart {
         buffer.writeLine(1, '});');
       }
     }
-
     buffer.writeln();
 
-    /// Themed constructor
+    // Themed constructor.
     for (final theme in Themes.themes) {
       final initializers = values.map((value) {
         return '${value.instanceName} = ${value.dartConstructor(theme)}';
@@ -156,29 +160,50 @@ abstract class JsonToDart {
           buffer.writeLine(2, initializer);
         }
       }
+      buffer.writeln();
     }
     // Shared attributes
     if (constants.isNotEmpty) {
-      buffer.writeln();
       for (final value in constants) {
-        buffer.write(value.dartParameter);
+        buffer
+          ..write(value.dartParameter)
+          ..writeln();
       }
     }
 
     // Themed attributes
-    buffer.writeln();
     for (final value in values) {
       buffer.writeLine(1, value.comment);
       if (value.isPrivate) {
         buffer..writeLine(1, '///')..writeLine(1, value.privacyComment);
       }
-      buffer.writeLine(1, value.dartParameter);
+      buffer
+        ..writeLine(1, value.dartParameter)
+        ..writeln();
     }
-    // Ends the class
+
+    // Copy with
     buffer
+      ..writeln()
+      ..writeLine(1, '$className copyWith({');
+    for (final value in values) {
+      buffer.writeLine(2, '${value.className}? ${value.name},');
+    }
+
+    buffer..writeLine(1, '}) {')..writeLine(2, 'return $className(');
+    for (final value in values) {
+      buffer.writeLine(3, '${value.name}: ${value.name} ?? this.${value.instanceName},');
+    }
+
+    buffer
+      ..writeLine(2, ');')
+      ..writeLine(1, '}')
+
+      // Ends the class
       ..writeLine(0, '}')
       ..writeln()
       ..writeln();
+
     // Instance the used values
     for (final value in values) {
       buffer.write(value.dartDefine());

@@ -96,6 +96,7 @@ class ThemeColorPalette {
     _popupMenuTheme = const ThemeColorPalette$PopupMenuTheme.light(),
     _dividerTheme = const ThemeColorPalette$DividerTheme.light(),
     _selectedRowColor = const Color(0x142864ac);
+
   /// The Theme Color Palette
   const ThemeColorPalette.dark():
     _brightness = Brightness.dark,
@@ -125,8 +126,10 @@ class ThemeColorPalette {
 
   /// Default radius
   static const radius = 4.0;
+
   /// Default padding
   static const defaultPadding = 16.0;
+
   /// High opacity
   static const opacity_high = 1.0;
   /// Medium opacity
@@ -137,6 +140,7 @@ class ThemeColorPalette {
   static const opacity_disabled = 0.6;
   /// Hover opacity
   static const opacity_hover = 0.04;
+
   /// High elevation
   static const elevation_high = 3.0;
   /// Medium elevation
@@ -145,79 +149,158 @@ class ThemeColorPalette {
   static const elevation_low = 1.0;
   /// None elevation
   static const elevation_none = 0.0;
+
   /// Thickness of the Dividers
   static const divider_thickness = 2.0;
 
   /// Global brightness of the theme
   ///
-  /// Use `theme.brightness` instead
+  /// Use `theme.brightness` instead.
   final Brightness _brightness;
+
   /// The accent Color
   ///
-  /// Use `theme.accentColor` instead
+  /// Use `theme.accentColor` instead.
   final Color _accentColor;
+
   /// Primary color
   ///
-  /// Use `theme.primaryColor` instead
+  /// Use `theme.primaryColor` instead.
   final Color _primaryColor;
+
   /// Primary color light
   ///
-  /// Use `theme.primaryColorLight` instead
+  /// Use `theme.primaryColorLight` instead.
   final Color _primaryColorLight;
+
   /// Secondary color
   final Color secondaryColor;
+
   /// Error Color
   ///
-  /// Use `theme.errorColor` instead
+  /// Use `theme.errorColor` instead.
   final Color _errorColor;
+
   /// Disabled color
   ///
-  /// Use `theme.disabledColor` instead
+  /// Use `theme.disabledColor` instead.
   final Color _disabledColor;
+
   /// The different text emphasis
   final ThemeColorPalette$TextEmphasis textEmphasis;
+
   /// The different icon emphasis
   final ThemeColorPalette$IconEmphasis iconEmphasis;
+
   /// Borders
   final ThemeColorPalette$Border border;
+
   /// Backgrounds
   final ThemeColorPalette$Background background;
+
   /// Floating action button
   final ThemeColorPalette$FloatingActionButton floatingActionButton;
+
   /// Task color palette
   final ThemeColorPalette$Task task;
+
   /// Form color palette
   final ThemeColorPalette$Form form;
+
   /// Notification color palette
   final ThemeColorPalette$Notification notification;
+
   /// Project time line color palette
   final ThemeColorPalette$ProjectTimeline projectTimeline;
+
   /// Pin theme
   final ThemeColorPalette$Pin pin;
+
   /// Overlay color
   ///
-  /// Use `theme.hoverColor` instead
+  /// Use `theme.hoverColor` instead.
   final Color _hoverColor;
+
   /// 
   final ThemeColorPalette$AppBarTheme appBarTheme;
+
   /// 
   final ThemeColorPalette$BottomAppBarTheme bottomAppBarTheme;
+
   /// Tooltip theme
   ///
-  /// Use `theme.tooltipTheme` instead
+  /// Use `theme.tooltipTheme` instead.
   final ThemeColorPalette$TooltipTheme _tooltipTheme;
+
   /// Popup menu theme
   ///
-  /// Use `theme.popupMenuTheme` instead
+  /// Use `theme.popupMenuTheme` instead.
   final ThemeColorPalette$PopupMenuTheme _popupMenuTheme;
+
   /// Divider theme
   ///
-  /// Use `theme.dividerTheme` instead
+  /// Use `theme.dividerTheme` instead.
   final ThemeColorPalette$DividerTheme _dividerTheme;
+
   /// Selected row color
   ///
-  /// Use `theme.selectedRowColor` instead
+  /// Use `theme.selectedRowColor` instead.
   final Color _selectedRowColor;
+
+
+  ThemeColorPalette copyWith({
+    Brightness? brightness,
+    Color? accentColor,
+    Color? primaryColor,
+    Color? primaryColorLight,
+    Color? secondaryColor,
+    Color? errorColor,
+    Color? disabledColor,
+    ThemeColorPalette$TextEmphasis? textEmphasis,
+    ThemeColorPalette$IconEmphasis? iconEmphasis,
+    ThemeColorPalette$Border? border,
+    ThemeColorPalette$Background? background,
+    ThemeColorPalette$FloatingActionButton? floatingActionButton,
+    ThemeColorPalette$Task? task,
+    ThemeColorPalette$Form? form,
+    ThemeColorPalette$Notification? notification,
+    ThemeColorPalette$ProjectTimeline? projectTimeline,
+    ThemeColorPalette$Pin? pin,
+    Color? hoverColor,
+    ThemeColorPalette$AppBarTheme? appBarTheme,
+    ThemeColorPalette$BottomAppBarTheme? bottomAppBarTheme,
+    ThemeColorPalette$TooltipTheme? tooltipTheme,
+    ThemeColorPalette$PopupMenuTheme? popupMenuTheme,
+    ThemeColorPalette$DividerTheme? dividerTheme,
+    Color? selectedRowColor,
+  }) {
+    return ThemeColorPalette(
+      brightness: brightness ?? this._brightness,
+      accentColor: accentColor ?? this._accentColor,
+      primaryColor: primaryColor ?? this._primaryColor,
+      primaryColorLight: primaryColorLight ?? this._primaryColorLight,
+      secondaryColor: secondaryColor ?? this.secondaryColor,
+      errorColor: errorColor ?? this._errorColor,
+      disabledColor: disabledColor ?? this._disabledColor,
+      textEmphasis: textEmphasis ?? this.textEmphasis,
+      iconEmphasis: iconEmphasis ?? this.iconEmphasis,
+      border: border ?? this.border,
+      background: background ?? this.background,
+      floatingActionButton: floatingActionButton ?? this.floatingActionButton,
+      task: task ?? this.task,
+      form: form ?? this.form,
+      notification: notification ?? this.notification,
+      projectTimeline: projectTimeline ?? this.projectTimeline,
+      pin: pin ?? this.pin,
+      hoverColor: hoverColor ?? this._hoverColor,
+      appBarTheme: appBarTheme ?? this.appBarTheme,
+      bottomAppBarTheme: bottomAppBarTheme ?? this.bottomAppBarTheme,
+      tooltipTheme: tooltipTheme ?? this._tooltipTheme,
+      popupMenuTheme: popupMenuTheme ?? this._popupMenuTheme,
+      dividerTheme: dividerTheme ?? this._dividerTheme,
+      selectedRowColor: selectedRowColor ?? this._selectedRowColor,
+    );
+  }
 }
 
 
@@ -248,6 +331,7 @@ class ThemeColorPalette$TextEmphasis {
     low = const Color(0x99000000),
     disabled = const Color(0x99000000),
     reversed = const ThemeColorPalette$TextEmphasis$Reversed.light();
+
   /// The different text emphasis
   const ThemeColorPalette$TextEmphasis.dark():
     _accent = const Color(0xff699fcf),
@@ -261,22 +345,52 @@ class ThemeColorPalette$TextEmphasis {
 
   /// Accent color
   ///
-  /// Use `theme.accentColor` instead
+  /// Use `theme.accentColor` instead.
   final Color _accent;
+
   /// Success Color
   final Color success;
+
   /// Error Color
   final Color error;
+
   /// High emphasis
   final Color high;
+
   /// Medium emphasis
   final Color medium;
+
   /// Low emphasis
   final Color low;
+
   /// Disabled emphasis
   final Color disabled;
+
   /// Reversed text emphasis
   final ThemeColorPalette$TextEmphasis$Reversed reversed;
+
+
+  ThemeColorPalette$TextEmphasis copyWith({
+    Color? accent,
+    Color? success,
+    Color? error,
+    Color? high,
+    Color? medium,
+    Color? low,
+    Color? disabled,
+    ThemeColorPalette$TextEmphasis$Reversed? reversed,
+  }) {
+    return ThemeColorPalette$TextEmphasis(
+      accent: accent ?? this._accent,
+      success: success ?? this.success,
+      error: error ?? this.error,
+      high: high ?? this.high,
+      medium: medium ?? this.medium,
+      low: low ?? this.low,
+      disabled: disabled ?? this.disabled,
+      reversed: reversed ?? this.reversed,
+    );
+  }
 }
 
 
@@ -298,6 +412,7 @@ class ThemeColorPalette$TextEmphasis$Reversed {
     medium = const Color(0xdeffffff),
     low = const Color(0x99ffffff),
     disabled = const Color(0x99ffffff);
+
   /// Reversed text emphasis
   const ThemeColorPalette$TextEmphasis$Reversed.dark():
     high = const Color(0xff000000),
@@ -307,12 +422,30 @@ class ThemeColorPalette$TextEmphasis$Reversed {
 
   /// Reversed high emphasis
   final Color high;
+
   /// Reversed medium emphasis
   final Color medium;
+
   /// Reversed low emphasis
   final Color low;
+
   /// Reversed disabled emphasis
   final Color disabled;
+
+
+  ThemeColorPalette$TextEmphasis$Reversed copyWith({
+    Color? high,
+    Color? medium,
+    Color? low,
+    Color? disabled,
+  }) {
+    return ThemeColorPalette$TextEmphasis$Reversed(
+      high: high ?? this.high,
+      medium: medium ?? this.medium,
+      low: low ?? this.low,
+      disabled: disabled ?? this.disabled,
+    );
+  }
 }
 
 
@@ -336,6 +469,7 @@ class ThemeColorPalette$IconEmphasis {
     low = const Color(0x99000000),
     disabled = const Color(0x99000000),
     reversed = const ThemeColorPalette$IconEmphasis$Reversed.light();
+
   /// The different icon emphasis
   const ThemeColorPalette$IconEmphasis.dark():
     high = const Color(0xffffffff),
@@ -346,14 +480,35 @@ class ThemeColorPalette$IconEmphasis {
 
   /// High emphasis
   final Color high;
+
   /// Medium emphasis
   final Color medium;
+
   /// Low emphasis
   final Color low;
+
   /// Disabled emphasis
   final Color disabled;
+
   /// Reversed icon emphasis
   final ThemeColorPalette$IconEmphasis$Reversed reversed;
+
+
+  ThemeColorPalette$IconEmphasis copyWith({
+    Color? high,
+    Color? medium,
+    Color? low,
+    Color? disabled,
+    ThemeColorPalette$IconEmphasis$Reversed? reversed,
+  }) {
+    return ThemeColorPalette$IconEmphasis(
+      high: high ?? this.high,
+      medium: medium ?? this.medium,
+      low: low ?? this.low,
+      disabled: disabled ?? this.disabled,
+      reversed: reversed ?? this.reversed,
+    );
+  }
 }
 
 
@@ -375,6 +530,7 @@ class ThemeColorPalette$IconEmphasis$Reversed {
     medium = const Color(0xdeffffff),
     low = const Color(0x99ffffff),
     disabled = const Color(0x99ffffff);
+
   /// Reversed icon emphasis
   const ThemeColorPalette$IconEmphasis$Reversed.dark():
     high = const Color(0xff000000),
@@ -384,12 +540,30 @@ class ThemeColorPalette$IconEmphasis$Reversed {
 
   /// Reversed high emphasis
   final Color high;
+
   /// Reversed medium emphasis
   final Color medium;
+
   /// Reversed low emphasis
   final Color low;
+
   /// Reversed disabled emphasis
   final Color disabled;
+
+
+  ThemeColorPalette$IconEmphasis$Reversed copyWith({
+    Color? high,
+    Color? medium,
+    Color? low,
+    Color? disabled,
+  }) {
+    return ThemeColorPalette$IconEmphasis$Reversed(
+      high: high ?? this.high,
+      medium: medium ?? this.medium,
+      low: low ?? this.low,
+      disabled: disabled ?? this.disabled,
+    );
+  }
 }
 
 
@@ -410,6 +584,7 @@ class ThemeColorPalette$Border {
     high = const Color(0xff5c5c5c),
     medium = const Color(0xffe0e0e0),
     _divider = const Color(0x0a000000);
+
   /// Borders
   const ThemeColorPalette$Border.dark():
     high = const Color(0xfff5f5f5),
@@ -418,12 +593,27 @@ class ThemeColorPalette$Border {
 
   /// High border
   final Color high;
+
   /// Medium border
   final Color medium;
+
   /// Color for the Dividers
   ///
-  /// Use `theme.dividerColor` instead
+  /// Use `theme.dividerColor` instead.
   final Color _divider;
+
+
+  ThemeColorPalette$Border copyWith({
+    Color? high,
+    Color? medium,
+    Color? divider,
+  }) {
+    return ThemeColorPalette$Border(
+      high: high ?? this.high,
+      medium: medium ?? this.medium,
+      divider: divider ?? this._divider,
+    );
+  }
 }
 
 
@@ -453,6 +643,7 @@ class ThemeColorPalette$Background {
     _scaffold = const Color(0xfff3f2ef),
     _canvas = const Color(0xfff8f8f8),
     _card = const Color(0xffffffff);
+
   /// Backgrounds
   const ThemeColorPalette$Background.dark():
     disabled = const Color(0xff121212),
@@ -464,24 +655,48 @@ class ThemeColorPalette$Background {
 
   /// Disabled background
   final Color disabled;
+
   /// Background color
   ///
-  /// Use `theme.backgroundColor` instead
+  /// Use `theme.backgroundColor` instead.
   final Color _backgroundColor;
+
   /// Background 1
   final Color background1;
+
   /// Scaffold background color
   ///
-  /// Use `theme.scaffoldBackgroundColor` instead
+  /// Use `theme.scaffoldBackgroundColor` instead.
   final Color _scaffold;
+
   /// Canvas background color
   ///
-  /// Use `theme.canvasColor` instead
+  /// Use `theme.canvasColor` instead.
   final Color _canvas;
+
   /// Card Color
   ///
-  /// Use `theme.cardColor` instead
+  /// Use `theme.cardColor` instead.
   final Color _card;
+
+
+  ThemeColorPalette$Background copyWith({
+    Color? disabled,
+    Color? backgroundColor,
+    Color? background1,
+    Color? scaffold,
+    Color? canvas,
+    Color? card,
+  }) {
+    return ThemeColorPalette$Background(
+      disabled: disabled ?? this.disabled,
+      backgroundColor: backgroundColor ?? this._backgroundColor,
+      background1: background1 ?? this.background1,
+      scaffold: scaffold ?? this._scaffold,
+      canvas: canvas ?? this._canvas,
+      card: card ?? this._card,
+    );
+  }
 }
 
 
@@ -506,6 +721,7 @@ class ThemeColorPalette$FloatingActionButton {
     _backgroundColor = const Color(0xff2864ac),
     _foregroundColor = const Color(0xffffffff),
     _disabledElevation = 0.0;
+
   /// Floating action button
   const ThemeColorPalette$FloatingActionButton.dark():
     disabledColor = const Color(0xff225281),
@@ -515,18 +731,36 @@ class ThemeColorPalette$FloatingActionButton {
 
   /// Disabled color
   final Color disabledColor;
+
   /// Background color of the floating action button
   ///
-  /// Use `theme.floatingActionButtonTheme.backgroundColor` instead
+  /// Use `theme.floatingActionButtonTheme.backgroundColor` instead.
   final Color _backgroundColor;
+
   /// Icon color of the floating action button
   ///
-  /// Use `theme.floatingActionButtonTheme.foregroundColor` instead
+  /// Use `theme.floatingActionButtonTheme.foregroundColor` instead.
   final Color _foregroundColor;
+
   /// Disabled elevation of the floating action button
   ///
-  /// Use `theme.floatingActionButtonTheme.disabledElevation` instead
+  /// Use `theme.floatingActionButtonTheme.disabledElevation` instead.
   final double _disabledElevation;
+
+
+  ThemeColorPalette$FloatingActionButton copyWith({
+    Color? disabledColor,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    double? disabledElevation,
+  }) {
+    return ThemeColorPalette$FloatingActionButton(
+      disabledColor: disabledColor ?? this.disabledColor,
+      backgroundColor: backgroundColor ?? this._backgroundColor,
+      foregroundColor: foregroundColor ?? this._foregroundColor,
+      disabledElevation: disabledElevation ?? this._disabledElevation,
+    );
+  }
 }
 
 
@@ -546,6 +780,7 @@ class ThemeColorPalette$Task {
     notStarted = const Color(0xffed6e19),
     workInProgress = const Color(0xffeaa60f),
     completed = const Color(0xff81bf48);
+
   /// Task color palette
   const ThemeColorPalette$Task.dark():
     notStarted = const Color(0xffed6e19),
@@ -554,10 +789,25 @@ class ThemeColorPalette$Task {
 
   /// Not started color
   final Color notStarted;
+
   /// Work in progress color
   final Color workInProgress;
+
   /// Completed color
   final Color completed;
+
+
+  ThemeColorPalette$Task copyWith({
+    Color? notStarted,
+    Color? workInProgress,
+    Color? completed,
+  }) {
+    return ThemeColorPalette$Task(
+      notStarted: notStarted ?? this.notStarted,
+      workInProgress: workInProgress ?? this.workInProgress,
+      completed: completed ?? this.completed,
+    );
+  }
 }
 
 
@@ -579,6 +829,7 @@ class ThemeColorPalette$Form {
     actionRequired = const Color(0xffeaa60f),
     completed = const Color(0xff666666),
     rejected = const Color(0xffc73826);
+
   /// Form color palette
   const ThemeColorPalette$Form.dark():
     draft = const Color(0xffed6e19),
@@ -588,12 +839,30 @@ class ThemeColorPalette$Form {
 
   /// Draft color
   final Color draft;
+
   /// Action required color
   final Color actionRequired;
+
   /// Completed color
   final Color completed;
+
   /// Rejected color
   final Color rejected;
+
+
+  ThemeColorPalette$Form copyWith({
+    Color? draft,
+    Color? actionRequired,
+    Color? completed,
+    Color? rejected,
+  }) {
+    return ThemeColorPalette$Form(
+      draft: draft ?? this.draft,
+      actionRequired: actionRequired ?? this.actionRequired,
+      completed: completed ?? this.completed,
+      rejected: rejected ?? this.rejected,
+    );
+  }
 }
 
 
@@ -609,12 +878,22 @@ class ThemeColorPalette$Notification {
   /// Notification color palette
   const ThemeColorPalette$Notification.light():
     countBubbleColor = const Color(0xfff26716);
+
   /// Notification color palette
   const ThemeColorPalette$Notification.dark():
     countBubbleColor = const Color(0xfff26716);
 
   /// Color of the notification bubble
   final Color countBubbleColor;
+
+
+  ThemeColorPalette$Notification copyWith({
+    Color? countBubbleColor,
+  }) {
+    return ThemeColorPalette$Notification(
+      countBubbleColor: countBubbleColor ?? this.countBubbleColor,
+    );
+  }
 }
 
 
@@ -642,6 +921,7 @@ class ThemeColorPalette$ProjectTimeline {
     today = const Color(0xff2864ac),
     active = const Color(0xffeef3f8),
     progress = const Color(0xff2864ac);
+
   /// Project time line color palette
   const ThemeColorPalette$ProjectTimeline.dark():
     plannedLight = const Color(0xffeef3f8),
@@ -654,18 +934,45 @@ class ThemeColorPalette$ProjectTimeline {
 
   /// Planned disc color
   final Color plannedLight;
+
   /// Planned text color
   final Color planned;
+
   /// Start color
   final Color start;
+
   /// Completed color
   final Color completed;
+
   /// Today disc color
   final Color today;
+
   /// Color for the Timeline Base
   final Color active;
+
   /// Color for the active part of the Timeline bar (Start -> Today/Completed)
   final Color progress;
+
+
+  ThemeColorPalette$ProjectTimeline copyWith({
+    Color? plannedLight,
+    Color? planned,
+    Color? start,
+    Color? completed,
+    Color? today,
+    Color? active,
+    Color? progress,
+  }) {
+    return ThemeColorPalette$ProjectTimeline(
+      plannedLight: plannedLight ?? this.plannedLight,
+      planned: planned ?? this.planned,
+      start: start ?? this.start,
+      completed: completed ?? this.completed,
+      today: today ?? this.today,
+      active: active ?? this.active,
+      progress: progress ?? this.progress,
+    );
+  }
 }
 
 
@@ -683,6 +990,7 @@ class ThemeColorPalette$Pin {
   const ThemeColorPalette$Pin.light():
     iconColor = const Color(0xffffffff),
     disabledBackgroundColor = const Color(0xff8d8d8d);
+
   /// Pin theme
   const ThemeColorPalette$Pin.dark():
     iconColor = const Color(0xffffffff),
@@ -690,8 +998,20 @@ class ThemeColorPalette$Pin {
 
   /// Icon Color
   final Color iconColor;
+
   /// The background color when the pin is disabled
   final Color disabledBackgroundColor;
+
+
+  ThemeColorPalette$Pin copyWith({
+    Color? iconColor,
+    Color? disabledBackgroundColor,
+  }) {
+    return ThemeColorPalette$Pin(
+      iconColor: iconColor ?? this.iconColor,
+      disabledBackgroundColor: disabledBackgroundColor ?? this.disabledBackgroundColor,
+    );
+  }
 }
 
 
@@ -711,6 +1031,7 @@ class ThemeColorPalette$AppBarTheme {
   const ThemeColorPalette$AppBarTheme.light():
     _color = const Color(0xff5182bb),
     _foregroundColor = const Color(0xffffffff);
+
   /// 
   const ThemeColorPalette$AppBarTheme.dark():
     _color = const Color(0xff1e1e1e),
@@ -718,12 +1039,24 @@ class ThemeColorPalette$AppBarTheme {
 
   /// Color of the app bar
   ///
-  /// Use `theme.appBarTheme.color` instead
+  /// Use `theme.appBarTheme.color` instead.
   final Color _color;
+
   /// Text and icon color of the app bar
   ///
-  /// Use `theme.appBarTheme.foregroundColor` instead
+  /// Use `theme.appBarTheme.foregroundColor` instead.
   final Color _foregroundColor;
+
+
+  ThemeColorPalette$AppBarTheme copyWith({
+    Color? color,
+    Color? foregroundColor,
+  }) {
+    return ThemeColorPalette$AppBarTheme(
+      color: color ?? this._color,
+      foregroundColor: foregroundColor ?? this._foregroundColor,
+    );
+  }
 }
 
 
@@ -740,14 +1073,24 @@ class ThemeColorPalette$BottomAppBarTheme {
   /// 
   const ThemeColorPalette$BottomAppBarTheme.light():
     _color = const Color(0xfff8f8f8);
+
   /// 
   const ThemeColorPalette$BottomAppBarTheme.dark():
     _color = const Color(0xff2e2e2e);
 
   /// Color of the bottom app bar
   ///
-  /// Use `theme.bottomAppBarTheme.color` instead
+  /// Use `theme.bottomAppBarTheme.color` instead.
   final Color _color;
+
+
+  ThemeColorPalette$BottomAppBarTheme copyWith({
+    Color? color,
+  }) {
+    return ThemeColorPalette$BottomAppBarTheme(
+      color: color ?? this._color,
+    );
+  }
 }
 
 
@@ -755,7 +1098,7 @@ class ThemeColorPalette$BottomAppBarTheme {
 
 /// Tooltip theme
 ///
-/// Use `theme.tooltipTheme` instead
+/// Use `theme.tooltipTheme` instead.
 class ThemeColorPalette$TooltipTheme {
   /// Tooltip theme
   const ThemeColorPalette$TooltipTheme({
@@ -769,6 +1112,7 @@ class ThemeColorPalette$TooltipTheme {
   const ThemeColorPalette$TooltipTheme.light():
     _decoration = const ThemeColorPalette$TooltipTheme$Decoration.light(),
     _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle.light();
+
   /// Tooltip theme
   const ThemeColorPalette$TooltipTheme.dark():
     _decoration = const ThemeColorPalette$TooltipTheme$Decoration.dark(),
@@ -776,12 +1120,24 @@ class ThemeColorPalette$TooltipTheme {
 
   /// Tooltip decoration
   ///
-  /// Use `theme.decoration` instead
+  /// Use `theme.decoration` instead.
   final ThemeColorPalette$TooltipTheme$Decoration _decoration;
+
   /// Tooltip text textStyle
   ///
-  /// Use `theme.tooltipTheme.textStyle` instead
+  /// Use `theme.tooltipTheme.textStyle` instead.
   final ThemeColorPalette$TooltipTheme$TextStyle _textStyle;
+
+
+  ThemeColorPalette$TooltipTheme copyWith({
+    ThemeColorPalette$TooltipTheme$Decoration? decoration,
+    ThemeColorPalette$TooltipTheme$TextStyle? textStyle,
+  }) {
+    return ThemeColorPalette$TooltipTheme(
+      decoration: decoration ?? this._decoration,
+      textStyle: textStyle ?? this._textStyle,
+    );
+  }
 }
 
 
@@ -789,7 +1145,7 @@ class ThemeColorPalette$TooltipTheme {
 
 /// Tooltip decoration
 ///
-/// Use `theme.decoration` instead
+/// Use `theme.decoration` instead.
 class ThemeColorPalette$TooltipTheme$Decoration {
   /// Tooltip decoration
   const ThemeColorPalette$TooltipTheme$Decoration({
@@ -803,6 +1159,7 @@ class ThemeColorPalette$TooltipTheme$Decoration {
   const ThemeColorPalette$TooltipTheme$Decoration.light():
     _color = const Color(0xff000000),
     _borderRadius = 4.0;
+
   /// Tooltip decoration
   const ThemeColorPalette$TooltipTheme$Decoration.dark():
     _color = const Color(0xffffffff),
@@ -810,12 +1167,24 @@ class ThemeColorPalette$TooltipTheme$Decoration {
 
   /// Tooltip decoration color
   ///
-  /// Use `theme.tooltipTheme.decoration` instead
+  /// Use `theme.tooltipTheme.decoration` instead.
   final Color _color;
+
   /// Tooltip decoration radius
   ///
-  /// Use `theme.tooltipTheme.decoration` instead
+  /// Use `theme.tooltipTheme.decoration` instead.
   final double _borderRadius;
+
+
+  ThemeColorPalette$TooltipTheme$Decoration copyWith({
+    Color? color,
+    double? borderRadius,
+  }) {
+    return ThemeColorPalette$TooltipTheme$Decoration(
+      color: color ?? this._color,
+      borderRadius: borderRadius ?? this._borderRadius,
+    );
+  }
 }
 
 
@@ -823,7 +1192,7 @@ class ThemeColorPalette$TooltipTheme$Decoration {
 
 /// Tooltip text textStyle
 ///
-/// Use `theme.tooltipTheme.textStyle` instead
+/// Use `theme.tooltipTheme.textStyle` instead.
 class ThemeColorPalette$TooltipTheme$TextStyle {
   /// Tooltip text textStyle
   const ThemeColorPalette$TooltipTheme$TextStyle({
@@ -834,14 +1203,24 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
   /// Tooltip text textStyle
   const ThemeColorPalette$TooltipTheme$TextStyle.light():
     _color = const Color(0xffffffff);
+
   /// Tooltip text textStyle
   const ThemeColorPalette$TooltipTheme$TextStyle.dark():
     _color = const Color(0xff000000);
 
   /// Tooltip text textStyle color
   ///
-  /// Use `theme.tooltipTheme.textStyle.color` instead
+  /// Use `theme.tooltipTheme.textStyle.color` instead.
   final Color _color;
+
+
+  ThemeColorPalette$TooltipTheme$TextStyle copyWith({
+    Color? color,
+  }) {
+    return ThemeColorPalette$TooltipTheme$TextStyle(
+      color: color ?? this._color,
+    );
+  }
 }
 
 
@@ -849,7 +1228,7 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
 
 /// Popup menu theme
 ///
-/// Use `theme.popupMenuTheme` instead
+/// Use `theme.popupMenuTheme` instead.
 class ThemeColorPalette$PopupMenuTheme {
   /// Popup menu theme
   const ThemeColorPalette$PopupMenuTheme({
@@ -860,14 +1239,24 @@ class ThemeColorPalette$PopupMenuTheme {
   /// Popup menu theme
   const ThemeColorPalette$PopupMenuTheme.light():
     _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle.light();
+
   /// Popup menu theme
   const ThemeColorPalette$PopupMenuTheme.dark():
     _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle.dark();
 
   /// Popup menu theme text style
   ///
-  /// Use `theme.popupMenuTheme.textStyle` instead
+  /// Use `theme.popupMenuTheme.textStyle` instead.
   final ThemeColorPalette$PopupMenuTheme$TextStyle _textStyle;
+
+
+  ThemeColorPalette$PopupMenuTheme copyWith({
+    ThemeColorPalette$PopupMenuTheme$TextStyle? textStyle,
+  }) {
+    return ThemeColorPalette$PopupMenuTheme(
+      textStyle: textStyle ?? this._textStyle,
+    );
+  }
 }
 
 
@@ -875,7 +1264,7 @@ class ThemeColorPalette$PopupMenuTheme {
 
 /// Popup menu theme text style
 ///
-/// Use `theme.popupMenuTheme.textStyle` instead
+/// Use `theme.popupMenuTheme.textStyle` instead.
 class ThemeColorPalette$PopupMenuTheme$TextStyle {
   /// Popup menu theme text style
   const ThemeColorPalette$PopupMenuTheme$TextStyle({
@@ -886,14 +1275,24 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
   /// Popup menu theme text style
   const ThemeColorPalette$PopupMenuTheme$TextStyle.light():
     _color = const Color(0xff2864ac);
+
   /// Popup menu theme text style
   const ThemeColorPalette$PopupMenuTheme$TextStyle.dark():
     _color = const Color(0xff699fcf);
 
   /// Popup menu theme text style color
   ///
-  /// Use `theme.popupMenuTheme.textStyle.color` instead
+  /// Use `theme.popupMenuTheme.textStyle.color` instead.
   final Color _color;
+
+
+  ThemeColorPalette$PopupMenuTheme$TextStyle copyWith({
+    Color? color,
+  }) {
+    return ThemeColorPalette$PopupMenuTheme$TextStyle(
+      color: color ?? this._color,
+    );
+  }
 }
 
 
@@ -901,7 +1300,7 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
 
 /// Divider theme
 ///
-/// Use `theme.dividerTheme` instead
+/// Use `theme.dividerTheme` instead.
 class ThemeColorPalette$DividerTheme {
   /// Divider theme
   const ThemeColorPalette$DividerTheme({
@@ -915,6 +1314,7 @@ class ThemeColorPalette$DividerTheme {
   const ThemeColorPalette$DividerTheme.light():
     _color = const Color(0x0a000000),
     _thickness = 2.0;
+
   /// Divider theme
   const ThemeColorPalette$DividerTheme.dark():
     _color = const Color(0xff434343),
@@ -922,12 +1322,24 @@ class ThemeColorPalette$DividerTheme {
 
   /// Divider color
   ///
-  /// Use `theme.dividerColor` instead
+  /// Use `theme.dividerColor` instead.
   final Color _color;
+
   /// Divider thickness
   ///
-  /// Use `theme.dividerTheme.thickness` instead
+  /// Use `theme.dividerTheme.thickness` instead.
   final double _thickness;
+
+
+  ThemeColorPalette$DividerTheme copyWith({
+    Color? color,
+    double? thickness,
+  }) {
+    return ThemeColorPalette$DividerTheme(
+      color: color ?? this._color,
+      thickness: thickness ?? this._thickness,
+    );
+  }
 }
 
 

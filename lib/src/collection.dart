@@ -1,6 +1,6 @@
 part of theme_color_palette;
 
-/// Collection
+/// Collection.
 class Collection extends JsonToDart {
   /// Collection from json
   Collection.fromJson({
@@ -20,7 +20,7 @@ class Collection extends JsonToDart {
     );
   }
 
-  /// List of sub-collections
+  /// List of sub-collections.
   final List<JsonToDart> collections = [];
 
   @override
