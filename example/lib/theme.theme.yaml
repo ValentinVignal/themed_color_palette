@@ -57,6 +57,10 @@
   # If a theme is not specified for an object, it will use the value of the light theme
   - light
   - dark
+.extraThemes:
+  # Those are themes not handle by the generator.
+  - lightGrey
+  - darkGrey
 .name: themeColorPalette
 .description: The Theme Color Palette
 .shared:

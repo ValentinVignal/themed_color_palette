@@ -27,7 +27,7 @@ class ColorPalette extends JsonToDart {
       : version = json['.version'] as String,
         super(json: json, names: [json['.name'] as String]) {
     // Themes.
-    _addThemes(List<String>.from(json['.themes'] as List));
+    _addThemes(List<String>.from(json['.themes'] as List), json['.extraThemes']);
     // Check the themes have valid names (camelCase)
     baseName = names.first;
     sharedValues.addAll((json['.shared'] as Map)
@@ -40,30 +40,39 @@ class ColorPalette extends JsonToDart {
         .toList());
   }
 
-  /// The base name for themed values
+  /// The base name for themed values.
   static String baseName = '';
 
-  /// The based name for shared values
+  /// The based name for shared values.
   static const sharedBaseName = '.shared';
 
-  static void _addThemes(List<String> themes) {
-    // Add it to the global variable
+  static void _addThemes(List<String> themes, dynamic? extraThemes) {
+    // Add it to the global variable.
     Themes.themes.addAll(themes);
-    // Check the names
+    // Check the names.
     for (final theme in themes) {
       if (!camelCaseRegExp.hasMatch(theme)) {
         errors.add('Theme "$theme" is not in camelCase');
       }
     }
+    if (extraThemes != null) {
+      final extraThemesList = List<String>.from(extraThemes as List);
+      Themes.extraThemes.addAll(extraThemesList);
+      for (final theme in extraThemesList) {
+        if (!camelCaseRegExp.hasMatch(theme)) {
+          errors.add('Extra theme "$theme" is not in camelCase');
+        }
+      }
+    }
   }
 
-  /// List of collections (themed)
+  /// List of collections (themed).
   final List<JsonToDart> collections = [];
 
-  /// List of shared values
+  /// List of shared values.
   final List<SharedJsonToDart> sharedValues = [];
 
-  /// Version number
+  /// Version number.
   final String version;
 
   @override
@@ -75,41 +84,61 @@ class ColorPalette extends JsonToDart {
   @override
   String dartDefine() {
     final buffer = StringBuffer()
-      ..writeLine(0, '// Version: $version')
+      ..writeLine(0, '// Version: $version.')
       ..writeln()
-      ..writeLine(0, '/// Different Themes')
+      ..writeLine(0, '/// Different Themes.')
       ..writeLine(0, 'enum Themes {');
 
     // Add the enum
     for (final theme in Themes.themes) {
-      buffer
-        ..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme')
-        ..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
+      buffer..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme.')..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
+    }
+    for (final extraTheme in Themes.extraThemes) {
+      buffer..writeLine(1, '/// ${JsonToDart.firstUpperCase(extraTheme)} extra theme.')..writeLine(1, '${JsonToDart.firstLowerCase(extraTheme)},');
     }
     buffer
       ..writeLine(0, '}')
       ..writeln();
 
-    // Extension on enum
-    final extensionBody = StringBuffer();
+    // * Extension on enum.
+    // Color palette.
+    final extensionColorPaletteBody = StringBuffer();
     for (final theme in Themes.themes.sublist(1)) {
-      extensionBody
-        ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')
-        ..writeLine(4, 'return ${dartConstructor(theme)};');
+      extensionColorPaletteBody..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')..writeLine(4, 'return ${dartConstructor(theme)};');
     }
-    // Default theme
-    extensionBody
+    // Default theme.
+    extensionColorPaletteBody
       ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(Themes.defaultTheme)}:')
       ..writeLine(3, 'default:')
-      ..writeLine(4, 'return ${dartConstructor(Themes.defaultTheme)};');
+      ..write('        return ${dartConstructor(Themes.defaultTheme)};');
+
+    // Is extra.
+    final extensionIsExtraBody = StringBuffer();
+    for (final extraTheme in Themes.extraThemes) {
+      extensionIsExtraBody.writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(extraTheme)}:');
+    }
+    if (Themes.extraThemes.isNotEmpty) {
+      extensionIsExtraBody.writeLine(4, 'return true;');
+    }
+    extensionIsExtraBody
+      ..writeLine(3, 'default:')
+      ..write('        return false;');
+
     buffer
       ..write('''
-/// Extension on [Themes]
+/// Extension on [Themes].
 extension ThemesExtension on Themes {
-  /// Color palette
+  /// Color palette.
   ${JsonToDart.firstUpperCase(baseName)} get colorPalette {
     switch (this) {
-$extensionBody
+$extensionColorPaletteBody
+    }
+  }
+
+  /// Whether or not it is an extra theme.
+  bool get isExtra {
+    switch (this) {
+$extensionIsExtraBody
     }
   }
 }

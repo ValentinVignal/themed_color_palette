@@ -2,19 +2,23 @@
 
 part of 'theme.dart';
 
-// Version: 0.0.0
+// Version: 0.0.0.
 
-/// Different Themes
+/// Different Themes.
 enum Themes {
-  /// Light theme
+  /// Light theme.
   light,
-  /// Dark theme
+  /// Dark theme.
   dark,
+  /// LightGrey extra theme.
+  lightGrey,
+  /// DarkGrey extra theme.
+  darkGrey,
 }
 
-/// Extension on [Themes]
+/// Extension on [Themes].
 extension ThemesExtension on Themes {
-  /// Color palette
+  /// Color palette.
   ThemeColorPalette get colorPalette {
     switch (this) {
       case Themes.dark:
@@ -22,7 +26,17 @@ extension ThemesExtension on Themes {
       case Themes.light:
       default:
         return const ThemeColorPalette.light();
+    }
+  }
 
+  /// Whether or not it is an extra theme.
+  bool get isExtra {
+    switch (this) {
+      case Themes.lightGrey:
+      case Themes.darkGrey:
+        return true;
+      default:
+        return false;
     }
   }
 }

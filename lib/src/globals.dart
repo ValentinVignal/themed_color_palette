@@ -8,6 +8,9 @@ mixin Themes {
   /// The list of themes.
   static final List<String> themes = [];
 
+  /// The list of extra themes.
+  static final List<String> extraThemes = [];
+
   /// The default theme is the first one in the list of themes.
   static String get defaultTheme => themes.first;
 }
