@@ -128,6 +128,7 @@
     dark: dark
   accentColor:
     .description: The accent Color
+    .deprecated: accent color is deprecated
     .flutter: theme.accentColor
     .type: color
     light: ff2864ac
@@ -202,6 +203,7 @@
         withOpacity:
           import: .shared.opacity.disabled
     reversed:
+      .deprecated: reversed is deprecated
       .description: Reversed text emphasis
       high:
         .description: Reversed high emphasis

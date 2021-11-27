@@ -12,11 +12,12 @@ abstract class JsonToDart {
   JsonToDart({
     required Map<String, dynamic> json,
     required this.names,
-  })  : description = json['.description'] as String? ?? '',
+  })   : description = json['.description'] as String? ?? '',
         // Those are not unnecessary parenthesis.
         // If we remove them, the linter take `?` from `String?` as a conditional operator
         // ignore: unnecessary_parenthesis
-        flutterThemeValue = (json['.flutter'] as String?) {
+        flutterThemeValue = json['.flutter'] as String? ?? '',
+        deprecationMessage = json['.deprecated'] as String? ?? '' {
     // Check the names
     // Only check the last one as the previous ones have already been checked
     if (!camelCaseRegExp.hasMatch(names.last)) {
@@ -75,16 +76,22 @@ abstract class JsonToDart {
   }
 
   /// The value to use in the flutter material theme.
-  final String? flutterThemeValue;
+  final String flutterThemeValue;
 
   /// Whether or not it is private.
-  bool get isPrivate => flutterThemeValue?.isNotEmpty ?? false;
+  bool get isPrivate => flutterThemeValue.isNotEmpty;
 
   /// The Private message.
   String get privacyComment {
     assert(isPrivate, 'The object is not private');
-    return '/// Use `${flutterThemeValue!}` instead.';
+    return '/// Use `$flutterThemeValue` instead.';
   }
+
+  /// If not empty, the field is deprecated and this is the deprecation message
+  final String deprecationMessage;
+
+  /// `true` if the field is deprecated.
+  bool get isDeprecated => deprecationMessage.isNotEmpty;
 
   // *  ---------- static ----------
 
@@ -110,9 +117,10 @@ abstract class JsonToDart {
       ..writeLine(0, comment);
 
     if (isPrivate) {
-      buffer
-        ..writeLine(0, '///')
-        ..writeLine(0, privacyComment);
+      buffer..writeLine(0, '///')..writeLine(0, privacyComment);
+    }
+    if (isDeprecated) {
+      buffer.writeLine(0, '@Deprecated(\'$deprecationMessage\')');
     }
     buffer
       ..writeLine(0, 'class $className {')
@@ -199,10 +207,12 @@ abstract class JsonToDart {
         ..writeln()
         ..writeLine(1, value.comment);
       if (value.isPrivate) {
-        buffer
-          ..writeLine(1, '///')
-          ..writeLine(1, value.privacyComment);
+        buffer..writeLine(1, '///')..writeLine(1, value.privacyComment);
       }
+      if (value.isDeprecated) {
+        buffer.writeLine(1, '@Deprecated(\'${value.deprecationMessage}\')');
+      }
+
       buffer.writeLine(1, value.dartParameter);
     }
 
@@ -211,12 +221,13 @@ abstract class JsonToDart {
       ..writeln()
       ..writeLine(1, '$className copyWith({');
     for (final value in values) {
+      if (value.isDeprecated) {
+        buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
+      }
       buffer.writeLine(2, '${value.className}? ${value.name},');
     }
 
-    buffer
-      ..writeLine(1, '}) {')
-      ..writeLine(2, 'return $className(');
+    buffer..writeLine(1, '}) {')..writeLine(2, 'return $className(');
     for (final value in values) {
       buffer.writeLine(3, '${value.name}: ${value.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},');
     }

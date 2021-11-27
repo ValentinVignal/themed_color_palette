@@ -202,6 +202,7 @@ class ThemeColorPalette {
   /// The accent Color
   ///
   /// Use `theme.accentColor` instead.
+    @Deprecated('accent color is deprecated')
   final Color _accentColor;
 
   /// Primary color
@@ -290,6 +291,7 @@ class ThemeColorPalette {
 
   ThemeColorPalette copyWith({
     Brightness? brightness,
+    @Deprecated('accent color is deprecated')
     Color? accentColor,
     Color? primaryColor,
     Color? primaryColorLight,
@@ -446,6 +448,7 @@ class ThemeColorPalette$TextEmphasis {
   final Color disabled;
 
   /// Reversed text emphasis
+    @Deprecated('reversed is deprecated')
   final ThemeColorPalette$TextEmphasis$Reversed reversed;
 
   ThemeColorPalette$TextEmphasis copyWith({
@@ -456,6 +459,7 @@ class ThemeColorPalette$TextEmphasis {
     Color? medium,
     Color? low,
     Color? disabled,
+    @Deprecated('reversed is deprecated')
     ThemeColorPalette$TextEmphasis$Reversed? reversed,
   }) {
     return ThemeColorPalette$TextEmphasis(
@@ -487,6 +491,7 @@ class ThemeColorPalette$TextEmphasis {
 // -------------------- ThemeColorPalette$TextEmphasis$Reversed --------------------
 
 /// Reversed text emphasis
+@Deprecated('reversed is deprecated')
 class ThemeColorPalette$TextEmphasis$Reversed {
   /// Reversed text emphasis
   const ThemeColorPalette$TextEmphasis$Reversed({
