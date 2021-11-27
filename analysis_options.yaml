@@ -4,10 +4,7 @@
 analyzer:
   exclude:
     - "**/*.g.dart"
-    - "lib/graphql_api.graphql.dart"
-    - "lib/mobile/routes/names.dart"
-    - "lib/shared/constants/tokens.dart"
-    - "lib/generated_plugin_registrant.dart" # This file is automatically created when you debug on web
+    - example/**
   strong-mode:
     implicit-casts: false
     implicit-dynamic: true
