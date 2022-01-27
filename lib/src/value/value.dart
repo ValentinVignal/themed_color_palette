@@ -8,36 +8,38 @@ abstract class Value {
     required this.path,
     required this.theme,
   }) : import = value is Map ? value['import'] as String? : null {
-    allValues[_allValuesKey(path: path, theme: theme)] = this;
+    allValues[_id(path: path, theme: theme)] = this;
   }
 
   /// Separator for the import string format
   static const importSeparator = '.';
 
+  /// Separator between the path and the theme.
+  static const themeSeparator = '..';
+
   // The value key when the value is saved
-  static String _allValuesKey({required List<String> path, required String? theme}) {
-    final _pathString = path.map(JsonToDart.firstLowerCase).join(importSeparator);
+  static String _id({required List<String> path, required String? theme}) {
+    final _pathString = path.map((_path) => _path.firstLowerCase).join(importSeparator);
     if (theme == null) {
       // This is a shared value
-      return _pathString;
+      return [BaseName.shared, _pathString].join(importSeparator);
     } else {
       // This is a themed value
-      return '$_pathString$divider${JsonToDart.firstLowerCase(theme)}';
+      return '${BaseName.themed}$importSeparator$_pathString$themeSeparator${theme.firstLowerCase}';
     }
   }
 
   // The value key when the value is imported
 
-  static String _allValuesImportKey({required String path, required String? theme}) {
-    final isShared = path.startsWith(ColorPalette.sharedBaseName);
+  static String _importToId({required String import, required String? theme}) {
+    final isShared = import.startsWith(BaseName.shared);
     late String _pathString;
     if (isShared) {
-      _pathString = ColorPalette.sharedBaseName +
+      _pathString = BaseName.shared +
           importSeparator +
-          path.substring(ColorPalette.sharedBaseName.length + 1).split(importSeparator).map(JsonToDart.firstLowerCase).join(importSeparator);
+          import.substring(BaseName.shared.length + 1).split(importSeparator).map((_path) => _path.firstLowerCase).join(importSeparator);
     } else {
-      _pathString =
-          JsonToDart.firstLowerCase(ColorPalette.baseName) + importSeparator + path.split(importSeparator).map(JsonToDart.firstLowerCase).join(importSeparator);
+      _pathString = BaseName.themed.firstLowerCase + importSeparator + import.split(importSeparator).map((_path) => _path.firstLowerCase).join(importSeparator);
     }
 
     if (isShared) {
@@ -45,7 +47,7 @@ abstract class Value {
       return _pathString;
     } else {
       // This is a themed value
-      return '$_pathString$divider${JsonToDart.firstLowerCase(theme!)}';
+      return '$_pathString$themeSeparator${theme!.firstLowerCase}';
     }
   }
 

@@ -5,8 +5,8 @@ class ThemedValue extends ThemedJsonToDart {
   /// Themed Value.
   ThemedValue({
     required Map<String, dynamic> json,
-    List<String> names = const [],
-  }) : super(json: json, names: names) {
+    required BuildContext context,
+  }) : super(json: json, context: context) {
     type = ValueTypeExtension.fromString(json['.type'] as String);
     final values = Map.fromEntries(json.entries.where((entry) => !entry.key.startsWith('.')));
     final defaultValue = values[Themes.defaultTheme];
@@ -17,7 +17,7 @@ class ThemedValue extends ThemedJsonToDart {
           Value.fromJson(
             value: values[theme] ?? defaultValue,
             type: type,
-            path: names,
+            path: context.names,
             theme: theme,
           ),
         ),
@@ -40,7 +40,7 @@ class ThemedValue extends ThemedJsonToDart {
   }
 
   @override
-  String dartDefine(DartDefineContext context) => '';
+  String dartDefine(DartDefineContext dartDefineContext) => '';
 
   @override
   String toJsonString() => instanceName;

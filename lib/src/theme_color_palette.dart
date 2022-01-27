@@ -25,28 +25,38 @@ class ColorPalette extends ThemedJsonToDart {
   /// [ColorPalette] from Json.
   ColorPalette.fromJson({required Map<String, dynamic> json})
       : version = json['.version'] as String,
-        super(json: json, names: [json['.name'] as String]) {
+        super(
+          json: json,
+          context: BuildContext(
+            names: [json['.name'] as String],
+          ),
+        ) {
     // Themes.
     _addThemes(List<String>.from(json['.themes'] as List));
-    _addPlatforms(List<String>.from(json['.platforms'] as List? ?? []));
+    BaseName.colorPalette = context.name.firstUpperCase;
+    _addPlatforms();
     // Check the themes have valid names (camelCase)
-    baseName = names.first;
-    sharedValues.addAll((json['.shared'] as Map)
+    sharedValues.addAll((json[BaseName.shared] as Map)
         .entries
-        .map((entry) => SharedJsonToDart.fromJson(json: entry.value as Map<String, dynamic>, names: [sharedBaseName, entry.key as String]))
+        .map(
+          (entry) => SharedJsonToDart.fromJson(
+            json: entry.value as Map<String, dynamic>,
+            context: BuildContext(names: [entry.key as String]),
+          ),
+        )
         .toList());
-    collections.addAll((json['.themed'] as Map)
+    collections.addAll((json[BaseName.themed] as Map)
         .entries
-        // TODO(Valentin): Pass a context object (names + platforms).
-        .map((entry) => ThemedJsonToDart.fromJson(json: entry.value as Map<String, dynamic>, names: [baseName, entry.key as String]))
+        .map(
+          (entry) => ThemedJsonToDart.fromJson(
+            json: entry.value as Map<String, dynamic>,
+            context: context.copyWith(
+              names: [entry.key as String],
+            ),
+          ),
+        )
         .toList());
   }
-
-  /// The base name for themed values.
-  static String baseName = '';
-
-  /// The based name for shared values.
-  static const sharedBaseName = '.shared';
 
   static void _addThemes(List<String> themes) {
     // Add it to the global variable.
@@ -59,11 +69,11 @@ class ColorPalette extends ThemedJsonToDart {
     }
   }
 
-  static void _addPlatforms(List<String> platforms) {
+  void _addPlatforms() {
     // Add it to the global variable.
-    Themes.platforms.addAll(platforms);
+    Themes.platforms.addAll(context.platforms);
     // Check the names.
-    for (final platform in platforms) {
+    for (final platform in context.platforms) {
       if (!camelCaseRegExp.hasMatch(platform)) {
         errors.add('Platform "$platform" is not in camelCase');
       }
@@ -86,7 +96,10 @@ class ColorPalette extends ThemedJsonToDart {
   List<SharedJsonToDart> get constants => sharedValues;
 
   @override
-  String dartDefine(DartDefineContext context) {
+  String get className => context.className;
+
+  @override
+  String dartDefine(DartDefineContext dartDefineContext) {
     final buffer = StringBuffer()
       ..writeLine(0, '// Version: $version.')
       ..writeln()
@@ -96,13 +109,13 @@ class ColorPalette extends ThemedJsonToDart {
     // Add the enum
     for (final theme in Themes.themes) {
       buffer
-        ..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme.')
-        ..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
+        ..writeLine(1, '/// ${theme.firstUpperCase} theme.')
+        ..writeLine(1, '${theme.firstLowerCase},');
     }
     for (final extraTheme in Themes.extraThemes) {
       buffer
-        ..writeLine(1, '/// ${JsonToDart.firstUpperCase(extraTheme)} extra theme.')
-        ..writeLine(1, '${JsonToDart.firstLowerCase(extraTheme)},');
+        ..writeLine(1, '/// ${extraTheme.firstLowerCase} extra theme.')
+        ..writeLine(1, '${extraTheme.firstLowerCase},');
     }
     buffer
       ..writeLine(0, '}')
@@ -113,12 +126,12 @@ class ColorPalette extends ThemedJsonToDart {
     final extensionColorPaletteBody = StringBuffer();
     for (final theme in Themes.themes.sublist(1)) {
       extensionColorPaletteBody
-        ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')
+        ..writeLine(3, 'case Themes.${theme.firstLowerCase}:')
         ..writeLine(4, 'return ${dartConstructor(theme)};');
     }
     // Default theme.
     extensionColorPaletteBody
-      ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(Themes.defaultTheme)}:')
+      ..writeLine(3, 'case Themes.${Themes.defaultTheme.firstLowerCase}:')
       ..writeLine(3, 'default:')
       ..write('        return ${dartConstructor(Themes.defaultTheme)};');
 
@@ -126,7 +139,7 @@ class ColorPalette extends ThemedJsonToDart {
 /// Extension on [Themes].
 extension ThemesExtension on Themes {
   /// Color palette.
-  ${JsonToDart.firstUpperCase(baseName)} get colorPalette {
+  ${context.baseName} get colorPalette {
     switch (this) {
 $extensionColorPaletteBody
     }

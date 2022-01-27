@@ -16,15 +16,15 @@ class Color extends Value {
       if (color.containsKey('value')) {
         this.color = color['value'] as String;
       } else {
-        this.color = (allValues[Value._allValuesImportKey(
-          path: color['import'] as String,
+        final importId = Value._importToId(
+          import: color['import'] as String,
           theme: theme,
-        )]! as Color)
-            .value;
+        );
+        this.color = (allValues[importId]! as Color).value;
       }
       if (color['withOpacity'] is Map) {
-        opacity = (allValues[Value._allValuesImportKey(
-          path: (color['withOpacity'] as Map)['import'] as String,
+        opacity = (allValues[Value._importToId(
+          import: (color['withOpacity'] as Map)['import'] as String,
           theme: theme,
         )]! as Double)
             .value;

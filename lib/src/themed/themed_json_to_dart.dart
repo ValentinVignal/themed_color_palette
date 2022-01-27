@@ -7,20 +7,20 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// {@macro valentin_vignal.theme_color_palette.themed_json_to_dart}
   ThemedJsonToDart({
     required Map<String, dynamic> json,
-    required List<String> names,
+    required BuildContext context,
   }) : super(
           json: json,
-          names: names,
+          context: context,
         );
 
   /// From json constructor
-  factory ThemedJsonToDart.fromJson({required Map<String, dynamic> json, List<String> names = const []}) {
+  factory ThemedJsonToDart.fromJson({required Map<String, dynamic> json, required BuildContext context}) {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
-        return ThemedCollection.fromJson(json: json, names: names);
+        return ThemedCollection.fromJson(json: json, context: context);
       case ObjectType.value:
-        return ThemedValue(json: json, names: names);
+        return ThemedValue(json: json, context: context);
     }
   }
 
@@ -33,7 +33,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
   ///   const ParentName1$ParentName2$ObjectName.theme2();
   /// }
   /// ```
-  String dartDefine(DartDefineContext context) {
+  String dartDefine(DartDefineContext dartDefineContext) {
     final buffer = StringBuffer()
       ..writeLine(0, '// -------------------- $className --------------------')
       ..writeln()
@@ -58,7 +58,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
       buffer.writeLine(1, 'const $className({');
       for (final value in values) {
         if (value.isPrivate) {
-          buffer.writeLine(2, 'required ${value.className} ${value.name},');
+          buffer.writeLine(2, 'required ${value.className} ${value.context.name},');
         } else {
           buffer.writeLine(2, 'required this.${value.instanceName},');
         }
@@ -67,8 +67,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
         buffer.writeLine(1, '}):');
         final privateValues = values.where((value) => value.isPrivate);
         for (final entry in privateValues.toList().asMap().entries) {
-          final initializer =
-              '${entry.value.instanceName} = ${JsonToDart.firstLowerCase(entry.value.names.last)}' + (entry.key == privateValues.length - 1 ? ';' : ',');
+          final initializer = '${entry.value.instanceName} = ${entry.value.context.name.firstLowerCase}' + (entry.key == privateValues.length - 1 ? ';' : ',');
           buffer.writeLine(2, initializer);
         }
       } else {
@@ -103,7 +102,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
       ..writeln()
       ..writeLine(1, '/// From json.');
     final jsonInitializers = values.map((value) {
-      return '${value.instanceName} = json[\'${value.name}\'] as ${value.className}';
+      return '${value.instanceName} = json[\'${value.context.name}\'] as ${value.className}';
     });
     final fromJsonConstructorLine = '$className.fromJson(Map<String, dynamic> json)';
     if (jsonInitializers.isEmpty) {
@@ -113,13 +112,13 @@ abstract class ThemedJsonToDart extends JsonToDart {
       for (final entry in values.asMap().entries) {
         final endLine = entry.key == values.length - 1 ? ';' : ',';
         final value = entry.value;
-        final jsonValue = 'json[\'${value.name}\']';
+        final jsonValue = 'json[\'${value.context.name}\']';
         buffer.writeLine(2, '${value.instanceName} = ${value.fromJsonString(jsonValue)}$endLine');
       }
     }
 
-    if (context.body.isNotEmpty) {
-      buffer.write(context.body);
+    if (dartDefineContext.body.isNotEmpty) {
+      buffer.write(dartDefineContext.body);
     }
 
     // Themed attributes
@@ -147,14 +146,14 @@ abstract class ThemedJsonToDart extends JsonToDart {
       if (value.isDeprecated) {
         buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
       }
-      buffer.writeLine(2, '${value.className}? ${value.name},');
+      buffer.writeLine(2, '${value.className}? ${value.context.name},');
     }
 
     buffer
       ..writeLine(1, '}) {')
       ..writeLine(2, 'return $className(');
     for (final value in values) {
-      buffer.writeLine(3, '${value.name}: ${value.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},');
+      buffer.writeLine(3, '${value.context.name}: ${value.context.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},');
     }
 
     buffer
@@ -167,7 +166,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
       ..writeLine(1, '/// To json method.')
       ..writeLine(1, 'Map<String, dynamic> toJson() => {');
     for (final value in values) {
-      buffer.writeLine(2, '\'${value.name}\': ${value.toJsonString()},');
+      buffer.writeLine(2, '\'${value.context.name}\': ${value.toJsonString()},');
     }
     buffer
       ..writeLine(1, '};')
@@ -188,7 +187,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// const ParentName1$ParentName2$ObjectName.theme()
   /// ```
   String dartConstructor(String theme) {
-    return 'const $className.${JsonToDart.firstLowerCase(theme)}()';
+    return 'const $className.${theme.firstLowerCase}()';
   }
 
   /// ```dart

@@ -1,24 +1,30 @@
 part of theme_color_palette;
 
-/// Collection
+/// Shared collection.
 class SharedCollection extends SharedJsonToDart {
-  /// Collection from json
+  /// Shared collection from json.
   SharedCollection.fromJson({
     required Map<String, dynamic> json,
-    List<String> names = const [],
-  }) : super(json: json, names: names) {
+    required BuildContext context,
+  }) : super(json: json, context: context) {
     collections.addAll(
       json.entries
           .where((entry) => !entry.key.startsWith('.'))
           .map<SharedJsonToDart>(
             (entry) => SharedJsonToDart.fromJson(
               json: entry.value as Map<String, dynamic>,
-              names: [...names, entry.key],
+              context: context.extendsWith(name: entry.key),
             ),
           )
           .toList(),
     );
   }
+
+  @override
+  String get className => throw UnsupportedError('SharedCollection are not instantiated, there is no class name');
+
+  @override
+  String get name => throw UnsupportedError('SharedCollection are not instantiated, there is no name');
 
   /// List of sub-collections
   final List<SharedJsonToDart> collections = [];

@@ -1,19 +1,21 @@
 part of theme_color_palette;
 
-/// Collection.
+/// Themed collection.
 class ThemedCollection extends ThemedJsonToDart {
-  /// Collection from json
+  /// Themed collection from json.
   ThemedCollection.fromJson({
     required Map<String, dynamic> json,
-    List<String> names = const [],
-  }) : super(json: json, names: names) {
+    required BuildContext context,
+  }) : super(json: json, context: context) {
     collections.addAll(
       json.entries
           .where((entry) => !entry.key.startsWith('.'))
           .map<ThemedJsonToDart>(
             (entry) => ThemedJsonToDart.fromJson(
               json: entry.value as Map<String, dynamic>,
-              names: [...names, entry.key],
+              context: context.extendsWith(
+                name: entry.key,
+              ),
             ),
           )
           .toList(),
@@ -22,6 +24,9 @@ class ThemedCollection extends ThemedJsonToDart {
 
   /// List of sub-collections.
   final List<ThemedJsonToDart> collections = [];
+
+  @override
+  String get className => [BaseName.colorPalette, context.className].join(divider);
 
   @override
   List<ThemedJsonToDart> get values => collections;

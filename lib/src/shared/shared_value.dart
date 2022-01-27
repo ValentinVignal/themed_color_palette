@@ -3,15 +3,17 @@ part of theme_color_palette;
 /// Shared value
 class SharedValue extends SharedJsonToDart {
   /// Shared value
-  SharedValue({required Map<String, dynamic> json, List<String> names = const []})
-      : value = Value.fromJson(
+  SharedValue({
+    required Map<String, dynamic> json,
+    required BuildContext context,
+  })  : value = Value.fromJson(
           value: json['.value'],
-          path: names,
+          path: context.names,
           theme: null,
           type: ValueTypeExtension.fromString(json['.type'] as String),
         ),
         type = ValueTypeExtension.fromString(json['.type'] as String),
-        super(json: json, names: names);
+        super(json: json, context: context);
 
   /// Divider for shared values names
   static const divider = '_';
@@ -22,12 +24,12 @@ class SharedValue extends SharedJsonToDart {
   /// Type
   final ValueType type;
 
-  /// Shared value is a single value, so 
+  /// Shared value is a single value, so
   @override
   String get className => value.className;
 
   @override
-  String get name => names.sublist(1).map(JsonToDart.firstLowerCase).join(SharedValue.divider);
+  String get name => context.names.map((name) => name.firstLowerCase).join(SharedValue.divider);
 
   @override
   String get dartParameter {

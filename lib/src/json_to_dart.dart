@@ -11,44 +11,32 @@ abstract class JsonToDart {
   /// Get the common parameters.
   JsonToDart({
     required Map<String, dynamic> json,
-    required this.names,
+    required BuildContext context,
   })  : description = json['.description'] as String? ?? '',
         // Those are not unnecessary parenthesis.
         // If we remove them, the linter take `?` from `String?` as a conditional operator
         flutterValue = json['.flutter'] as String? ?? '',
-        deprecationMessage = json['.deprecated'] as String? ?? '' {
-    // Check the names
-    // Only check the last one as the previous ones have already been checked
-    if (!camelCaseRegExp.hasMatch(names.last)) {
-      errors.add('Variable "${names.last}" is not in camelCase (location: $names)');
-    }
-  }
+        deprecationMessage = json['.deprecated'] as String? ?? '',
+        context = context.extendsWith(platforms: List<String>.from(json['.platforms'] as List? ?? []));
 
-  // *  ---------- Attributes ----------
-
-  /// Names of the current object.
-  /// ```dart
-  /// ['ParentName1', 'ParentName2', 'ObjectName'];
-  /// ```
-  final List<String> names;
+  /// The context of the current object from its parents.
+  final BuildContext context;
 
   /// The description of the object.
-  late final String description;
+  final String description;
 
   /// Comment to put in the code.
   String get comment {
     return description.split('\n').map((descriptionBlock) => '/// $descriptionBlock').join('\n');
   }
 
-  /// ```dart
-  /// r"ParentName1$ParentName2$ObjectName";
-  /// ```
-  String get className => names.map(firstUpperCase).join(divider);
+  /// The class name of the object.
+  String get className;
 
   /// ```dart
   /// 'objectName';
   /// ```
-  String get name => firstLowerCase(names.last);
+  String get name => context.name;
 
   /// ```dart
   /// 'objectName' or '_objectName';
@@ -77,14 +65,8 @@ abstract class JsonToDart {
 
   // *  ---------- static ----------
 
-  /// Set the first letter of a string in lower case.
-  static String firstLowerCase(String input) => input[0].toLowerCase() + input.substring(1);
-
-  /// Set the first letter of a string in upper case.
-  static String firstUpperCase(String input) => input[0].toUpperCase() + input.substring(1);
-
   /// The string defined in the body of the class of the parent object.
   String get dartParameter {
-    return 'final $className $instanceName;';
+    return 'final ${context.className} $instanceName;';
   }
 }

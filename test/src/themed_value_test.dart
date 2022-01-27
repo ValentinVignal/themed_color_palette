@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_color_palette/src/theme_color_palette.dart';
-import 'package:theme_color_palette/src/utils/dart_define_context.dart';
-import 'package:theme_color_palette/src/utils/globals.dart';
+import 'package:theme_color_palette/src/utils/utils.dart';
 
 void main() {
   group('double', () {
@@ -15,7 +14,7 @@ void main() {
           'light': 2,
           'dark': 3,
         },
-        names: ['name1', 'name2'],
+        context: BuildContext(names: ['name1', 'name2']),
       );
 
       expect(themedValue.type, ValueType.doubleNumber);
@@ -27,7 +26,7 @@ void main() {
       expect(themedValue.fromJsonString('value'), 'value as double');
       expect(themedValue.description, 'description');
       expect(themedValue.isPrivate, false);
-      expect(themedValue.name, 'name2');
+      expect(themedValue.context.name, 'name2');
     });
   });
 }
