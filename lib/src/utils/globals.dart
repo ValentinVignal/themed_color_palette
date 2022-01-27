@@ -1,4 +1,4 @@
-part of theme_color_palette;
+import 'package:theme_color_palette/src/theme_color_palette.dart';
 
 /// Divider for class names.
 const divider = r'$';
@@ -13,8 +13,11 @@ mixin Themes {
 
   /// The default theme is the first one in the list of themes.
   static String get defaultTheme => themes.first;
+
+  static final List<String> platforms = [];
 }
 
+// TODO(Valentin): Move this variable
 /// All the values.
 final allValues = <String, Value>{};
 

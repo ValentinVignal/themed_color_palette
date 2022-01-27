@@ -22,17 +22,12 @@ class SharedValue extends SharedJsonToDart {
   /// Type
   final ValueType type;
 
+  /// Shared value is a single value, so 
   @override
   String get className => value.className;
 
   @override
-  String get instanceName => names.sublist(1).map(JsonToDart.firstLowerCase).join(SharedValue.divider);
-
-  @override
-  String dartConstructor(String theme) => throw Exception('This should not have been called');
-
-  @override
-  String dartDefine() => throw Exception('This should not have been called');
+  String get name => names.sublist(1).map(JsonToDart.firstLowerCase).join(SharedValue.divider);
 
   @override
   String get dartParameter {

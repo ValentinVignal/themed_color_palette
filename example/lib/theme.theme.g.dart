@@ -10,10 +10,6 @@ enum Themes {
   light,
   /// Dark theme.
   dark,
-  /// LightGrey extra theme.
-  lightGrey,
-  /// DarkGrey extra theme.
-  darkGrey,
 }
 
 /// Extension on [Themes].
@@ -26,17 +22,6 @@ extension ThemesExtension on Themes {
       case Themes.light:
       default:
         return const ThemeColorPalette.light();
-    }
-  }
-
-  /// Whether or not it is an extra theme.
-  bool get isExtra {
-    switch (this) {
-      case Themes.lightGrey:
-      case Themes.darkGrey:
-        return true;
-      default:
-        return false;
     }
   }
 }
@@ -202,7 +187,7 @@ class ThemeColorPalette {
   /// The accent Color
   ///
   /// Use `theme.accentColor` instead.
-    @Deprecated('accent color is deprecated')
+  @Deprecated('accent color is deprecated')
   final Color _accentColor;
 
   /// Primary color
@@ -448,7 +433,7 @@ class ThemeColorPalette$TextEmphasis {
   final Color disabled;
 
   /// Reversed text emphasis
-    @Deprecated('reversed is deprecated')
+  @Deprecated('reversed is deprecated')
   final ThemeColorPalette$TextEmphasis$Reversed reversed;
 
   ThemeColorPalette$TextEmphasis copyWith({

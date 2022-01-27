@@ -27,7 +27,4 @@ class SharedCollection extends SharedJsonToDart {
   String get dartParameter {
     return collections.map((item) => item.dartParameter).join();
   }
-
-  @override
-  List<JsonToDart> get values => collections;
 }

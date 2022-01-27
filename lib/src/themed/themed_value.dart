@@ -1,7 +1,7 @@
 part of theme_color_palette;
 
 /// Themed Value.
-class ThemedValue extends JsonToDart {
+class ThemedValue extends ThemedJsonToDart {
   /// Themed Value.
   ThemedValue({
     required Map<String, dynamic> json,
@@ -40,7 +40,7 @@ class ThemedValue extends JsonToDart {
   }
 
   @override
-  String dartDefine() => '';
+  String dartDefine(DartDefineContext context) => '';
 
   @override
   String toJsonString() => instanceName;

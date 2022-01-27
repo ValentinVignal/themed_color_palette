@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_color_palette/src/theme_color_palette.dart';
+import 'package:theme_color_palette/src/utils/dart_define_context.dart';
 import 'package:yaml/yaml.dart';
 
 void main() {
@@ -14,7 +15,7 @@ void main() {
     final buffer = StringBuffer()
       ..writeln('import \'package:flutter/material.dart\';')
       ..writeln()
-      ..write(colorPalette.dartDefine());
+      ..write(colorPalette.dartDefine(const DartDefineContext()));
 
     final generatedContent = await File('test/e2e/test.theme.g.dart').readAsString();
 

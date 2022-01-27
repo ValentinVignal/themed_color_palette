@@ -2,9 +2,10 @@
   "dart.lineLength": 160,
   "editor.formatOnSave": true,
   "cSpell.words": [
+    "endtemplate",
     "Jsons",
-    "Unimported",
     "sublist",
+    "Unimported",
     "writeln"
   ]
 }

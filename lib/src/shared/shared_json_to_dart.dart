@@ -19,17 +19,9 @@ abstract class SharedJsonToDart extends JsonToDart {
     }
   }
 
+  /// Override this getter to add static constant values.
+  List<SharedJsonToDart> get constants => [];
+
   @override
   String get dartParameter;
-
-  @override
-  String dartDefine() {
-    throw UnimplementedError('This should not have been called');
-  }
-
-  @override
-  String toJsonString() => throw Exception('This should not have been called');
-
-  @override
-  String fromJsonString(String value) => throw Exception('This should not have been called');
 }

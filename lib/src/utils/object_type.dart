@@ -1,5 +1,3 @@
-part of theme_color_palette;
-
 /// Different object types
 enum ObjectType {
   /// Collection
