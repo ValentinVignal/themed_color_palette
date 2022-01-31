@@ -9,8 +9,8 @@ class Int extends Value {
     required String? theme,
   })  : value = value is int
             ? value
-            : (allValues[Value._allValuesImportKey(
-                path: (value as Map)['import'] as String,
+            : (allValues[Value._importToId(
+                import: (value as Map)['import'] as String,
                 theme: theme,
               )]! as Int)
                 .value,

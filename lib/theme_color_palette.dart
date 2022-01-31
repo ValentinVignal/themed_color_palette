@@ -2,6 +2,8 @@ import 'dart:convert' as dart_convert;
 
 import 'package:build/build.dart';
 import 'package:theme_color_palette/src/theme_color_palette.dart';
+import 'package:theme_color_palette/src/utils/dart_define_context.dart';
+import 'package:theme_color_palette/src/utils/globals.dart';
 import 'package:yaml/yaml.dart';
 
 /// Theme Color Palette
@@ -32,7 +34,7 @@ class ThemeColorPaletteBuilder implements Builder {
       ..writeln()
       ..writeln("part of '${inputId.changeExtension('').changeExtension('.dart').pathSegments.last}';")
       ..writeln()
-      ..write(colorPalette.dartDefine());
+      ..write(colorPalette.dartDefine(const DartDefineContext()));
     // Write out the new asset
     await buildStep.writeAsString(copyAssetId, buffer.toString());
 

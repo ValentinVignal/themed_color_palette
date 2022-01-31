@@ -4,7 +4,7 @@ import './test.theme.g.dart';
 
 void main() {
   test('It should compile the generated file', () {
-    final themeColorPaletteLight = ThemeColorPalette.light();
-    final themeColorPaletteDark = ThemeColorPalette.dark();
+    const ThemeColorPalette.light();
+    const ThemeColorPalette.dark();
   });
 }

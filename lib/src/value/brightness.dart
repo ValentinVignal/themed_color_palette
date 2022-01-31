@@ -46,8 +46,8 @@ class Brightness extends Value {
     required String? theme,
   })  : brightness = brightness is String
             ? BrightnessEnumExtension.fromString(brightness)
-            : (allValues[Value._allValuesImportKey(
-                path: (brightness as Map)['import'] as String,
+            : (allValues[Value._importToId(
+                import: (brightness as Map)['import'] as String,
                 theme: theme,
               )]! as Brightness)
                 .brightness,

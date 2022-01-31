@@ -126,8 +126,8 @@ class FontWeight extends Value {
     required String? theme,
   })  : fontWeight = fontWeight is String
             ? FontWeightEnumExtension.fromString(fontWeight)
-            : (allValues[Value._allValuesImportKey(
-                path: (fontWeight as Map)['import'] as String,
+            : (allValues[Value._importToId(
+                import: (fontWeight as Map)['import'] as String,
                 theme: theme,
               )]! as FontWeight)
                 .fontWeight,

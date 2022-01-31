@@ -9,8 +9,8 @@ class Bool extends Value {
     required String? theme,
   })  : value = value is bool
             ? value
-            : (allValues[Value._allValuesImportKey(
-                path: (value as Map)['import'] as String,
+            : (allValues[Value._importToId(
+                import: (value as Map)['import'] as String,
                 theme: theme,
               )]! as Bool)
                 .value,

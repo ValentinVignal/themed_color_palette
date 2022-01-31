@@ -57,10 +57,10 @@
   # If a theme is not specified for an object, it will use the value of the light theme
   - light
   - dark
-.extraThemes:
+.platforms:
   # Those are themes not handle by the generator.
-  - lightGrey
-  - darkGrey
+  - mobile
+  - web
 .name: themeColorPalette
 .description: The Theme Color Palette
 .shared:
@@ -71,6 +71,8 @@
     .type: double
     .value: 4
   defaultPadding:
+    .platforms:
+      - web
     .description: Default padding
     .type: double
     .value: 16
@@ -96,6 +98,8 @@
       .type: double
       .value: 0.04
   elevation:
+    .platforms:
+      - mobile
     high:
       .description: High elevation
       .type: double
@@ -202,8 +206,9 @@
         import: textEmphasis.high
         withOpacity:
           import: .shared.opacity.disabled
-    reversed:
-      .deprecated: reversed is deprecated
+    reversedMobile:
+      .platforms:
+        - mobile
       .description: Reversed text emphasis
       high:
         .description: Reversed high emphasis
@@ -214,21 +219,51 @@
         .description: Reversed medium emphasis
         .type: color
         light:
-          import: textEmphasis.reversed.high
+          import: textEmphasis.reversedMobile.high
           withOpacity:
             import: .shared.opacity.medium
       low:
         .description: Reversed low emphasis
         .type: color
         light:
-          import: textEmphasis.reversed.high
+          import: textEmphasis.reversedMobile.high
           withOpacity:
             import: .shared.opacity.low
       disabled:
         .description: Reversed disabled emphasis
         .type: color
         light:
-          import: textEmphasis.reversed.high
+          import: textEmphasis.reversedMobile.high
+          withOpacity:
+            import: .shared.opacity.disabled
+    reversedWeb:
+      .platforms:
+        - web
+      .description: Reversed text emphasis
+      high:
+        .description: Reversed high emphasis
+        .type: color
+        light: ffffffff
+        dark: ff000000
+      medium:
+        .description: Reversed medium emphasis
+        .type: color
+        light:
+          import: textEmphasis.reversedWeb.high
+          withOpacity:
+            import: .shared.opacity.medium
+      low:
+        .description: Reversed low emphasis
+        .type: color
+        light:
+          import: textEmphasis.reversedWeb.high
+          withOpacity:
+            import: .shared.opacity.low
+      disabled:
+        .description: Reversed disabled emphasis
+        .type: color
+        light:
+          import: textEmphasis.reversedWeb.high
           withOpacity:
             import: .shared.opacity.disabled
   iconEmphasis:

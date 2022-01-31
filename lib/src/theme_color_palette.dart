@@ -2,15 +2,15 @@ library theme_color_palette;
 
 import 'dart:math';
 
-part 'collection.dart';
-part 'globals.dart';
+import 'package:theme_color_palette/src/utils/utils.dart';
+
 part 'json_to_dart.dart';
-part 'object_type.dart';
-part 'shared_collection.dart';
-part 'shared_json_to_dart.dart';
-part 'shared_value.dart';
-part 'string_buffer.dart';
-part 'themed_value.dart';
+part 'shared/shared_collection.dart';
+part 'shared/shared_json_to_dart.dart';
+part 'shared/shared_value.dart';
+part 'themed/themed_collection.dart';
+part 'themed/themed_json_to_dart.dart';
+part 'themed/themed_value.dart';
 part 'value/bool.dart';
 part 'value/brightness.dart';
 part 'value/color.dart';
@@ -21,32 +21,53 @@ part 'value/value.dart';
 part 'value/value_type.dart';
 
 /// The color palette containing everything.
-class ColorPalette extends JsonToDart {
-  /// [ColorPalette] from Json.
-  ColorPalette.fromJson({required Map<String, dynamic> json})
-      : version = json['.version'] as String,
-        super(json: json, names: [json['.name'] as String]) {
+class ColorPalette extends ThemedJsonToDart {
+  factory ColorPalette.fromJson({required Map<String, dynamic> json}) {
     // Themes.
-    _addThemes(List<String>.from(json['.themes'] as List), json['.extraThemes']);
+    _addThemes(List<String>.from(json['.themes'] as List));
+    BaseName.colorPalette = (json['.name'] as String).firstUpperCase;
+    _addPlatforms(List<String>.from(json['.platforms'] as List? ?? []));
+    return ColorPalette._fromJson(json: json);
+  }
+
+  /// [ColorPalette] from Json.
+  ColorPalette._fromJson({required Map<String, dynamic> json})
+      : version = json['.version'] as String,
+        super(
+          json: json,
+          context: BuildContext(
+            names: [json['.name'] as String],
+            platforms: List<String>.from(json['.platforms'] as List? ?? []),
+          ),
+        ) {
     // Check the themes have valid names (camelCase)
-    baseName = names.first;
-    sharedValues.addAll((json['.shared'] as Map)
+    sharedValues.addAll((json[BaseName.shared] as Map)
         .entries
-        .map((entry) => SharedJsonToDart.fromJson(json: entry.value as Map<String, dynamic>, names: [sharedBaseName, entry.key as String]))
+        .map(
+          (entry) => SharedJsonToDart.fromJson(
+            json: entry.value as Map<String, dynamic>,
+            context: BuildContext(
+              names: [entry.key as String],
+              platforms: Themes.platforms,
+            ),
+          ),
+        )
         .toList());
-    collections.addAll((json['.themed'] as Map)
+    collections.addAll((json[BaseName.themed] as Map)
         .entries
-        .map((entry) => JsonToDart.fromJson(json: entry.value as Map<String, dynamic>, names: [baseName, entry.key as String]))
+        .map(
+          (entry) => ThemedJsonToDart.fromJson(
+            json: entry.value as Map<String, dynamic>,
+            context: context.copyWith(
+              names: [entry.key as String],
+              platforms: Themes.platforms,
+            ),
+          ),
+        )
         .toList());
   }
 
-  /// The base name for themed values.
-  static String baseName = '';
-
-  /// The based name for shared values.
-  static const sharedBaseName = '.shared';
-
-  static void _addThemes(List<String> themes, dynamic? extraThemes) {
+  static void _addThemes(List<String> themes) {
     // Add it to the global variable.
     Themes.themes.addAll(themes);
     // Check the names.
@@ -55,19 +76,21 @@ class ColorPalette extends JsonToDart {
         errors.add('Theme "$theme" is not in camelCase');
       }
     }
-    if (extraThemes != null) {
-      final extraThemesList = List<String>.from(extraThemes as List);
-      Themes.extraThemes.addAll(extraThemesList);
-      for (final theme in extraThemesList) {
-        if (!camelCaseRegExp.hasMatch(theme)) {
-          errors.add('Extra theme "$theme" is not in camelCase');
-        }
+  }
+
+  static void _addPlatforms(List<String> platforms) {
+    // Add it to the global variable.
+    Themes.platforms.addAll(platforms);
+    // Check the names.
+    for (final platform in platforms) {
+      if (!camelCaseRegExp.hasMatch(platform)) {
+        errors.add('Platform "$platform" is not in camelCase');
       }
     }
   }
 
   /// List of collections (themed).
-  final List<JsonToDart> collections = [];
+  final List<ThemedJsonToDart> collections = [];
 
   /// List of shared values.
   final List<SharedJsonToDart> sharedValues = [];
@@ -76,13 +99,31 @@ class ColorPalette extends JsonToDart {
   final String version;
 
   @override
-  List<JsonToDart> get values => collections;
+  List<ThemedJsonToDart> get values => collections;
 
-  @override
+  /// The constants
   List<SharedJsonToDart> get constants => sharedValues;
 
   @override
-  String dartDefine() {
+  String get className => context.className;
+
+  /// The `body` callback to five to the [DartDefineContext].
+  String body({required String platform}) {
+    final superContextBodyBuffer = StringBuffer();
+
+    // Shared attributes
+    if (constants.isNotEmpty) {
+      for (final value in constants.where((value) => value.context.includesPlatform(platform))) {
+        superContextBodyBuffer
+          ..writeln()
+          ..write(value.dartParameter(platform: ''));
+      }
+    }
+    return superContextBodyBuffer.toString();
+  }
+
+  @override
+  String dartDefine(DartDefineContext dartDefineContext) {
     final buffer = StringBuffer()
       ..writeLine(0, '// Version: $version.')
       ..writeln()
@@ -91,62 +132,18 @@ class ColorPalette extends JsonToDart {
 
     // Add the enum
     for (final theme in Themes.themes) {
-      buffer..writeLine(1, '/// ${JsonToDart.firstUpperCase(theme)} theme.')..writeLine(1, '${JsonToDart.firstLowerCase(theme)},');
-    }
-    for (final extraTheme in Themes.extraThemes) {
-      buffer..writeLine(1, '/// ${JsonToDart.firstUpperCase(extraTheme)} extra theme.')..writeLine(1, '${JsonToDart.firstLowerCase(extraTheme)},');
+      buffer
+        ..writeLine(1, '/// ${theme.firstUpperCase} theme.')
+        ..writeLine(1, '${theme.firstLowerCase},');
     }
     buffer
       ..writeLine(0, '}')
-      ..writeln();
-
-    // * Extension on enum.
-    // Color palette.
-    final extensionColorPaletteBody = StringBuffer();
-    for (final theme in Themes.themes.sublist(1)) {
-      extensionColorPaletteBody..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(theme)}:')..writeLine(4, 'return ${dartConstructor(theme)};');
-    }
-    // Default theme.
-    extensionColorPaletteBody
-      ..writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(Themes.defaultTheme)}:')
-      ..writeLine(3, 'default:')
-      ..write('        return ${dartConstructor(Themes.defaultTheme)};');
-
-    // Is extra.
-    final extensionIsExtraBody = StringBuffer();
-    for (final extraTheme in Themes.extraThemes) {
-      extensionIsExtraBody.writeLine(3, 'case Themes.${JsonToDart.firstLowerCase(extraTheme)}:');
-    }
-    if (Themes.extraThemes.isNotEmpty) {
-      extensionIsExtraBody.writeLine(4, 'return true;');
-    }
-    extensionIsExtraBody
-      ..writeLine(3, 'default:')
-      ..write('        return false;');
-
-    buffer
-      ..write('''
-/// Extension on [Themes].
-extension ThemesExtension on Themes {
-  /// Color palette.
-  ${JsonToDart.firstUpperCase(baseName)} get colorPalette {
-    switch (this) {
-$extensionColorPaletteBody
-    }
-  }
-
-  /// Whether or not it is an extra theme.
-  bool get isExtra {
-    switch (this) {
-$extensionIsExtraBody
-    }
-  }
-}
-
-''')
+      ..writeln()
 
       // Color palette
-      ..write(super.dartDefine());
+      ..write(super.dartDefine(DartDefineContext(
+        body: body,
+      )));
     return buffer.toString();
   }
 
@@ -154,5 +151,5 @@ $extensionIsExtraBody
   String toJsonString() => throw Exception('This should not have been called');
 
   @override
-  String fromJsonString(String value) => throw Exception('This should not have been called');
+  String fromJsonString({required String value, required String platform}) => throw Exception('This should not have been called');
 }
