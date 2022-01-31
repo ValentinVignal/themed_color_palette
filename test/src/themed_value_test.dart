@@ -18,12 +18,12 @@ void main() {
       );
 
       expect(themedValue.type, ValueType.doubleNumber);
-      expect(themedValue.dartConstructor('light'), '2.0');
-      expect(themedValue.dartConstructor('dark'), '3.0');
+      expect(themedValue.dartConstructor(theme: 'light', platform: ''), '2.0');
+      expect(themedValue.dartConstructor(theme: 'dark', platform: ''), '3.0');
       expect(themedValue.className, 'double');
       expect(themedValue.dartDefine(const DartDefineContext()), '');
       expect(themedValue.toJsonString(), 'name2');
-      expect(themedValue.fromJsonString('value'), 'value as double');
+      expect(themedValue.fromJsonString(value: 'value', platform: ''), 'value as double');
       expect(themedValue.description, 'description');
       expect(themedValue.isPrivate, false);
       expect(themedValue.context.name, 'name2');

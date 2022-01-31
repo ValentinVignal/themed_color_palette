@@ -30,9 +30,15 @@ class BuildContext {
   /// `true` if the object is available on all the platforms.
   bool get onAllPlatforms => setEquals(Themes.platforms.toSet(), platforms.toSet());
 
+  /// Whether or not the object is available on the given platform.
+  bool includesPlatform(String platform) {
+    if (platform.isEmpty) return onAllPlatforms;
+    return platforms.contains(platform);
+  }
+
   @override
   String toString() {
-    return 'Context{names: "${names.join(divider)}", platforms: [${platforms.join(',')}]}';
+    return 'Context(names: "${names.join(divider)}", platforms: $platforms)';
   }
 
   /// The base name for themed values.
@@ -79,7 +85,7 @@ Platform $platform is not a valid platform for context $this.
           _platforms.add(platform);
         }
       }
-      if (_platforms.isEmpty) {
+      if (_platforms.isEmpty && Themes.platforms.isNotEmpty) {
         errors.add('''
 Error doing:
 $this
@@ -98,6 +104,7 @@ There is no valid platform.
     );
   }
 
+  /// Copy with method.
   BuildContext copyWith({
     List<String> names = const [],
     List<String> platforms = const [],

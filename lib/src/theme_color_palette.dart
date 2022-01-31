@@ -22,26 +22,34 @@ part 'value/value_type.dart';
 
 /// The color palette containing everything.
 class ColorPalette extends ThemedJsonToDart {
+  factory ColorPalette.fromJson({required Map<String, dynamic> json}) {
+    // Themes.
+    _addThemes(List<String>.from(json['.themes'] as List));
+    BaseName.colorPalette = (json['.name'] as String).firstUpperCase;
+    _addPlatforms(List<String>.from(json['.platforms'] as List? ?? []));
+    return ColorPalette._fromJson(json: json);
+  }
+
   /// [ColorPalette] from Json.
-  ColorPalette.fromJson({required Map<String, dynamic> json})
+  ColorPalette._fromJson({required Map<String, dynamic> json})
       : version = json['.version'] as String,
         super(
           json: json,
           context: BuildContext(
             names: [json['.name'] as String],
+            platforms: List<String>.from(json['.platforms'] as List? ?? []),
           ),
         ) {
-    // Themes.
-    _addThemes(List<String>.from(json['.themes'] as List));
-    BaseName.colorPalette = context.name.firstUpperCase;
-    _addPlatforms();
     // Check the themes have valid names (camelCase)
     sharedValues.addAll((json[BaseName.shared] as Map)
         .entries
         .map(
           (entry) => SharedJsonToDart.fromJson(
             json: entry.value as Map<String, dynamic>,
-            context: BuildContext(names: [entry.key as String]),
+            context: BuildContext(
+              names: [entry.key as String],
+              platforms: Themes.platforms,
+            ),
           ),
         )
         .toList());
@@ -52,6 +60,7 @@ class ColorPalette extends ThemedJsonToDart {
             json: entry.value as Map<String, dynamic>,
             context: context.copyWith(
               names: [entry.key as String],
+              platforms: Themes.platforms,
             ),
           ),
         )
@@ -69,11 +78,11 @@ class ColorPalette extends ThemedJsonToDart {
     }
   }
 
-  void _addPlatforms() {
+  static void _addPlatforms(List<String> platforms) {
     // Add it to the global variable.
-    Themes.platforms.addAll(context.platforms);
+    Themes.platforms.addAll(platforms);
     // Check the names.
-    for (final platform in context.platforms) {
+    for (final platform in platforms) {
       if (!camelCaseRegExp.hasMatch(platform)) {
         errors.add('Platform "$platform" is not in camelCase');
       }
@@ -98,6 +107,21 @@ class ColorPalette extends ThemedJsonToDart {
   @override
   String get className => context.className;
 
+  /// The `body` callback to five to the [DartDefineContext].
+  String body({required String platform}) {
+    final superContextBodyBuffer = StringBuffer();
+
+    // Shared attributes
+    if (constants.isNotEmpty) {
+      for (final value in constants.where((value) => value.context.includesPlatform(platform))) {
+        superContextBodyBuffer
+          ..writeln()
+          ..write(value.dartParameter(platform: ''));
+      }
+    }
+    return superContextBodyBuffer.toString();
+  }
+
   @override
   String dartDefine(DartDefineContext dartDefineContext) {
     final buffer = StringBuffer()
@@ -112,57 +136,14 @@ class ColorPalette extends ThemedJsonToDart {
         ..writeLine(1, '/// ${theme.firstUpperCase} theme.')
         ..writeLine(1, '${theme.firstLowerCase},');
     }
-    for (final extraTheme in Themes.extraThemes) {
-      buffer
-        ..writeLine(1, '/// ${extraTheme.firstLowerCase} extra theme.')
-        ..writeLine(1, '${extraTheme.firstLowerCase},');
-    }
     buffer
       ..writeLine(0, '}')
-      ..writeln();
+      ..writeln()
 
-    // * Extension on enum.
-    // Color palette.
-    final extensionColorPaletteBody = StringBuffer();
-    for (final theme in Themes.themes.sublist(1)) {
-      extensionColorPaletteBody
-        ..writeLine(3, 'case Themes.${theme.firstLowerCase}:')
-        ..writeLine(4, 'return ${dartConstructor(theme)};');
-    }
-    // Default theme.
-    extensionColorPaletteBody
-      ..writeLine(3, 'case Themes.${Themes.defaultTheme.firstLowerCase}:')
-      ..writeLine(3, 'default:')
-      ..write('        return ${dartConstructor(Themes.defaultTheme)};');
-
-    buffer.write('''
-/// Extension on [Themes].
-extension ThemesExtension on Themes {
-  /// Color palette.
-  ${context.baseName} get colorPalette {
-    switch (this) {
-$extensionColorPaletteBody
-    }
-  }
-}
-
-''');
-
-    final superContextBodyBuffer = StringBuffer();
-
-    // Shared attributes
-    if (constants.isNotEmpty) {
-      for (final value in constants) {
-        superContextBodyBuffer
-          ..writeln()
-          ..write(value.dartParameter);
-      }
-    }
-
-    // Color palette
-    buffer.write(super.dartDefine(DartDefineContext(
-      body: superContextBodyBuffer.toString(),
-    )));
+      // Color palette
+      ..write(super.dartDefine(DartDefineContext(
+        body: body,
+      )));
     return buffer.toString();
   }
 
@@ -170,5 +151,5 @@ $extensionColorPaletteBody
   String toJsonString() => throw Exception('This should not have been called');
 
   @override
-  String fromJsonString(String value) => throw Exception('This should not have been called');
+  String fromJsonString({required String value, required String platform}) => throw Exception('This should not have been called');
 }

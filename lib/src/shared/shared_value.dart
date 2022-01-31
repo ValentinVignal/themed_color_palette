@@ -32,7 +32,7 @@ class SharedValue extends SharedJsonToDart {
   String get name => context.names.map((name) => name.firstLowerCase).join(SharedValue.divider);
 
   @override
-  String get dartParameter {
+  String dartParameter({required String platform}) {
     return '''
   $comment
   static const $instanceName = ${value.dartConstructor};

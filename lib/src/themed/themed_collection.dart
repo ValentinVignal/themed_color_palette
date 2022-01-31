@@ -37,7 +37,7 @@ class ThemedCollection extends ThemedJsonToDart {
   }
 
   @override
-  String fromJsonString(String value) {
-    return '$className.fromJson($value as Map<String, dynamic>)';
+  String fromJsonString({required String value, required String platform}) {
+    return '${classNameWithPlatform(platform: platform)}.fromJson($value as Map<String, dynamic>)';
   }
 }

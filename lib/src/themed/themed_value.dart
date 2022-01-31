@@ -35,7 +35,7 @@ class ThemedValue extends ThemedJsonToDart {
   String get className => themedValues.values.first.className;
 
   @override
-  String dartConstructor(String theme) {
+  String dartConstructor({required String theme, required String platform}) {
     return themedValues[theme]!.dartConstructor;
   }
 
@@ -46,5 +46,10 @@ class ThemedValue extends ThemedJsonToDart {
   String toJsonString() => instanceName;
 
   @override
-  String fromJsonString(String value) => '$value as $className';
+  String fromJsonString({required String value, required String platform}) => '$value as $className';
+
+  @override
+  String classNameWithPlatform({required String platform, bool withCovariant = false}) {
+    return className;
+  }
 }

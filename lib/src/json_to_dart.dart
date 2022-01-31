@@ -34,6 +34,15 @@ abstract class JsonToDart {
   String get className;
 
   /// ```dart
+  /// ParentName1$ParentName2$ObjectName_web
+  /// ```
+  String classNameWithPlatform({required String platform, bool withCovariant = false}) {
+    final platformSuffix = platform.isEmpty ? '' : '$platformDivider$platform';
+    final covariantString = withCovariant && context.includesPlatform('') ? 'covariant ' : '';
+    return covariantString + className + platformSuffix;
+  }
+
+  /// ```dart
   /// 'objectName';
   /// ```
   String get name => context.name;
@@ -66,7 +75,7 @@ abstract class JsonToDart {
   // *  ---------- static ----------
 
   /// The string defined in the body of the class of the parent object.
-  String get dartParameter {
-    return 'final ${context.className} $instanceName;';
+  String dartParameter({required String platform}) {
+    return 'final ${classNameWithPlatform(platform: platform)} $instanceName;';
   }
 }

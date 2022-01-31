@@ -30,7 +30,7 @@ class SharedCollection extends SharedJsonToDart {
   final List<SharedJsonToDart> collections = [];
 
   @override
-  String get dartParameter {
-    return collections.map((item) => item.dartParameter).join();
+  String dartParameter({required String platform}) {
+    return collections.map((item) => item.dartParameter(platform: platform)).join();
   }
 }
