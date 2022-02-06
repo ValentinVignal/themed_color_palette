@@ -38,7 +38,7 @@ abstract class JsonToDart {
   /// ```
   String classNameWithPlatform({required String platform, bool withCovariant = false}) {
     final platformSuffix = platform.isEmpty ? '' : '$platformDivider$platform';
-    final covariantString = withCovariant && context.includesPlatform('') ? 'covariant ' : '';
+    final covariantString = withCovariant && context.includesPlatform('') && Themes.platforms.isNotEmpty ? 'covariant ' : '';
     return covariantString + className + platformSuffix;
   }
 

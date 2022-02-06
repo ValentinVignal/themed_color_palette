@@ -1388,66 +1388,24 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
 /// Reversed text emphasis
 class ThemeColorPalette$TextEmphasis$ReversedMobile {
   /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedMobile({
-    required this.high,
-    required this.medium,
-    required this.low,
-    required this.disabled,
-  });
+  const ThemeColorPalette$TextEmphasis$ReversedMobile();
 
   /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedMobile.light():
-    high = const Color(0xffffffff),
-    medium = const Color(0xdeffffff),
-    low = const Color(0x99ffffff),
-    disabled = const Color(0x99ffffff);
+  const ThemeColorPalette$TextEmphasis$ReversedMobile.light();
 
   /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedMobile.dark():
-    high = const Color(0xff000000),
-    medium = const Color(0xde000000),
-    low = const Color(0x99000000),
-    disabled = const Color(0x99000000);
+  const ThemeColorPalette$TextEmphasis$ReversedMobile.dark();
 
   /// From json.
-  ThemeColorPalette$TextEmphasis$ReversedMobile.fromJson(Map<String, dynamic> json):
-    high = json['high'] as Color,
-    medium = json['medium'] as Color,
-    low = json['low'] as Color,
-    disabled = json['disabled'] as Color;
+  ThemeColorPalette$TextEmphasis$ReversedMobile.fromJson(Map<String, dynamic> json);
 
-  /// Reversed high emphasis
-  final Color high;
-
-  /// Reversed medium emphasis
-  final Color medium;
-
-  /// Reversed low emphasis
-  final Color low;
-
-  /// Reversed disabled emphasis
-  final Color disabled;
-
-  ThemeColorPalette$TextEmphasis$ReversedMobile copyWith({
-    Color? high,
-    Color? medium,
-    Color? low,
-    Color? disabled,
-  }) {
+  ThemeColorPalette$TextEmphasis$ReversedMobile copyWith(){
     return ThemeColorPalette$TextEmphasis$ReversedMobile(
-      high: high ?? this.high,
-      medium: medium ?? this.medium,
-      low: low ?? this.low,
-      disabled: disabled ?? this.disabled,
     );
   }
 
   /// To json method.
   Map<String, dynamic> toJson() => {
-    'high': high,
-    'medium': medium,
-    'low': low,
-    'disabled': disabled,
   };
 }
 
@@ -1486,19 +1444,15 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
     disabled = json['disabled'] as Color;
 
   /// Reversed high emphasis
-  @override
   final Color high;
 
   /// Reversed medium emphasis
-  @override
   final Color medium;
 
   /// Reversed low emphasis
-  @override
   final Color low;
 
   /// Reversed disabled emphasis
-  @override
   final Color disabled;
 
   @override
@@ -1527,221 +1481,29 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
 }
 
 
-// -------------------- ThemeColorPalette$TextEmphasis$ReversedMobile_web --------------------
-
-/// Reversed text emphasis
-class ThemeColorPalette$TextEmphasis$ReversedMobile_web implements ThemeColorPalette$TextEmphasis$ReversedMobile {
-  /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedMobile_web({
-    required this.high,
-    required this.medium,
-    required this.low,
-    required this.disabled,
-  });
-
-  /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedMobile_web.light():
-    high = const Color(0xffffffff),
-    medium = const Color(0xdeffffff),
-    low = const Color(0x99ffffff),
-    disabled = const Color(0x99ffffff);
-
-  /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedMobile_web.dark():
-    high = const Color(0xff000000),
-    medium = const Color(0xde000000),
-    low = const Color(0x99000000),
-    disabled = const Color(0x99000000);
-
-  /// From json.
-  ThemeColorPalette$TextEmphasis$ReversedMobile_web.fromJson(Map<String, dynamic> json):
-    high = json['high'] as Color,
-    medium = json['medium'] as Color,
-    low = json['low'] as Color,
-    disabled = json['disabled'] as Color;
-
-  /// Reversed high emphasis
-  @override
-  final Color high;
-
-  /// Reversed medium emphasis
-  @override
-  final Color medium;
-
-  /// Reversed low emphasis
-  @override
-  final Color low;
-
-  /// Reversed disabled emphasis
-  @override
-  final Color disabled;
-
-  @override
-  ThemeColorPalette$TextEmphasis$ReversedMobile_web copyWith({
-    Color? high,
-    Color? medium,
-    Color? low,
-    Color? disabled,
-  }) {
-    return ThemeColorPalette$TextEmphasis$ReversedMobile_web(
-      high: high ?? this.high,
-      medium: medium ?? this.medium,
-      low: low ?? this.low,
-      disabled: disabled ?? this.disabled,
-    );
-  }
-
-  /// To json method.
-  @override
-  Map<String, dynamic> toJson() => {
-    'high': high,
-    'medium': medium,
-    'low': low,
-    'disabled': disabled,
-  };
-}
-
-
 // -------------------- ThemeColorPalette$TextEmphasis$ReversedWeb --------------------
 
 /// Reversed text emphasis
 class ThemeColorPalette$TextEmphasis$ReversedWeb {
   /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedWeb({
-    required this.high,
-    required this.medium,
-    required this.low,
-    required this.disabled,
-  });
+  const ThemeColorPalette$TextEmphasis$ReversedWeb();
 
   /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedWeb.light():
-    high = const Color(0xffffffff),
-    medium = const Color(0xdeffffff),
-    low = const Color(0x99ffffff),
-    disabled = const Color(0x99ffffff);
+  const ThemeColorPalette$TextEmphasis$ReversedWeb.light();
 
   /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedWeb.dark():
-    high = const Color(0xff000000),
-    medium = const Color(0xde000000),
-    low = const Color(0x99000000),
-    disabled = const Color(0x99000000);
+  const ThemeColorPalette$TextEmphasis$ReversedWeb.dark();
 
   /// From json.
-  ThemeColorPalette$TextEmphasis$ReversedWeb.fromJson(Map<String, dynamic> json):
-    high = json['high'] as Color,
-    medium = json['medium'] as Color,
-    low = json['low'] as Color,
-    disabled = json['disabled'] as Color;
+  ThemeColorPalette$TextEmphasis$ReversedWeb.fromJson(Map<String, dynamic> json);
 
-  /// Reversed high emphasis
-  final Color high;
-
-  /// Reversed medium emphasis
-  final Color medium;
-
-  /// Reversed low emphasis
-  final Color low;
-
-  /// Reversed disabled emphasis
-  final Color disabled;
-
-  ThemeColorPalette$TextEmphasis$ReversedWeb copyWith({
-    Color? high,
-    Color? medium,
-    Color? low,
-    Color? disabled,
-  }) {
+  ThemeColorPalette$TextEmphasis$ReversedWeb copyWith(){
     return ThemeColorPalette$TextEmphasis$ReversedWeb(
-      high: high ?? this.high,
-      medium: medium ?? this.medium,
-      low: low ?? this.low,
-      disabled: disabled ?? this.disabled,
     );
   }
 
   /// To json method.
   Map<String, dynamic> toJson() => {
-    'high': high,
-    'medium': medium,
-    'low': low,
-    'disabled': disabled,
-  };
-}
-
-
-// -------------------- ThemeColorPalette$TextEmphasis$ReversedWeb_mobile --------------------
-
-/// Reversed text emphasis
-class ThemeColorPalette$TextEmphasis$ReversedWeb_mobile implements ThemeColorPalette$TextEmphasis$ReversedWeb {
-  /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedWeb_mobile({
-    required this.high,
-    required this.medium,
-    required this.low,
-    required this.disabled,
-  });
-
-  /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedWeb_mobile.light():
-    high = const Color(0xffffffff),
-    medium = const Color(0xdeffffff),
-    low = const Color(0x99ffffff),
-    disabled = const Color(0x99ffffff);
-
-  /// Reversed text emphasis
-  const ThemeColorPalette$TextEmphasis$ReversedWeb_mobile.dark():
-    high = const Color(0xff000000),
-    medium = const Color(0xde000000),
-    low = const Color(0x99000000),
-    disabled = const Color(0x99000000);
-
-  /// From json.
-  ThemeColorPalette$TextEmphasis$ReversedWeb_mobile.fromJson(Map<String, dynamic> json):
-    high = json['high'] as Color,
-    medium = json['medium'] as Color,
-    low = json['low'] as Color,
-    disabled = json['disabled'] as Color;
-
-  /// Reversed high emphasis
-  @override
-  final Color high;
-
-  /// Reversed medium emphasis
-  @override
-  final Color medium;
-
-  /// Reversed low emphasis
-  @override
-  final Color low;
-
-  /// Reversed disabled emphasis
-  @override
-  final Color disabled;
-
-  @override
-  ThemeColorPalette$TextEmphasis$ReversedWeb_mobile copyWith({
-    Color? high,
-    Color? medium,
-    Color? low,
-    Color? disabled,
-  }) {
-    return ThemeColorPalette$TextEmphasis$ReversedWeb_mobile(
-      high: high ?? this.high,
-      medium: medium ?? this.medium,
-      low: low ?? this.low,
-      disabled: disabled ?? this.disabled,
-    );
-  }
-
-  /// To json method.
-  @override
-  Map<String, dynamic> toJson() => {
-    'high': high,
-    'medium': medium,
-    'low': low,
-    'disabled': disabled,
   };
 }
 
@@ -1780,19 +1542,15 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb_web implements ThemeColorPalett
     disabled = json['disabled'] as Color;
 
   /// Reversed high emphasis
-  @override
   final Color high;
 
   /// Reversed medium emphasis
-  @override
   final Color medium;
 
   /// Reversed low emphasis
-  @override
   final Color low;
 
   /// Reversed disabled emphasis
-  @override
   final Color disabled;
 
   @override

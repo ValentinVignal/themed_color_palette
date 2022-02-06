@@ -35,7 +35,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// ```
   String dartDefine(DartDefineContext dartDefineContext) {
     final buffer = StringBuffer();
-    for (final platform in <String>['', ...Themes.platforms]) {
+    for (final platform in <String>['', ...context.platforms]) {
       final isAllPlatformGenericClass = platform.isEmpty;
 
       buffer
@@ -158,17 +158,17 @@ abstract class ThemedJsonToDart extends JsonToDart {
         buffer.writeLine(1, '@override');
       }
 
-      buffer.writeLine(1, '${classNameWithPlatform(platform: platform)} copyWith({');
-      for (final value in platformValues) {
-        if (value.isDeprecated) {
-          buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
+      buffer.writeLine(1, '${classNameWithPlatform(platform: platform)} copyWith(${platformValues.isEmpty ? ')' : ''}{');
+      if (platformValues.isNotEmpty) {
+        for (final value in platformValues) {
+          if (value.isDeprecated) {
+            buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
+          }
+          buffer.writeLine(2, '${value.classNameWithPlatform(platform: platform, withCovariant: true)}? ${value.context.name},');
         }
-        buffer.writeLine(2, '${value.classNameWithPlatform(platform: platform, withCovariant: true)}? ${value.context.name},');
+        buffer.writeLine(1, '}) {');
       }
-
-      buffer
-        ..writeLine(1, '}) {')
-        ..writeLine(2, 'return ${classNameWithPlatform(platform: platform)}(');
+      buffer.writeLine(2, 'return ${classNameWithPlatform(platform: platform)}(');
       for (final value in platformValues) {
         buffer.writeLine(3, '${value.context.name}: ${value.context.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},');
       }

@@ -13,7 +13,7 @@ class SharedCollection extends SharedJsonToDart {
           .map<SharedJsonToDart>(
             (entry) => SharedJsonToDart.fromJson(
               json: entry.value as Map<String, dynamic>,
-              context: context.extendsWith(name: entry.key),
+              context: this.context.extendsWith(name: entry.key),
             ),
           )
           .toList(),
