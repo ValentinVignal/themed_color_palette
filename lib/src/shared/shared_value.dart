@@ -29,7 +29,9 @@ class SharedValue extends SharedJsonToDart {
   String get className => value.className;
 
   @override
-  String get name => context.names.map((name) => name.firstLowerCase).join(SharedValue.divider);
+  String get name => context.names
+      .map((name) => name.firstLowerCase)
+      .join(SharedValue.divider);
 
   @override
   String dartParameter({required String platform}) {

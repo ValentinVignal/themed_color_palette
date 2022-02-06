@@ -26,7 +26,10 @@ class ThemedCollection extends ThemedJsonToDart {
   final List<ThemedJsonToDart> collections = [];
 
   @override
-  String get className => [BaseName.colorPalette, context.className].join(divider);
+  String get className => [
+        BaseName.colorPalette,
+        context.className,
+      ].join(divider);
 
   @override
   List<ThemedJsonToDart> get values => collections;

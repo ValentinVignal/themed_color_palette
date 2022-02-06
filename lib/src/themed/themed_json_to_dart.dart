@@ -14,7 +14,10 @@ abstract class ThemedJsonToDart extends JsonToDart {
         );
 
   /// From json constructor
-  factory ThemedJsonToDart.fromJson({required Map<String, dynamic> json, required BuildContext context}) {
+  factory ThemedJsonToDart.fromJson({
+    required Map<String, dynamic> json,
+    required BuildContext context,
+  }) {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:
@@ -39,7 +42,10 @@ abstract class ThemedJsonToDart extends JsonToDart {
       final isAllPlatformGenericClass = platform.isEmpty;
 
       buffer
-        ..writeLine(0, '// -------------------- ${classNameWithPlatform(platform: platform)} --------------------')
+        ..writeLine(
+          0,
+          '// -------------------- ${classNameWithPlatform(platform: platform)} --------------------',
+        )
         ..writeln()
         ..writeLine(0, comment);
       if (isPrivate) {
@@ -62,24 +68,39 @@ abstract class ThemedJsonToDart extends JsonToDart {
         /// Unnamed constructor
         ..writeLine(1, comment);
 
-      final platformValues = values.where((value) => value.context.includesPlatform(platform));
+      final platformValues = values.where(
+        (value) => value.context.includesPlatform(platform),
+      );
       if (platformValues.isEmpty) {
-        buffer.writeLine(1, 'const ${classNameWithPlatform(platform: platform)}();');
+        buffer.writeLine(
+          1,
+          'const ${classNameWithPlatform(platform: platform)}();',
+        );
       } else {
-        buffer.writeLine(1, 'const ${classNameWithPlatform(platform: platform)}({');
+        buffer.writeLine(
+          1,
+          'const ${classNameWithPlatform(platform: platform)}({',
+        );
         for (final value in platformValues) {
           if (value.isPrivate) {
-            buffer.writeLine(2, 'required ${value.classNameWithPlatform(platform: platform)} ${value.context.name},');
+            buffer.writeLine(
+              2,
+              'required ${value.classNameWithPlatform(platform: platform)} ${value.context.name},',
+            );
           } else {
             buffer.writeLine(2, 'required this.${value.instanceName},');
           }
         }
         if (platformValues.any((value) => value.isPrivate)) {
           buffer.writeLine(1, '}):');
-          final privateValues = values.where((value) => value.isPrivate && value.context.includesPlatform(platform));
+          final privateValues = values.where(
+            (value) =>
+                value.isPrivate && value.context.includesPlatform(platform),
+          );
           for (final entry in privateValues.toList().asMap().entries) {
             final initializer =
-                '${entry.value.instanceName} = ${entry.value.context.name.firstLowerCase}' + (entry.key == privateValues.length - 1 ? ';' : ',');
+                '${entry.value.instanceName} = ${entry.value.context.name.firstLowerCase}' +
+                    (entry.key == privateValues.length - 1 ? ';' : ',');
             buffer.writeLine(2, initializer);
           }
         } else {
@@ -98,12 +119,21 @@ abstract class ThemedJsonToDart extends JsonToDart {
         if (initializers.isEmpty) {
           buffer.writeLine(
             1,
-            [dartConstructor(theme: theme, platform: platform), if (initializers.isNotEmpty) ': ', initializers.join(', '), ';'].join(),
+            [
+              dartConstructor(theme: theme, platform: platform),
+              if (initializers.isNotEmpty) ': ',
+              initializers.join(', '),
+              ';',
+            ].join(),
           );
         } else {
-          buffer.writeLine(1, dartConstructor(theme: theme, platform: platform) + ':');
+          buffer.writeLine(
+            1,
+            dartConstructor(theme: theme, platform: platform) + ':',
+          );
           for (final entry in initializers.toList().asMap().entries) {
-            final initializer = entry.value + (entry.key == initializers.length - 1 ? ';' : ',');
+            final initializer = entry.value +
+                (entry.key == initializers.length - 1 ? ';' : ',');
             buffer.writeLine(2, initializer);
           }
         }
@@ -116,7 +146,9 @@ abstract class ThemedJsonToDart extends JsonToDart {
       final jsonInitializers = platformValues.map((value) {
         return '${value.instanceName} = json[\'${value.context.name}\'] as ${value.classNameWithPlatform(platform: platform)}';
       });
-      final fromJsonConstructorLine = '${classNameWithPlatform(platform: platform)}.fromJson(Map<String, dynamic> json)';
+      final fromJsonConstructorLine = '${classNameWithPlatform(
+        platform: platform,
+      )}.fromJson(Map<String, dynamic> json)';
       if (jsonInitializers.isEmpty) {
         buffer.writeLine(1, '$fromJsonConstructorLine;');
       } else {
@@ -125,7 +157,10 @@ abstract class ThemedJsonToDart extends JsonToDart {
           final endLine = entry.key == platformValues.length - 1 ? ';' : ',';
           final value = entry.value;
           final jsonValue = 'json[\'${value.context.name}\']';
-          buffer.writeLine(2, '${value.instanceName} = ${value.fromJsonString(value: jsonValue, platform: platform)}$endLine');
+          buffer.writeLine(
+            2,
+            '${value.instanceName} = ${value.fromJsonString(value: jsonValue, platform: platform)}$endLine',
+          );
         }
       }
 
@@ -158,19 +193,31 @@ abstract class ThemedJsonToDart extends JsonToDart {
         buffer.writeLine(1, '@override');
       }
 
-      buffer.writeLine(1, '${classNameWithPlatform(platform: platform)} copyWith(${platformValues.isEmpty ? ')' : ''}{');
+      buffer.writeLine(
+        1,
+        '${classNameWithPlatform(platform: platform)} copyWith(${platformValues.isEmpty ? ')' : ''}{',
+      );
       if (platformValues.isNotEmpty) {
         for (final value in platformValues) {
           if (value.isDeprecated) {
             buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
           }
-          buffer.writeLine(2, '${value.classNameWithPlatform(platform: platform, withCovariant: true)}? ${value.context.name},');
+          buffer.writeLine(
+            2,
+            '${value.classNameWithPlatform(platform: platform, withCovariant: true)}? ${value.context.name},',
+          );
         }
         buffer.writeLine(1, '}) {');
       }
-      buffer.writeLine(2, 'return ${classNameWithPlatform(platform: platform)}(');
+      buffer.writeLine(
+        2,
+        'return ${classNameWithPlatform(platform: platform)}(',
+      );
       for (final value in platformValues) {
-        buffer.writeLine(3, '${value.context.name}: ${value.context.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},');
+        buffer.writeLine(
+          3,
+          '${value.context.name}: ${value.context.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},',
+        );
       }
 
       buffer
@@ -186,7 +233,10 @@ abstract class ThemedJsonToDart extends JsonToDart {
       }
       buffer.writeLine(1, 'Map<String, dynamic> toJson() => {');
       for (final value in platformValues) {
-        buffer.writeLine(2, '\'${value.context.name}\': ${value.toJsonString()},');
+        buffer.writeLine(
+          2,
+          '\'${value.context.name}\': ${value.toJsonString()},',
+        );
       }
       buffer
         ..writeLine(1, '};')

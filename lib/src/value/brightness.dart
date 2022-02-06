@@ -12,7 +12,11 @@ enum BrightnessEnum {
 /// Font weight enum extension
 extension BrightnessEnumExtension on BrightnessEnum {
   /// Possible values
-  static final possibleValues = BrightnessEnum.values.map((brightness) => brightness.string).toList();
+  static final possibleValues = BrightnessEnum.values
+      .map(
+        (brightness) => brightness.string,
+      )
+      .toList();
 
   /// Value front string
   static BrightnessEnum fromString(String string) {
@@ -52,7 +56,10 @@ class Brightness extends Value {
               )]! as Brightness)
                 .brightness,
         super(value: brightness, path: path, theme: theme) {
-    if (brightness is String && !BrightnessEnumExtension.possibleValues.contains(brightness)) {
+    if (brightness is String &&
+        !BrightnessEnumExtension.possibleValues.contains(
+          brightness,
+        )) {
       errors.add(
         'Brightness "${path.last}": "$brightness" is not a valid value (possible values: ${BrightnessEnumExtension.possibleValues}, location: $path)',
       );

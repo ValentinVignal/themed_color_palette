@@ -9,7 +9,10 @@ abstract class SharedJsonToDart extends JsonToDart {
   }) : super(json: json, context: context);
 
   /// From json constructor
-  factory SharedJsonToDart.fromJson({required Map<String, dynamic> json, required BuildContext context}) {
+  factory SharedJsonToDart.fromJson({
+    required Map<String, dynamic> json,
+    required BuildContext context,
+  }) {
     final type = ObjectTypeExtension.fromString(json['.type'] as String?);
     switch (type) {
       case ObjectType.collection:

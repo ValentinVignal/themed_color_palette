@@ -22,6 +22,7 @@ part 'value/value_type.dart';
 
 /// The color palette containing everything.
 class ColorPalette extends ThemedJsonToDart {
+  /// The color palette containing everything.
   factory ColorPalette.fromJson({required Map<String, dynamic> json}) {
     // Themes.
     _addThemes(List<String>.from(json['.themes'] as List));
@@ -113,7 +114,9 @@ class ColorPalette extends ThemedJsonToDart {
 
     // Shared attributes
     if (constants.isNotEmpty) {
-      for (final value in constants.where((value) => value.context.includesPlatform(platform))) {
+      for (final value in constants.where(
+        (value) => value.context.includesPlatform(platform),
+      )) {
         superContextBodyBuffer
           ..writeln()
           ..write(value.dartParameter(platform: ''));
@@ -151,5 +154,9 @@ class ColorPalette extends ThemedJsonToDart {
   String toJsonString() => throw Exception('This should not have been called');
 
   @override
-  String fromJsonString({required String value, required String platform}) => throw Exception('This should not have been called');
+  String fromJsonString({
+    required String value,
+    required String platform,
+  }) =>
+      throw Exception('This should not have been called');
 }

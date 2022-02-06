@@ -34,11 +34,15 @@ class Color extends Value {
     }
 
     if (color is String && !_regExpColor.hasMatch(color)) {
-      errors.add('Color "${path.last}": $color is not in aarrggbb format (location: $path)');
+      errors.add(
+        'Color "${path.last}": $color is not in aarrggbb format (location: $path)',
+      );
     }
     if (opacity != null) {
       if (.0 > opacity! || 1 < opacity!) {
-        errors.add('Opacity of "${path.last}" ($opacity) is not in [0, 1] (location: $path)');
+        errors.add(
+          'Opacity of "${path.last}" ($opacity) is not in [0, 1] (location: $path)',
+        );
       }
     }
   }
@@ -63,7 +67,13 @@ class Color extends Value {
   }
 
   /// Opacity double to hexadecimal
-  static String opacityDoubleToHexadecimal(double value) => (255 * min(max(value, 0), 1)).round().toRadixString(16);
+  static String opacityDoubleToHexadecimal(double value) => (255 *
+          min(
+            max(value, 0),
+            1,
+          ))
+      .round()
+      .toRadixString(16);
 
   @override
   String get dartConstructor {

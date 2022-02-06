@@ -21,16 +21,22 @@ class SharedCollection extends SharedJsonToDart {
   }
 
   @override
-  String get className => throw UnsupportedError('SharedCollection are not instantiated, there is no class name');
+  String get className => throw UnsupportedError(
+        'SharedCollection are not instantiated, there is no class name',
+      );
 
   @override
-  String get name => throw UnsupportedError('SharedCollection are not instantiated, there is no name');
+  String get name => throw UnsupportedError(
+        'SharedCollection are not instantiated, there is no name',
+      );
 
   /// List of sub-collections
   final List<SharedJsonToDart> collections = [];
 
   @override
   String dartParameter({required String platform}) {
-    return collections.map((item) => item.dartParameter(platform: platform)).join();
+    return collections
+        .map((item) => item.dartParameter(platform: platform))
+        .join();
   }
 }

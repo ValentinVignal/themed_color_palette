@@ -17,7 +17,9 @@ abstract class JsonToDart {
         // If we remove them, the linter take `?` from `String?` as a conditional operator
         flutterValue = json['.flutter'] as String? ?? '',
         deprecationMessage = json['.deprecated'] as String? ?? '',
-        context = context.extendsWith(platforms: List<String>.from(json['.platforms'] as List? ?? []));
+        context = context.extendsWith(
+          platforms: List<String>.from(json['.platforms'] as List? ?? []),
+        );
 
   /// The context of the current object from its parents.
   final BuildContext context;
@@ -27,7 +29,10 @@ abstract class JsonToDart {
 
   /// Comment to put in the code.
   String get comment {
-    return description.split('\n').map((descriptionBlock) => '/// $descriptionBlock').join('\n');
+    return description
+        .split('\n')
+        .map((descriptionBlock) => '/// $descriptionBlock')
+        .join('\n');
   }
 
   /// The class name of the object.
@@ -36,9 +41,14 @@ abstract class JsonToDart {
   /// ```dart
   /// ParentName1$ParentName2$ObjectName_web
   /// ```
-  String classNameWithPlatform({required String platform, bool withCovariant = false}) {
+  String classNameWithPlatform(
+      {required String platform, bool withCovariant = false}) {
     final platformSuffix = platform.isEmpty ? '' : '$platformDivider$platform';
-    final covariantString = withCovariant && context.includesPlatform('') && Themes.platforms.isNotEmpty ? 'covariant ' : '';
+    final covariantString = withCovariant &&
+            context.includesPlatform('') &&
+            Themes.platforms.isNotEmpty
+        ? 'covariant '
+        : '';
     return covariantString + className + platformSuffix;
   }
 

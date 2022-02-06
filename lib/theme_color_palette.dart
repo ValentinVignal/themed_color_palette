@@ -26,13 +26,17 @@ class ThemeColorPaletteBuilder implements Builder {
     // Create a new target `AssetId` based on the current one
     final copyAssetId = inputId.changeExtension('.g.dart');
     final content = await buildStep.readAsString(inputId);
-    final json = dart_convert.json.decode(dart_convert.json.encode(loadYaml(content)));
-    final colorPalette = ColorPalette.fromJson(json: json as Map<String, dynamic>);
+    final json =
+        dart_convert.json.decode(dart_convert.json.encode(loadYaml(content)));
+    final colorPalette = ColorPalette.fromJson(
+      json: json as Map<String, dynamic>,
+    );
 
     final buffer = StringBuffer()
       ..writeln('// ! GENERATED CODE - DO NOT MANUALLY EDIT')
       ..writeln()
-      ..writeln("part of '${inputId.changeExtension('').changeExtension('.dart').pathSegments.last}';")
+      ..writeln(
+          "part of '${inputId.changeExtension('').changeExtension('.dart').pathSegments.last}';")
       ..writeln()
       ..write(colorPalette.dartDefine(const DartDefineContext()));
     // Write out the new asset

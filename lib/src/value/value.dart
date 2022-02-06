@@ -19,7 +19,11 @@ abstract class Value {
 
   // The value key when the value is saved
   static String _id({required List<String> path, required String? theme}) {
-    final _pathString = path.map((_path) => _path.firstLowerCase).join(importSeparator);
+    final _pathString = path
+        .map(
+          (_path) => _path.firstLowerCase,
+        )
+        .join(importSeparator);
     if (theme == null) {
       // This is a shared value
       return [BaseName.shared, _pathString].join(importSeparator);
@@ -37,9 +41,18 @@ abstract class Value {
     if (isShared) {
       _pathString = BaseName.shared +
           importSeparator +
-          import.substring(BaseName.shared.length + 1).split(importSeparator).map((_path) => _path.firstLowerCase).join(importSeparator);
+          import
+              .substring(BaseName.shared.length + 1)
+              .split(importSeparator)
+              .map((_path) => _path.firstLowerCase)
+              .join(importSeparator);
     } else {
-      _pathString = BaseName.themed.firstLowerCase + importSeparator + import.split(importSeparator).map((_path) => _path.firstLowerCase).join(importSeparator);
+      _pathString = BaseName.themed.firstLowerCase +
+          importSeparator +
+          import
+              .split(importSeparator)
+              .map((_path) => _path.firstLowerCase)
+              .join(importSeparator);
     }
 
     if (isShared) {

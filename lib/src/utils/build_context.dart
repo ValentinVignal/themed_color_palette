@@ -12,7 +12,9 @@ class BuildContext {
     // Check the names
     // Only check the last one as the previous ones have already been checked
     if (!camelCaseRegExp.hasMatch(names.last)) {
-      errors.add('Variable "${names.last}" is not in camelCase (location: $names)');
+      errors.add(
+        'Variable "${names.last}" is not in camelCase (location: $names)',
+      );
     }
   }
 
@@ -28,7 +30,10 @@ class BuildContext {
   final List<String> platforms;
 
   /// `true` if the object is available on all the platforms.
-  bool get onAllPlatforms => setEquals(Themes.platforms.toSet(), platforms.toSet());
+  bool get onAllPlatforms => setEquals(
+        Themes.platforms.toSet(),
+        platforms.toSet(),
+      );
 
   /// Whether or not the object is available on the given platform.
   bool includesPlatform(String platform) {
@@ -52,7 +57,11 @@ class BuildContext {
   /// ```dart
   /// r"ParentName1$ParentName2$ObjectName";
   /// ```
-  String get className => names.map((name) => name.firstUpperCase).join(divider);
+  String get className => names
+      .map(
+        (name) => name.firstUpperCase,
+      )
+      .join(divider);
 
   /// Extends the current context with new values.
   BuildContext extendsWith({

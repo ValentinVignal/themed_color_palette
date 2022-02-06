@@ -132,7 +132,10 @@ class FontWeight extends Value {
               )]! as FontWeight)
                 .fontWeight,
         super(value: fontWeight, path: path, theme: theme) {
-    if (fontWeight is String && !FontWeightEnumExtension.possibleValues.contains(fontWeight)) {
+    if (fontWeight is String &&
+        !FontWeightEnumExtension.possibleValues.contains(
+          fontWeight,
+        )) {
       errors.add(
         'Font weight "${path.last}": "$fontWeight" is not a valid value (possible values: ${FontWeightEnumExtension.possibleValues}, location: $path)',
       );
