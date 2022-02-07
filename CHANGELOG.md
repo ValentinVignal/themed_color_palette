@@ -1,3 +1,7 @@
+## [0.2.2] 07/02/2022
+
+- Add the extension `ThemesExtension` with the `colorPalette` getters.
+
 ## [0.2.1] 06/02/2022
 
 - Fix bugs with platforms:
