@@ -12,8 +12,5 @@ jobs:
       - run: flutter pub get
       - name: Analyze dart code
         uses: ValentinVignal/action-dart-analyze@v0.12
-        with:
-          fail-on: "format"
-          line-length: ${{ fromJSON(steps.get_vscode_settings.outputs.VSCodeSettings).dartLineLength }}
       - name: Run the tests
         run: flutter test
