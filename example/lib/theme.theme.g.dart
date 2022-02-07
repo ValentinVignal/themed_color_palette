@@ -27,7 +27,7 @@ extension ThemesExtension on Themes {
   }
 
   /// Returns the mobile theme color palette.
-  ThemeColorPalette get colorPaletteMobile {
+  ThemeColorPalette_mobile get colorPaletteMobile {
     switch (this) {
       case Themes.dark:
         return const ThemeColorPalette_mobile.dark();
@@ -38,7 +38,7 @@ extension ThemesExtension on Themes {
   }
 
   /// Returns the web theme color palette.
-  ThemeColorPalette get colorPaletteWeb {
+  ThemeColorPalette_web get colorPaletteWeb {
     switch (this) {
       case Themes.dark:
         return const ThemeColorPalette_web.dark();

@@ -165,7 +165,7 @@ class ColorPalette extends ThemedJsonToDart {
       buffer.write('''
 
   /// Returns the$platformWithSpace theme color palette.
-  ${context.baseName} get colorPalette${platform.firstUpperCase} {
+  ${classNameWithPlatform(platform: platform)} get colorPalette${platform.firstUpperCase} {
     switch (this) {
 $extensionGetterBody
     }
