@@ -8,5 +8,8 @@ extension StringExtension on String {
   /// Set the first letter of a string in upper case.
   ///
   /// ! String must not be empty.
-  String get firstUpperCase => this[0].toUpperCase() + substring(1);
+  String get firstUpperCase {
+    if (isEmpty) return '';
+    return this[0].toUpperCase() + substring(1);
+  }
 }

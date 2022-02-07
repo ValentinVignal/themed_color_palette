@@ -143,6 +143,39 @@ class ColorPalette extends ThemedJsonToDart {
       ..writeLine(0, '}')
       ..writeln()
 
+      // Extension on the enum
+      ..writeLine(0, '/// Extension on [Themes].')
+      ..writeLine(0, 'extension ThemesExtension on Themes {');
+    for (final platform in ['', ...Themes.platforms]) {
+      final platformWithSpace = platform.isNotEmpty ? ' $platform' : '';
+      final extensionGetterBody = StringBuffer();
+      for (final theme in Themes.themes.sublist(1)) {
+        extensionGetterBody
+          ..writeLine(3, 'case Themes.${theme.firstLowerCase}:')
+          ..writeLine(4,
+              'return ${dartConstructor(theme: theme, platform: platform)};');
+      }
+      extensionGetterBody
+        ..writeLine(3, 'case Themes.${Themes.defaultTheme.firstLowerCase}:')
+        ..writeLine(3, 'default:')
+        ..write(
+          '  ' * 4 +
+              'return ${dartConstructor(theme: Themes.defaultTheme, platform: platform)};',
+        );
+      buffer.write('''
+
+  /// Returns the$platformWithSpace theme color palette.
+  ${context.baseName} get colorPalette${platform.firstUpperCase} {
+    switch (this) {
+$extensionGetterBody
+    }
+  }
+''');
+    }
+    buffer
+      ..writeLine(0, '}')
+      ..writeln()
+
       // Color palette
       ..write(super.dartDefine(DartDefineContext(
         body: body,

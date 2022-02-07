@@ -12,6 +12,43 @@ enum Themes {
   dark,
 }
 
+/// Extension on [Themes].
+extension ThemesExtension on Themes {
+
+  /// Returns the theme color palette.
+  ThemeColorPalette get colorPalette {
+    switch (this) {
+      case Themes.dark:
+        return const ThemeColorPalette.dark();
+      case Themes.light:
+      default:
+        return const ThemeColorPalette.light();
+    }
+  }
+
+  /// Returns the mobile theme color palette.
+  ThemeColorPalette get colorPaletteMobile {
+    switch (this) {
+      case Themes.dark:
+        return const ThemeColorPalette_mobile.dark();
+      case Themes.light:
+      default:
+        return const ThemeColorPalette_mobile.light();
+    }
+  }
+
+  /// Returns the web theme color palette.
+  ThemeColorPalette get colorPaletteWeb {
+    switch (this) {
+      case Themes.dark:
+        return const ThemeColorPalette_web.dark();
+      case Themes.light:
+      default:
+        return const ThemeColorPalette_web.light();
+    }
+  }
+}
+
 // -------------------- ThemeColorPalette --------------------
 
 /// The Theme Color Palette
