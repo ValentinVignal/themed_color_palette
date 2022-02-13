@@ -55,6 +55,13 @@ class ThemedValue extends ThemedJsonToDart {
       '$value as $className';
 
   @override
+  String copyWithJsonString({
+    required String value,
+    required String platform,
+  }) =>
+      '$value as $className?';
+
+  @override
   String classNameWithPlatform({
     required String platform,
     bool withCovariant = false,

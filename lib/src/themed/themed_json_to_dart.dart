@@ -224,6 +224,30 @@ abstract class ThemedJsonToDart extends JsonToDart {
         ..writeLine(2, ');')
         ..writeLine(1, '}')
 
+        // copyWithJson
+        ..writeln();
+      if (!isAllPlatformGenericClass) {
+        buffer.writeLine(1, '@override');
+      }
+      buffer.write('''
+  /// Copy with json method.
+  ${classNameWithPlatform(platform: platform)} copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+''');
+      for (final value in platformValues) {
+        buffer.writeLine(
+          3,
+          '${value.context.name}: ${value.copyWithJsonString(value: 'json[\'${value.context.name}\']', platform: platform)},',
+        );
+      }
+
+      buffer
+        ..writeLine(2, ');')
+        ..writeLine(1, '}')
+
         // toJson
 
         ..writeln()
@@ -293,4 +317,14 @@ abstract class ThemedJsonToDart extends JsonToDart {
   ///
   /// This method should return the string that handles this value.
   String fromJsonString({required String value, required String platform});
+
+  /// Copy with json string method.
+  ///
+  /// value will be a string like
+  /// ```dart
+  /// json['myKey']
+  /// ```
+  ///
+  /// This method should return the string that handles this value.
+  String copyWithJsonString({required String value, required String platform});
 }

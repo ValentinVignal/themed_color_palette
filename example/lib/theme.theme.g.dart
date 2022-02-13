@@ -340,6 +340,39 @@ class ThemeColorPalette {
     );
   }
 
+  /// Copy with json method.
+  ThemeColorPalette copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      brightness: json['brightness'] as Brightness?,
+      accentColor: json['accentColor'] as Color?,
+      primaryColor: json['primaryColor'] as Color?,
+      primaryColorLight: json['primaryColorLight'] as Color?,
+      secondaryColor: json['secondaryColor'] as Color?,
+      errorColor: json['errorColor'] as Color?,
+      disabledColor: json['disabledColor'] as Color?,
+      textEmphasis: textEmphasis.copyWithJson(json['textEmphasis'] as Map<String, dynamic>?),
+      iconEmphasis: iconEmphasis.copyWithJson(json['iconEmphasis'] as Map<String, dynamic>?),
+      border: border.copyWithJson(json['border'] as Map<String, dynamic>?),
+      background: background.copyWithJson(json['background'] as Map<String, dynamic>?),
+      floatingActionButton: floatingActionButton.copyWithJson(json['floatingActionButton'] as Map<String, dynamic>?),
+      task: task.copyWithJson(json['task'] as Map<String, dynamic>?),
+      form: form.copyWithJson(json['form'] as Map<String, dynamic>?),
+      notification: notification.copyWithJson(json['notification'] as Map<String, dynamic>?),
+      projectTimeline: projectTimeline.copyWithJson(json['projectTimeline'] as Map<String, dynamic>?),
+      pin: pin.copyWithJson(json['pin'] as Map<String, dynamic>?),
+      hoverColor: json['hoverColor'] as Color?,
+      appBarTheme: appBarTheme.copyWithJson(json['appBarTheme'] as Map<String, dynamic>?),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithJson(json['bottomAppBarTheme'] as Map<String, dynamic>?),
+      tooltipTheme: _tooltipTheme.copyWithJson(json['tooltipTheme'] as Map<String, dynamic>?),
+      popupMenuTheme: _popupMenuTheme.copyWithJson(json['popupMenuTheme'] as Map<String, dynamic>?),
+      dividerTheme: _dividerTheme.copyWithJson(json['dividerTheme'] as Map<String, dynamic>?),
+      selectedRowColor: json['selectedRowColor'] as Color?,
+    );
+  }
+
   /// To json method.
   Map<String, dynamic> toJson() => {
     'brightness': _brightness,
@@ -695,6 +728,40 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      brightness: json['brightness'] as Brightness?,
+      accentColor: json['accentColor'] as Color?,
+      primaryColor: json['primaryColor'] as Color?,
+      primaryColorLight: json['primaryColorLight'] as Color?,
+      secondaryColor: json['secondaryColor'] as Color?,
+      errorColor: json['errorColor'] as Color?,
+      disabledColor: json['disabledColor'] as Color?,
+      textEmphasis: textEmphasis.copyWithJson(json['textEmphasis'] as Map<String, dynamic>?),
+      iconEmphasis: iconEmphasis.copyWithJson(json['iconEmphasis'] as Map<String, dynamic>?),
+      border: border.copyWithJson(json['border'] as Map<String, dynamic>?),
+      background: background.copyWithJson(json['background'] as Map<String, dynamic>?),
+      floatingActionButton: floatingActionButton.copyWithJson(json['floatingActionButton'] as Map<String, dynamic>?),
+      task: task.copyWithJson(json['task'] as Map<String, dynamic>?),
+      form: form.copyWithJson(json['form'] as Map<String, dynamic>?),
+      notification: notification.copyWithJson(json['notification'] as Map<String, dynamic>?),
+      projectTimeline: projectTimeline.copyWithJson(json['projectTimeline'] as Map<String, dynamic>?),
+      pin: pin.copyWithJson(json['pin'] as Map<String, dynamic>?),
+      hoverColor: json['hoverColor'] as Color?,
+      appBarTheme: appBarTheme.copyWithJson(json['appBarTheme'] as Map<String, dynamic>?),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithJson(json['bottomAppBarTheme'] as Map<String, dynamic>?),
+      tooltipTheme: _tooltipTheme.copyWithJson(json['tooltipTheme'] as Map<String, dynamic>?),
+      popupMenuTheme: _popupMenuTheme.copyWithJson(json['popupMenuTheme'] as Map<String, dynamic>?),
+      dividerTheme: _dividerTheme.copyWithJson(json['dividerTheme'] as Map<String, dynamic>?),
+      selectedRowColor: json['selectedRowColor'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -1045,6 +1112,40 @@ class ThemeColorPalette_web implements ThemeColorPalette {
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      brightness: json['brightness'] as Brightness?,
+      accentColor: json['accentColor'] as Color?,
+      primaryColor: json['primaryColor'] as Color?,
+      primaryColorLight: json['primaryColorLight'] as Color?,
+      secondaryColor: json['secondaryColor'] as Color?,
+      errorColor: json['errorColor'] as Color?,
+      disabledColor: json['disabledColor'] as Color?,
+      textEmphasis: textEmphasis.copyWithJson(json['textEmphasis'] as Map<String, dynamic>?),
+      iconEmphasis: iconEmphasis.copyWithJson(json['iconEmphasis'] as Map<String, dynamic>?),
+      border: border.copyWithJson(json['border'] as Map<String, dynamic>?),
+      background: background.copyWithJson(json['background'] as Map<String, dynamic>?),
+      floatingActionButton: floatingActionButton.copyWithJson(json['floatingActionButton'] as Map<String, dynamic>?),
+      task: task.copyWithJson(json['task'] as Map<String, dynamic>?),
+      form: form.copyWithJson(json['form'] as Map<String, dynamic>?),
+      notification: notification.copyWithJson(json['notification'] as Map<String, dynamic>?),
+      projectTimeline: projectTimeline.copyWithJson(json['projectTimeline'] as Map<String, dynamic>?),
+      pin: pin.copyWithJson(json['pin'] as Map<String, dynamic>?),
+      hoverColor: json['hoverColor'] as Color?,
+      appBarTheme: appBarTheme.copyWithJson(json['appBarTheme'] as Map<String, dynamic>?),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithJson(json['bottomAppBarTheme'] as Map<String, dynamic>?),
+      tooltipTheme: _tooltipTheme.copyWithJson(json['tooltipTheme'] as Map<String, dynamic>?),
+      popupMenuTheme: _popupMenuTheme.copyWithJson(json['popupMenuTheme'] as Map<String, dynamic>?),
+      dividerTheme: _dividerTheme.copyWithJson(json['dividerTheme'] as Map<String, dynamic>?),
+      selectedRowColor: json['selectedRowColor'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -1165,6 +1266,22 @@ class ThemeColorPalette$TextEmphasis {
     );
   }
 
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      accent: json['accent'] as Color?,
+      success: json['success'] as Color?,
+      error: json['error'] as Color?,
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+    );
+  }
+
   /// To json method.
   Map<String, dynamic> toJson() => {
     'accent': _accent,
@@ -1281,6 +1398,24 @@ class ThemeColorPalette$TextEmphasis_mobile implements ThemeColorPalette$TextEmp
       low: low ?? this.low,
       disabled: disabled ?? this.disabled,
       reversedMobile: reversedMobile ?? this.reversedMobile,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      accent: json['accent'] as Color?,
+      success: json['success'] as Color?,
+      error: json['error'] as Color?,
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+      reversedMobile: reversedMobile.copyWithJson(json['reversedMobile'] as Map<String, dynamic>?),
     );
   }
 
@@ -1405,6 +1540,24 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      accent: json['accent'] as Color?,
+      success: json['success'] as Color?,
+      error: json['error'] as Color?,
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+      reversedWeb: reversedWeb.copyWithJson(json['reversedWeb'] as Map<String, dynamic>?),
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -1438,6 +1591,15 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile {
 
   ThemeColorPalette$TextEmphasis$ReversedMobile copyWith(){
     return ThemeColorPalette$TextEmphasis$ReversedMobile(
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis$ReversedMobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
     );
   }
 
@@ -1507,6 +1669,20 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis$ReversedMobile_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -1536,6 +1712,15 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb {
 
   ThemeColorPalette$TextEmphasis$ReversedWeb copyWith(){
     return ThemeColorPalette$TextEmphasis$ReversedWeb(
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis$ReversedWeb copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
     );
   }
 
@@ -1602,6 +1787,20 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb_web implements ThemeColorPalett
       medium: medium ?? this.medium,
       low: low ?? this.low,
       disabled: disabled ?? this.disabled,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TextEmphasis$ReversedWeb_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
     );
   }
 
@@ -1681,6 +1880,20 @@ class ThemeColorPalette$IconEmphasis {
       low: low ?? this.low,
       disabled: disabled ?? this.disabled,
       reversed: reversed ?? this.reversed,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$IconEmphasis copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+      reversed: reversed.copyWithJson(json['reversed'] as Map<String, dynamic>?),
     );
   }
 
@@ -1766,6 +1979,21 @@ class ThemeColorPalette$IconEmphasis_mobile implements ThemeColorPalette$IconEmp
       low: low ?? this.low,
       disabled: disabled ?? this.disabled,
       reversed: reversed ?? this.reversed,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$IconEmphasis_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+      reversed: reversed.copyWithJson(json['reversed'] as Map<String, dynamic>?),
     );
   }
 
@@ -1855,6 +2083,21 @@ class ThemeColorPalette$IconEmphasis_web implements ThemeColorPalette$IconEmphas
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$IconEmphasis_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+      reversed: reversed.copyWithJson(json['reversed'] as Map<String, dynamic>?),
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -1923,6 +2166,19 @@ class ThemeColorPalette$IconEmphasis$Reversed {
       medium: medium ?? this.medium,
       low: low ?? this.low,
       disabled: disabled ?? this.disabled,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$IconEmphasis$Reversed copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
     );
   }
 
@@ -1997,6 +2253,20 @@ class ThemeColorPalette$IconEmphasis$Reversed_mobile implements ThemeColorPalett
       medium: medium ?? this.medium,
       low: low ?? this.low,
       disabled: disabled ?? this.disabled,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$IconEmphasis$Reversed_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
     );
   }
 
@@ -2075,6 +2345,20 @@ class ThemeColorPalette$IconEmphasis$Reversed_web implements ThemeColorPalette$I
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$IconEmphasis$Reversed_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      low: json['low'] as Color?,
+      disabled: json['disabled'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -2136,6 +2420,18 @@ class ThemeColorPalette$Border {
       high: high ?? this.high,
       medium: medium ?? this.medium,
       divider: divider ?? _divider,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$Border copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      divider: json['divider'] as Color?,
     );
   }
 
@@ -2205,6 +2501,19 @@ class ThemeColorPalette$Border_mobile implements ThemeColorPalette$Border {
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Border_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      divider: json['divider'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -2269,6 +2578,19 @@ class ThemeColorPalette$Border_web implements ThemeColorPalette$Border {
       high: high ?? this.high,
       medium: medium ?? this.medium,
       divider: divider ?? _divider,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Border_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: json['high'] as Color?,
+      medium: json['medium'] as Color?,
+      divider: json['divider'] as Color?,
     );
   }
 
@@ -2368,6 +2690,21 @@ class ThemeColorPalette$Background {
       scaffold: scaffold ?? _scaffold,
       canvas: canvas ?? _canvas,
       card: card ?? _card,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$Background copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabled: json['disabled'] as Color?,
+      backgroundColor: json['backgroundColor'] as Color?,
+      background1: json['background1'] as Color?,
+      scaffold: json['scaffold'] as Color?,
+      canvas: json['canvas'] as Color?,
+      card: json['card'] as Color?,
     );
   }
 
@@ -2476,6 +2813,22 @@ class ThemeColorPalette$Background_mobile implements ThemeColorPalette$Backgroun
       scaffold: scaffold ?? _scaffold,
       canvas: canvas ?? _canvas,
       card: card ?? _card,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Background_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabled: json['disabled'] as Color?,
+      backgroundColor: json['backgroundColor'] as Color?,
+      background1: json['background1'] as Color?,
+      scaffold: json['scaffold'] as Color?,
+      canvas: json['canvas'] as Color?,
+      card: json['card'] as Color?,
     );
   }
 
@@ -2588,6 +2941,22 @@ class ThemeColorPalette$Background_web implements ThemeColorPalette$Background {
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Background_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabled: json['disabled'] as Color?,
+      backgroundColor: json['backgroundColor'] as Color?,
+      background1: json['background1'] as Color?,
+      scaffold: json['scaffold'] as Color?,
+      canvas: json['canvas'] as Color?,
+      card: json['card'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -2666,6 +3035,19 @@ class ThemeColorPalette$FloatingActionButton {
       backgroundColor: backgroundColor ?? _backgroundColor,
       foregroundColor: foregroundColor ?? _foregroundColor,
       disabledElevation: disabledElevation ?? _disabledElevation,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$FloatingActionButton copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabledColor: json['disabledColor'] as Color?,
+      backgroundColor: json['backgroundColor'] as Color?,
+      foregroundColor: json['foregroundColor'] as Color?,
+      disabledElevation: json['disabledElevation'] as double?,
     );
   }
 
@@ -2749,6 +3131,20 @@ class ThemeColorPalette$FloatingActionButton_mobile implements ThemeColorPalette
       backgroundColor: backgroundColor ?? _backgroundColor,
       foregroundColor: foregroundColor ?? _foregroundColor,
       disabledElevation: disabledElevation ?? _disabledElevation,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$FloatingActionButton_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabledColor: json['disabledColor'] as Color?,
+      backgroundColor: json['backgroundColor'] as Color?,
+      foregroundColor: json['foregroundColor'] as Color?,
+      disabledElevation: json['disabledElevation'] as double?,
     );
   }
 
@@ -2836,6 +3232,20 @@ class ThemeColorPalette$FloatingActionButton_web implements ThemeColorPalette$Fl
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$FloatingActionButton_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabledColor: json['disabledColor'] as Color?,
+      backgroundColor: json['backgroundColor'] as Color?,
+      foregroundColor: json['foregroundColor'] as Color?,
+      disabledElevation: json['disabledElevation'] as double?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -2894,6 +3304,18 @@ class ThemeColorPalette$Task {
       notStarted: notStarted ?? this.notStarted,
       workInProgress: workInProgress ?? this.workInProgress,
       completed: completed ?? this.completed,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$Task copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      notStarted: json['notStarted'] as Color?,
+      workInProgress: json['workInProgress'] as Color?,
+      completed: json['completed'] as Color?,
     );
   }
 
@@ -2960,6 +3382,19 @@ class ThemeColorPalette$Task_mobile implements ThemeColorPalette$Task {
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Task_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      notStarted: json['notStarted'] as Color?,
+      workInProgress: json['workInProgress'] as Color?,
+      completed: json['completed'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -3021,6 +3456,19 @@ class ThemeColorPalette$Task_web implements ThemeColorPalette$Task {
       notStarted: notStarted ?? this.notStarted,
       workInProgress: workInProgress ?? this.workInProgress,
       completed: completed ?? this.completed,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Task_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      notStarted: json['notStarted'] as Color?,
+      workInProgress: json['workInProgress'] as Color?,
+      completed: json['completed'] as Color?,
     );
   }
 
@@ -3090,6 +3538,19 @@ class ThemeColorPalette$Form {
       actionRequired: actionRequired ?? this.actionRequired,
       completed: completed ?? this.completed,
       rejected: rejected ?? this.rejected,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$Form copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      draft: json['draft'] as Color?,
+      actionRequired: json['actionRequired'] as Color?,
+      completed: json['completed'] as Color?,
+      rejected: json['rejected'] as Color?,
     );
   }
 
@@ -3164,6 +3625,20 @@ class ThemeColorPalette$Form_mobile implements ThemeColorPalette$Form {
       actionRequired: actionRequired ?? this.actionRequired,
       completed: completed ?? this.completed,
       rejected: rejected ?? this.rejected,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Form_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      draft: json['draft'] as Color?,
+      actionRequired: json['actionRequired'] as Color?,
+      completed: json['completed'] as Color?,
+      rejected: json['rejected'] as Color?,
     );
   }
 
@@ -3242,6 +3717,20 @@ class ThemeColorPalette$Form_web implements ThemeColorPalette$Form {
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Form_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      draft: json['draft'] as Color?,
+      actionRequired: json['actionRequired'] as Color?,
+      completed: json['completed'] as Color?,
+      rejected: json['rejected'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -3282,6 +3771,16 @@ class ThemeColorPalette$Notification {
   }) {
     return ThemeColorPalette$Notification(
       countBubbleColor: countBubbleColor ?? this.countBubbleColor,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$Notification copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      countBubbleColor: json['countBubbleColor'] as Color?,
     );
   }
 
@@ -3326,6 +3825,17 @@ class ThemeColorPalette$Notification_mobile implements ThemeColorPalette$Notific
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Notification_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      countBubbleColor: json['countBubbleColor'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -3365,6 +3875,17 @@ class ThemeColorPalette$Notification_web implements ThemeColorPalette$Notificati
   }) {
     return ThemeColorPalette$Notification_web(
       countBubbleColor: countBubbleColor ?? this.countBubbleColor,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Notification_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      countBubbleColor: json['countBubbleColor'] as Color?,
     );
   }
 
@@ -3459,6 +3980,22 @@ class ThemeColorPalette$ProjectTimeline {
       today: today ?? this.today,
       active: active ?? this.active,
       progress: progress ?? this.progress,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$ProjectTimeline copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      plannedLight: json['plannedLight'] as Color?,
+      planned: json['planned'] as Color?,
+      start: json['start'] as Color?,
+      completed: json['completed'] as Color?,
+      today: json['today'] as Color?,
+      active: json['active'] as Color?,
+      progress: json['progress'] as Color?,
     );
   }
 
@@ -3566,6 +4103,23 @@ class ThemeColorPalette$ProjectTimeline_mobile implements ThemeColorPalette$Proj
       today: today ?? this.today,
       active: active ?? this.active,
       progress: progress ?? this.progress,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$ProjectTimeline_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      plannedLight: json['plannedLight'] as Color?,
+      planned: json['planned'] as Color?,
+      start: json['start'] as Color?,
+      completed: json['completed'] as Color?,
+      today: json['today'] as Color?,
+      active: json['active'] as Color?,
+      progress: json['progress'] as Color?,
     );
   }
 
@@ -3677,6 +4231,23 @@ class ThemeColorPalette$ProjectTimeline_web implements ThemeColorPalette$Project
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$ProjectTimeline_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      plannedLight: json['plannedLight'] as Color?,
+      planned: json['planned'] as Color?,
+      start: json['start'] as Color?,
+      completed: json['completed'] as Color?,
+      today: json['today'] as Color?,
+      active: json['active'] as Color?,
+      progress: json['progress'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -3732,6 +4303,17 @@ class ThemeColorPalette$Pin {
     );
   }
 
+  /// Copy with json method.
+  ThemeColorPalette$Pin copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      iconColor: json['iconColor'] as Color?,
+      disabledBackgroundColor: json['disabledBackgroundColor'] as Color?,
+    );
+  }
+
   /// To json method.
   Map<String, dynamic> toJson() => {
     'iconColor': iconColor,
@@ -3781,6 +4363,18 @@ class ThemeColorPalette$Pin_mobile implements ThemeColorPalette$Pin {
     return ThemeColorPalette$Pin_mobile(
       iconColor: iconColor ?? this.iconColor,
       disabledBackgroundColor: disabledBackgroundColor ?? this.disabledBackgroundColor,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Pin_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      iconColor: json['iconColor'] as Color?,
+      disabledBackgroundColor: json['disabledBackgroundColor'] as Color?,
     );
   }
 
@@ -3834,6 +4428,18 @@ class ThemeColorPalette$Pin_web implements ThemeColorPalette$Pin {
     return ThemeColorPalette$Pin_web(
       iconColor: iconColor ?? this.iconColor,
       disabledBackgroundColor: disabledBackgroundColor ?? this.disabledBackgroundColor,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$Pin_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      iconColor: json['iconColor'] as Color?,
+      disabledBackgroundColor: json['disabledBackgroundColor'] as Color?,
     );
   }
 
@@ -3893,6 +4499,17 @@ class ThemeColorPalette$AppBarTheme {
     );
   }
 
+  /// Copy with json method.
+  ThemeColorPalette$AppBarTheme copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      foregroundColor: json['foregroundColor'] as Color?,
+    );
+  }
+
   /// To json method.
   Map<String, dynamic> toJson() => {
     'color': _color,
@@ -3948,6 +4565,18 @@ class ThemeColorPalette$AppBarTheme_mobile implements ThemeColorPalette$AppBarTh
     return ThemeColorPalette$AppBarTheme_mobile(
       color: color ?? _color,
       foregroundColor: foregroundColor ?? _foregroundColor,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$AppBarTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      foregroundColor: json['foregroundColor'] as Color?,
     );
   }
 
@@ -4010,6 +4639,18 @@ class ThemeColorPalette$AppBarTheme_web implements ThemeColorPalette$AppBarTheme
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$AppBarTheme_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      foregroundColor: json['foregroundColor'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4051,6 +4692,16 @@ class ThemeColorPalette$BottomAppBarTheme {
   }) {
     return ThemeColorPalette$BottomAppBarTheme(
       color: color ?? _color,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$BottomAppBarTheme copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
     );
   }
 
@@ -4098,6 +4749,17 @@ class ThemeColorPalette$BottomAppBarTheme_mobile implements ThemeColorPalette$Bo
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$BottomAppBarTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4140,6 +4802,17 @@ class ThemeColorPalette$BottomAppBarTheme_web implements ThemeColorPalette$Botto
   }) {
     return ThemeColorPalette$BottomAppBarTheme_web(
       color: color ?? _color,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$BottomAppBarTheme_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
     );
   }
 
@@ -4200,6 +4873,17 @@ class ThemeColorPalette$TooltipTheme {
     );
   }
 
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      decoration: _decoration.copyWithJson(json['decoration'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   /// To json method.
   Map<String, dynamic> toJson() => {
     'decoration': _decoration.toJson(),
@@ -4257,6 +4941,18 @@ class ThemeColorPalette$TooltipTheme_mobile implements ThemeColorPalette$Tooltip
     return ThemeColorPalette$TooltipTheme_mobile(
       decoration: decoration ?? _decoration,
       textStyle: textStyle ?? _textStyle,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      decoration: _decoration.copyWithJson(json['decoration'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
     );
   }
 
@@ -4321,6 +5017,18 @@ class ThemeColorPalette$TooltipTheme_web implements ThemeColorPalette$TooltipThe
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      decoration: _decoration.copyWithJson(json['decoration'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4376,6 +5084,17 @@ class ThemeColorPalette$TooltipTheme$Decoration {
     return ThemeColorPalette$TooltipTheme$Decoration(
       color: color ?? _color,
       borderRadius: borderRadius ?? _borderRadius,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme$Decoration copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      borderRadius: json['borderRadius'] as double?,
     );
   }
 
@@ -4436,6 +5155,18 @@ class ThemeColorPalette$TooltipTheme$Decoration_mobile implements ThemeColorPale
     return ThemeColorPalette$TooltipTheme$Decoration_mobile(
       color: color ?? _color,
       borderRadius: borderRadius ?? _borderRadius,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme$Decoration_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      borderRadius: json['borderRadius'] as double?,
     );
   }
 
@@ -4500,6 +5231,18 @@ class ThemeColorPalette$TooltipTheme$Decoration_web implements ThemeColorPalette
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme$Decoration_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      borderRadius: json['borderRadius'] as double?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4546,6 +5289,16 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
     );
   }
 
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme$TextStyle copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+    );
+  }
+
   /// To json method.
   Map<String, dynamic> toJson() => {
     'color': _color,
@@ -4589,6 +5342,17 @@ class ThemeColorPalette$TooltipTheme$TextStyle_mobile implements ThemeColorPalet
   }) {
     return ThemeColorPalette$TooltipTheme$TextStyle_mobile(
       color: color ?? _color,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme$TextStyle_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
     );
   }
 
@@ -4639,6 +5403,17 @@ class ThemeColorPalette$TooltipTheme$TextStyle_web implements ThemeColorPalette$
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$TooltipTheme$TextStyle_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4681,6 +5456,16 @@ class ThemeColorPalette$PopupMenuTheme {
   }) {
     return ThemeColorPalette$PopupMenuTheme(
       textStyle: textStyle ?? _textStyle,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$PopupMenuTheme copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      textStyle: _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
     );
   }
 
@@ -4727,6 +5512,17 @@ class ThemeColorPalette$PopupMenuTheme_mobile implements ThemeColorPalette$Popup
   }) {
     return ThemeColorPalette$PopupMenuTheme_mobile(
       textStyle: textStyle ?? _textStyle,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$PopupMenuTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      textStyle: _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
     );
   }
 
@@ -4777,6 +5573,17 @@ class ThemeColorPalette$PopupMenuTheme_web implements ThemeColorPalette$PopupMen
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$PopupMenuTheme_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      textStyle: _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4819,6 +5626,16 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
   }) {
     return ThemeColorPalette$PopupMenuTheme$TextStyle(
       color: color ?? _color,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$PopupMenuTheme$TextStyle copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
     );
   }
 
@@ -4868,6 +5685,17 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_mobile implements ThemeColorPal
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$PopupMenuTheme$TextStyle_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -4912,6 +5740,17 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_web implements ThemeColorPalett
   }) {
     return ThemeColorPalette$PopupMenuTheme$TextStyle_web(
       color: color ?? _color,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$PopupMenuTheme$TextStyle_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
     );
   }
 
@@ -4969,6 +5808,17 @@ class ThemeColorPalette$DividerTheme {
     return ThemeColorPalette$DividerTheme(
       color: color ?? _color,
       thickness: thickness ?? _thickness,
+    );
+  }
+
+  /// Copy with json method.
+  ThemeColorPalette$DividerTheme copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      thickness: json['thickness'] as double?,
     );
   }
 
@@ -5032,6 +5882,18 @@ class ThemeColorPalette$DividerTheme_mobile implements ThemeColorPalette$Divider
     );
   }
 
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$DividerTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      thickness: json['thickness'] as double?,
+    );
+  }
+
   /// To json method.
   @override
   Map<String, dynamic> toJson() => {
@@ -5090,6 +5952,18 @@ class ThemeColorPalette$DividerTheme_web implements ThemeColorPalette$DividerThe
     return ThemeColorPalette$DividerTheme_web(
       color: color ?? _color,
       thickness: thickness ?? _thickness,
+    );
+  }
+
+  @override
+  /// Copy with json method.
+  ThemeColorPalette$DividerTheme_web copyWithJson([Map<String, dynamic>? json]) {
+    if (json == null || json.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: json['color'] as Color?,
+      thickness: json['thickness'] as double?,
     );
   }
 

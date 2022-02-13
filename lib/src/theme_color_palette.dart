@@ -192,4 +192,11 @@ $extensionGetterBody
     required String platform,
   }) =>
       throw Exception('This should not have been called');
+
+  @override
+  String copyWithJsonString({
+    required String value,
+    required String platform,
+  }) =>
+      throw Exception('This should not have been called');
 }
