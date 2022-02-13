@@ -20,6 +20,11 @@ class _TestThemedJsonToDart extends ThemedJsonToDart {
   @override
   String fromJsonString({required String value, required String platform}) =>
       'fromJsonString($value, $platform)';
+
+  @override
+  String copyWithJsonString(
+          {required String value, required String platform}) =>
+      'copyWithJsonString($value, $platform)';
 }
 
 void main() {
