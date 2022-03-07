@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/ValentinVignal/theme_color_palette/branch/main/graph/badge.svg?token=QDQAEZDFLI)](https://codecov.io/gh/ValentinVignal/theme_color_palette)
+
+
 # theme_color_palette
 
 A new Flutter package project.
