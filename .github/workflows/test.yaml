@@ -23,6 +23,6 @@ jobs:
         uses: ValentinVignal/action-dart-analyze@v0.12
       - name: Run the tests
         if: always()
-        run: flutter test
+        run: flutter test --coverage
       - name: Upload to Codecov
         uses: codecov/codecov-action@v2
