@@ -4,4 +4,3 @@ comment:
 # end eventually also the autogenerate file
 ignore:
   - "**/example/"
-  - "**/*.g.dart"
