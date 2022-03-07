@@ -68,4 +68,27 @@ class ThemedValue extends ThemedJsonToDart {
   }) {
     return className;
   }
+
+  String _castFromYamlString({required String value, required bool nullable}) {
+    return themedValues.values.first
+        .castFromYamlString(value: value, nullable: nullable);
+  }
+
+  @override
+  String fromYamlString({
+    required String value,
+    required String platform,
+  }) =>
+      _castFromYamlString(value: value, nullable: false);
+
+  @override
+  String copyWithYamlString({
+    required String value,
+    required String platform,
+  }) =>
+      _castFromYamlString(value: value, nullable: true);
+
+  @override
+  String toYamlString() =>
+      themedValues.values.first.castToYamlString(value: instanceName);
 }

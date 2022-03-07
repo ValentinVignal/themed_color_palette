@@ -1,0 +1,19 @@
+{
+  "ignorePaths": [
+    "**/*.g.dart", // Those are generated files.
+    "cspell.json",
+    "pubspec.yaml",
+    "pubspec.lock",
+    ".gitignore"
+  ],
+  "words": [
+    "aarrggbb",
+    "codecov",
+    "endtemplate",
+    "Jsons",
+    "sublist",
+    "unimported",
+    "vignal",
+    "writeln"
+  ]
+}

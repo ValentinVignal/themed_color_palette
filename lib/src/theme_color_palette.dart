@@ -18,6 +18,7 @@ part 'value/double.dart';
 part 'value/font_weight.dart';
 part 'value/int.dart';
 part 'value/value.dart';
+part 'value/value_extensions.dart';
 part 'value/value_type.dart';
 
 /// The color palette containing everything.
@@ -175,6 +176,8 @@ $extensionGetterBody
     buffer
       ..writeLine(0, '}')
       ..writeln()
+      ..write(valueExtensions)
+      ..writeln()
 
       // Color palette
       ..write(super.dartDefine(DartDefineContext(
@@ -199,4 +202,21 @@ $extensionGetterBody
     required String platform,
   }) =>
       throw Exception('This should not have been called');
+
+  @override
+  String fromYamlString({
+    required String value,
+    required String platform,
+  }) =>
+      throw Exception('This should not have been called');
+
+  @override
+  String copyWithYamlString({
+    required String value,
+    required String platform,
+  }) =>
+      throw Exception('This should not have been called');
+
+  @override
+  String toYamlString() => throw Exception('This should not have been called');
 }

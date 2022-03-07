@@ -105,4 +105,26 @@ abstract class Value {
 
   /// Dart class name to override
   String get className;
+
+  /// Cast a dynamic value from yaml.
+  ///
+  /// value will be a string like
+  /// ```dart
+  /// yaml['myKey']
+  /// ```
+  ///
+  /// This method should return the string that handles this value.
+  String castFromYamlString({
+    required String value,
+    required bool nullable,
+  }) =>
+      '$value as $className${nullable ? '?' : ''}';
+
+  /// Casts a string (ex: `'instanceName'`) into a string that is acceptable to
+  /// save in a yaml file.
+  String castToYamlString({
+    required String value,
+  }) {
+    return value;
+  }
 }

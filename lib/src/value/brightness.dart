@@ -76,4 +76,17 @@ class Brightness extends Value {
   String get dartConstructor {
     return 'Brightness.${brightness.string}';
   }
+
+  @override
+  String castFromYamlString({
+    required String value,
+    required bool nullable,
+  }) =>
+      '_BrightnessToString.fromString($value as String${nullable ? '?' : ''})${nullable ? '' : '!'}';
+
+  @override
+  String castToYamlString({
+    required String value,
+  }) =>
+      '$value.name';
 }

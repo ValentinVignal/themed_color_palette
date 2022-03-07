@@ -22,9 +22,25 @@ class _TestThemedJsonToDart extends ThemedJsonToDart {
       'fromJsonString($value, $platform)';
 
   @override
-  String copyWithJsonString(
-          {required String value, required String platform}) =>
+  String copyWithJsonString({
+    required String value,
+    required String platform,
+  }) =>
       'copyWithJsonString($value, $platform)';
+
+  @override
+  String toYamlString() => 'toYamlString';
+
+  @override
+  String fromYamlString({required String value, required String platform}) =>
+      'fromYamlString($value, $platform)';
+
+  @override
+  String copyWithYamlString({
+    required String value,
+    required String platform,
+  }) =>
+      'copyWithYamlString($value, $platform)';
 }
 
 void main() {
