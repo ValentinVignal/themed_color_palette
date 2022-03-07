@@ -1,3 +1,11 @@
+## [0.2.4] 07/03/2022
+
+- `fromYaml`, `toYaml`, `copyWithYaml`.
+
+## [0.2.3] 13/02/2022
+
+- `fromJson`, `toJson`, `copyWithJson`.
+
 ## [0.2.2] 07/02/2022
 
 - Add the extension `ThemesExtension` with the `colorPalette` getters.
