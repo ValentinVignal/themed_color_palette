@@ -47,6 +47,103 @@ extension ThemesExtension on Themes {
   }
 }
 
+/// An extension on [Brightness] to translate to/from [String]s.
+extension _BrightnessToString on Brightness {
+  /// The [String] representation of the [Brightness].
+  String get name {
+    switch (this) {
+      case Brightness.light:
+        return 'light';
+      case Brightness.dark:
+        return 'dark';
+    }
+  }
+
+  /// Returns the [Brightness] from its [String] representation.
+  static Brightness? fromString(String? brightness) {
+    switch (brightness) {
+      case 'light':
+        return Brightness.light;
+      case 'dark':
+        return Brightness.dark;
+      default:
+        return null;
+    }
+  }
+}
+
+/// An extension on [FontWeight] to translate to/from [String]s.
+extension _FontWeightToString on FontWeight {
+  /// The [String] representation of the [FontWeight].
+  String get name {
+    switch (this) {
+      case FontWeight.w100:
+        return 'w100';
+      case FontWeight.w200:
+        return 'w200';
+      case FontWeight.w300:
+        return 'w300';
+      case FontWeight.w400:
+        return 'w400';
+      case FontWeight.w500:
+        return 'w500';
+      case FontWeight.w600:
+        return 'w600';
+      case FontWeight.w700:
+        return 'w700';
+      case FontWeight.w800:
+        return 'w800';
+      case FontWeight.w900:
+        return 'w900';
+      default:
+        throw UnsupportedError('FontWeight $this is not supported');
+    }
+  }
+
+  /// Returns the [FontWeight] from its [String] representation.
+  static FontWeight? fromString(String? weight) {
+    switch (weight) {
+      case 'w100':
+        return FontWeight.w100;
+      case 'w200':
+        return FontWeight.w200;
+      case 'w300':
+        return FontWeight.w300;
+      case 'w400':
+        return FontWeight.w400;
+      case 'w500':
+        return FontWeight.w500;
+      case 'w600':
+        return FontWeight.w600;
+      case 'w700':
+        return FontWeight.w700;
+      case 'w800':
+        return FontWeight.w800;
+      case 'w900':
+        return FontWeight.w900;
+      default:
+        return null;
+    }
+  }
+}
+
+/// An extension on [Color] to translate to/from [String]s.
+extension _ColorToString on Color {
+  /// The [String] representation of the [Color].
+  String get stringValue {
+    return value.toRadixString(16);
+  }
+
+  /// Returns the [Color] from its [String] representation.
+  static Color? fromString(String? color) {
+    try {
+      return Color(int.parse(color!, radix: 16));
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
 // -------------------- ThemeColorPalette --------------------
 
 /// The Theme Color Palette
@@ -171,6 +268,33 @@ class ThemeColorPalette {
     _dividerTheme = ThemeColorPalette$DividerTheme.fromJson(json['dividerTheme'] as Map<String, dynamic>),
     _selectedRowColor = json['selectedRowColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette.fromYaml(Map<String, dynamic> yaml):
+    _brightness = _BrightnessToString.fromString(yaml['brightness'] as String)!,
+    _accentColor = _ColorToString.fromString(yaml['accentColor'] as String)!,
+    _primaryColor = _ColorToString.fromString(yaml['primaryColor'] as String)!,
+    _primaryColorLight = _ColorToString.fromString(yaml['primaryColorLight'] as String)!,
+    secondaryColor = _ColorToString.fromString(yaml['secondaryColor'] as String)!,
+    _errorColor = _ColorToString.fromString(yaml['errorColor'] as String)!,
+    _disabledColor = _ColorToString.fromString(yaml['disabledColor'] as String)!,
+    textEmphasis = ThemeColorPalette$TextEmphasis.fromYaml(yaml['textEmphasis'] as Map<String, dynamic>),
+    iconEmphasis = ThemeColorPalette$IconEmphasis.fromYaml(yaml['iconEmphasis'] as Map<String, dynamic>),
+    border = ThemeColorPalette$Border.fromYaml(yaml['border'] as Map<String, dynamic>),
+    background = ThemeColorPalette$Background.fromYaml(yaml['background'] as Map<String, dynamic>),
+    floatingActionButton = ThemeColorPalette$FloatingActionButton.fromYaml(yaml['floatingActionButton'] as Map<String, dynamic>),
+    task = ThemeColorPalette$Task.fromYaml(yaml['task'] as Map<String, dynamic>),
+    form = ThemeColorPalette$Form.fromYaml(yaml['form'] as Map<String, dynamic>),
+    notification = ThemeColorPalette$Notification.fromYaml(yaml['notification'] as Map<String, dynamic>),
+    projectTimeline = ThemeColorPalette$ProjectTimeline.fromYaml(yaml['projectTimeline'] as Map<String, dynamic>),
+    pin = ThemeColorPalette$Pin.fromYaml(yaml['pin'] as Map<String, dynamic>),
+    _hoverColor = _ColorToString.fromString(yaml['hoverColor'] as String)!,
+    appBarTheme = ThemeColorPalette$AppBarTheme.fromYaml(yaml['appBarTheme'] as Map<String, dynamic>),
+    bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme.fromYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>),
+    _tooltipTheme = ThemeColorPalette$TooltipTheme.fromYaml(yaml['tooltipTheme'] as Map<String, dynamic>),
+    _popupMenuTheme = ThemeColorPalette$PopupMenuTheme.fromYaml(yaml['popupMenuTheme'] as Map<String, dynamic>),
+    _dividerTheme = ThemeColorPalette$DividerTheme.fromYaml(yaml['dividerTheme'] as Map<String, dynamic>),
+    _selectedRowColor = _ColorToString.fromString(yaml['selectedRowColor'] as String)!;
+
   /// Default radius
   static const radius = 4.0;
 
@@ -283,6 +407,7 @@ class ThemeColorPalette {
   /// Use `theme.selectedRowColor` instead.
   final Color _selectedRowColor;
 
+  /// Copy with.
   ThemeColorPalette copyWith({
     Brightness? brightness,
     @Deprecated('accent color is deprecated')
@@ -338,7 +463,7 @@ class ThemeColorPalette {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -371,7 +496,40 @@ class ThemeColorPalette {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      brightness: _BrightnessToString.fromString(yaml['brightness'] as String?),
+      accentColor: _ColorToString.fromString(yaml['accentColor'] as String?),
+      primaryColor: _ColorToString.fromString(yaml['primaryColor'] as String?),
+      primaryColorLight: _ColorToString.fromString(yaml['primaryColorLight'] as String?),
+      secondaryColor: _ColorToString.fromString(yaml['secondaryColor'] as String?),
+      errorColor: _ColorToString.fromString(yaml['errorColor'] as String?),
+      disabledColor: _ColorToString.fromString(yaml['disabledColor'] as String?),
+      textEmphasis: textEmphasis.copyWithYaml(yaml['textEmphasis'] as Map<String, dynamic>?),
+      iconEmphasis: iconEmphasis.copyWithYaml(yaml['iconEmphasis'] as Map<String, dynamic>?),
+      border: border.copyWithYaml(yaml['border'] as Map<String, dynamic>?),
+      background: background.copyWithYaml(yaml['background'] as Map<String, dynamic>?),
+      floatingActionButton: floatingActionButton.copyWithYaml(yaml['floatingActionButton'] as Map<String, dynamic>?),
+      task: task.copyWithYaml(yaml['task'] as Map<String, dynamic>?),
+      form: form.copyWithYaml(yaml['form'] as Map<String, dynamic>?),
+      notification: notification.copyWithYaml(yaml['notification'] as Map<String, dynamic>?),
+      projectTimeline: projectTimeline.copyWithYaml(yaml['projectTimeline'] as Map<String, dynamic>?),
+      pin: pin.copyWithYaml(yaml['pin'] as Map<String, dynamic>?),
+      hoverColor: _ColorToString.fromString(yaml['hoverColor'] as String?),
+      appBarTheme: appBarTheme.copyWithYaml(yaml['appBarTheme'] as Map<String, dynamic>?),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>?),
+      tooltipTheme: _tooltipTheme.copyWithYaml(yaml['tooltipTheme'] as Map<String, dynamic>?),
+      popupMenuTheme: _popupMenuTheme.copyWithYaml(yaml['popupMenuTheme'] as Map<String, dynamic>?),
+      dividerTheme: _dividerTheme.copyWithYaml(yaml['dividerTheme'] as Map<String, dynamic>?),
+      selectedRowColor: _ColorToString.fromString(yaml['selectedRowColor'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'brightness': _brightness,
     'accentColor': _accentColor,
@@ -397,6 +555,34 @@ class ThemeColorPalette {
     'popupMenuTheme': _popupMenuTheme.toJson(),
     'dividerTheme': _dividerTheme.toJson(),
     'selectedRowColor': _selectedRowColor,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'brightness': _brightness.name,
+    'accentColor': _accentColor.stringValue,
+    'primaryColor': _primaryColor.stringValue,
+    'primaryColorLight': _primaryColorLight.stringValue,
+    'secondaryColor': secondaryColor.stringValue,
+    'errorColor': _errorColor.stringValue,
+    'disabledColor': _disabledColor.stringValue,
+    'textEmphasis': textEmphasis.toYaml(),
+    'iconEmphasis': iconEmphasis.toYaml(),
+    'border': border.toYaml(),
+    'background': background.toYaml(),
+    'floatingActionButton': floatingActionButton.toYaml(),
+    'task': task.toYaml(),
+    'form': form.toYaml(),
+    'notification': notification.toYaml(),
+    'projectTimeline': projectTimeline.toYaml(),
+    'pin': pin.toYaml(),
+    'hoverColor': _hoverColor.stringValue,
+    'appBarTheme': appBarTheme.toYaml(),
+    'bottomAppBarTheme': bottomAppBarTheme.toYaml(),
+    'tooltipTheme': _tooltipTheme.toYaml(),
+    'popupMenuTheme': _popupMenuTheme.toYaml(),
+    'dividerTheme': _dividerTheme.toYaml(),
+    'selectedRowColor': _selectedRowColor.stringValue,
   };
 }
 
@@ -524,6 +710,33 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
     _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_mobile.fromJson(json['popupMenuTheme'] as Map<String, dynamic>),
     _dividerTheme = ThemeColorPalette$DividerTheme_mobile.fromJson(json['dividerTheme'] as Map<String, dynamic>),
     _selectedRowColor = json['selectedRowColor'] as Color;
+
+  /// From yaml.
+  ThemeColorPalette_mobile.fromYaml(Map<String, dynamic> yaml):
+    _brightness = _BrightnessToString.fromString(yaml['brightness'] as String)!,
+    _accentColor = _ColorToString.fromString(yaml['accentColor'] as String)!,
+    _primaryColor = _ColorToString.fromString(yaml['primaryColor'] as String)!,
+    _primaryColorLight = _ColorToString.fromString(yaml['primaryColorLight'] as String)!,
+    secondaryColor = _ColorToString.fromString(yaml['secondaryColor'] as String)!,
+    _errorColor = _ColorToString.fromString(yaml['errorColor'] as String)!,
+    _disabledColor = _ColorToString.fromString(yaml['disabledColor'] as String)!,
+    textEmphasis = ThemeColorPalette$TextEmphasis_mobile.fromYaml(yaml['textEmphasis'] as Map<String, dynamic>),
+    iconEmphasis = ThemeColorPalette$IconEmphasis_mobile.fromYaml(yaml['iconEmphasis'] as Map<String, dynamic>),
+    border = ThemeColorPalette$Border_mobile.fromYaml(yaml['border'] as Map<String, dynamic>),
+    background = ThemeColorPalette$Background_mobile.fromYaml(yaml['background'] as Map<String, dynamic>),
+    floatingActionButton = ThemeColorPalette$FloatingActionButton_mobile.fromYaml(yaml['floatingActionButton'] as Map<String, dynamic>),
+    task = ThemeColorPalette$Task_mobile.fromYaml(yaml['task'] as Map<String, dynamic>),
+    form = ThemeColorPalette$Form_mobile.fromYaml(yaml['form'] as Map<String, dynamic>),
+    notification = ThemeColorPalette$Notification_mobile.fromYaml(yaml['notification'] as Map<String, dynamic>),
+    projectTimeline = ThemeColorPalette$ProjectTimeline_mobile.fromYaml(yaml['projectTimeline'] as Map<String, dynamic>),
+    pin = ThemeColorPalette$Pin_mobile.fromYaml(yaml['pin'] as Map<String, dynamic>),
+    _hoverColor = _ColorToString.fromString(yaml['hoverColor'] as String)!,
+    appBarTheme = ThemeColorPalette$AppBarTheme_mobile.fromYaml(yaml['appBarTheme'] as Map<String, dynamic>),
+    bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme_mobile.fromYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>),
+    _tooltipTheme = ThemeColorPalette$TooltipTheme_mobile.fromYaml(yaml['tooltipTheme'] as Map<String, dynamic>),
+    _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_mobile.fromYaml(yaml['popupMenuTheme'] as Map<String, dynamic>),
+    _dividerTheme = ThemeColorPalette$DividerTheme_mobile.fromYaml(yaml['dividerTheme'] as Map<String, dynamic>),
+    _selectedRowColor = _ColorToString.fromString(yaml['selectedRowColor'] as String)!;
 
   /// Default radius
   static const radius = 4.0;
@@ -727,7 +940,6 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -760,7 +972,39 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      brightness: _BrightnessToString.fromString(yaml['brightness'] as String?),
+      accentColor: _ColorToString.fromString(yaml['accentColor'] as String?),
+      primaryColor: _ColorToString.fromString(yaml['primaryColor'] as String?),
+      primaryColorLight: _ColorToString.fromString(yaml['primaryColorLight'] as String?),
+      secondaryColor: _ColorToString.fromString(yaml['secondaryColor'] as String?),
+      errorColor: _ColorToString.fromString(yaml['errorColor'] as String?),
+      disabledColor: _ColorToString.fromString(yaml['disabledColor'] as String?),
+      textEmphasis: textEmphasis.copyWithYaml(yaml['textEmphasis'] as Map<String, dynamic>?),
+      iconEmphasis: iconEmphasis.copyWithYaml(yaml['iconEmphasis'] as Map<String, dynamic>?),
+      border: border.copyWithYaml(yaml['border'] as Map<String, dynamic>?),
+      background: background.copyWithYaml(yaml['background'] as Map<String, dynamic>?),
+      floatingActionButton: floatingActionButton.copyWithYaml(yaml['floatingActionButton'] as Map<String, dynamic>?),
+      task: task.copyWithYaml(yaml['task'] as Map<String, dynamic>?),
+      form: form.copyWithYaml(yaml['form'] as Map<String, dynamic>?),
+      notification: notification.copyWithYaml(yaml['notification'] as Map<String, dynamic>?),
+      projectTimeline: projectTimeline.copyWithYaml(yaml['projectTimeline'] as Map<String, dynamic>?),
+      pin: pin.copyWithYaml(yaml['pin'] as Map<String, dynamic>?),
+      hoverColor: _ColorToString.fromString(yaml['hoverColor'] as String?),
+      appBarTheme: appBarTheme.copyWithYaml(yaml['appBarTheme'] as Map<String, dynamic>?),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>?),
+      tooltipTheme: _tooltipTheme.copyWithYaml(yaml['tooltipTheme'] as Map<String, dynamic>?),
+      popupMenuTheme: _popupMenuTheme.copyWithYaml(yaml['popupMenuTheme'] as Map<String, dynamic>?),
+      dividerTheme: _dividerTheme.copyWithYaml(yaml['dividerTheme'] as Map<String, dynamic>?),
+      selectedRowColor: _ColorToString.fromString(yaml['selectedRowColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'brightness': _brightness,
@@ -787,6 +1031,34 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
     'popupMenuTheme': _popupMenuTheme.toJson(),
     'dividerTheme': _dividerTheme.toJson(),
     'selectedRowColor': _selectedRowColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'brightness': _brightness.name,
+    'accentColor': _accentColor.stringValue,
+    'primaryColor': _primaryColor.stringValue,
+    'primaryColorLight': _primaryColorLight.stringValue,
+    'secondaryColor': secondaryColor.stringValue,
+    'errorColor': _errorColor.stringValue,
+    'disabledColor': _disabledColor.stringValue,
+    'textEmphasis': textEmphasis.toYaml(),
+    'iconEmphasis': iconEmphasis.toYaml(),
+    'border': border.toYaml(),
+    'background': background.toYaml(),
+    'floatingActionButton': floatingActionButton.toYaml(),
+    'task': task.toYaml(),
+    'form': form.toYaml(),
+    'notification': notification.toYaml(),
+    'projectTimeline': projectTimeline.toYaml(),
+    'pin': pin.toYaml(),
+    'hoverColor': _hoverColor.stringValue,
+    'appBarTheme': appBarTheme.toYaml(),
+    'bottomAppBarTheme': bottomAppBarTheme.toYaml(),
+    'tooltipTheme': _tooltipTheme.toYaml(),
+    'popupMenuTheme': _popupMenuTheme.toYaml(),
+    'dividerTheme': _dividerTheme.toYaml(),
+    'selectedRowColor': _selectedRowColor.stringValue,
   };
 }
 
@@ -914,6 +1186,33 @@ class ThemeColorPalette_web implements ThemeColorPalette {
     _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_web.fromJson(json['popupMenuTheme'] as Map<String, dynamic>),
     _dividerTheme = ThemeColorPalette$DividerTheme_web.fromJson(json['dividerTheme'] as Map<String, dynamic>),
     _selectedRowColor = json['selectedRowColor'] as Color;
+
+  /// From yaml.
+  ThemeColorPalette_web.fromYaml(Map<String, dynamic> yaml):
+    _brightness = _BrightnessToString.fromString(yaml['brightness'] as String)!,
+    _accentColor = _ColorToString.fromString(yaml['accentColor'] as String)!,
+    _primaryColor = _ColorToString.fromString(yaml['primaryColor'] as String)!,
+    _primaryColorLight = _ColorToString.fromString(yaml['primaryColorLight'] as String)!,
+    secondaryColor = _ColorToString.fromString(yaml['secondaryColor'] as String)!,
+    _errorColor = _ColorToString.fromString(yaml['errorColor'] as String)!,
+    _disabledColor = _ColorToString.fromString(yaml['disabledColor'] as String)!,
+    textEmphasis = ThemeColorPalette$TextEmphasis_web.fromYaml(yaml['textEmphasis'] as Map<String, dynamic>),
+    iconEmphasis = ThemeColorPalette$IconEmphasis_web.fromYaml(yaml['iconEmphasis'] as Map<String, dynamic>),
+    border = ThemeColorPalette$Border_web.fromYaml(yaml['border'] as Map<String, dynamic>),
+    background = ThemeColorPalette$Background_web.fromYaml(yaml['background'] as Map<String, dynamic>),
+    floatingActionButton = ThemeColorPalette$FloatingActionButton_web.fromYaml(yaml['floatingActionButton'] as Map<String, dynamic>),
+    task = ThemeColorPalette$Task_web.fromYaml(yaml['task'] as Map<String, dynamic>),
+    form = ThemeColorPalette$Form_web.fromYaml(yaml['form'] as Map<String, dynamic>),
+    notification = ThemeColorPalette$Notification_web.fromYaml(yaml['notification'] as Map<String, dynamic>),
+    projectTimeline = ThemeColorPalette$ProjectTimeline_web.fromYaml(yaml['projectTimeline'] as Map<String, dynamic>),
+    pin = ThemeColorPalette$Pin_web.fromYaml(yaml['pin'] as Map<String, dynamic>),
+    _hoverColor = _ColorToString.fromString(yaml['hoverColor'] as String)!,
+    appBarTheme = ThemeColorPalette$AppBarTheme_web.fromYaml(yaml['appBarTheme'] as Map<String, dynamic>),
+    bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme_web.fromYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>),
+    _tooltipTheme = ThemeColorPalette$TooltipTheme_web.fromYaml(yaml['tooltipTheme'] as Map<String, dynamic>),
+    _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_web.fromYaml(yaml['popupMenuTheme'] as Map<String, dynamic>),
+    _dividerTheme = ThemeColorPalette$DividerTheme_web.fromYaml(yaml['dividerTheme'] as Map<String, dynamic>),
+    _selectedRowColor = _ColorToString.fromString(yaml['selectedRowColor'] as String)!;
 
   /// Default radius
   static const radius = 4.0;
@@ -1111,7 +1410,6 @@ class ThemeColorPalette_web implements ThemeColorPalette {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1144,7 +1442,39 @@ class ThemeColorPalette_web implements ThemeColorPalette {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      brightness: _BrightnessToString.fromString(yaml['brightness'] as String?),
+      accentColor: _ColorToString.fromString(yaml['accentColor'] as String?),
+      primaryColor: _ColorToString.fromString(yaml['primaryColor'] as String?),
+      primaryColorLight: _ColorToString.fromString(yaml['primaryColorLight'] as String?),
+      secondaryColor: _ColorToString.fromString(yaml['secondaryColor'] as String?),
+      errorColor: _ColorToString.fromString(yaml['errorColor'] as String?),
+      disabledColor: _ColorToString.fromString(yaml['disabledColor'] as String?),
+      textEmphasis: textEmphasis.copyWithYaml(yaml['textEmphasis'] as Map<String, dynamic>?),
+      iconEmphasis: iconEmphasis.copyWithYaml(yaml['iconEmphasis'] as Map<String, dynamic>?),
+      border: border.copyWithYaml(yaml['border'] as Map<String, dynamic>?),
+      background: background.copyWithYaml(yaml['background'] as Map<String, dynamic>?),
+      floatingActionButton: floatingActionButton.copyWithYaml(yaml['floatingActionButton'] as Map<String, dynamic>?),
+      task: task.copyWithYaml(yaml['task'] as Map<String, dynamic>?),
+      form: form.copyWithYaml(yaml['form'] as Map<String, dynamic>?),
+      notification: notification.copyWithYaml(yaml['notification'] as Map<String, dynamic>?),
+      projectTimeline: projectTimeline.copyWithYaml(yaml['projectTimeline'] as Map<String, dynamic>?),
+      pin: pin.copyWithYaml(yaml['pin'] as Map<String, dynamic>?),
+      hoverColor: _ColorToString.fromString(yaml['hoverColor'] as String?),
+      appBarTheme: appBarTheme.copyWithYaml(yaml['appBarTheme'] as Map<String, dynamic>?),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>?),
+      tooltipTheme: _tooltipTheme.copyWithYaml(yaml['tooltipTheme'] as Map<String, dynamic>?),
+      popupMenuTheme: _popupMenuTheme.copyWithYaml(yaml['popupMenuTheme'] as Map<String, dynamic>?),
+      dividerTheme: _dividerTheme.copyWithYaml(yaml['dividerTheme'] as Map<String, dynamic>?),
+      selectedRowColor: _ColorToString.fromString(yaml['selectedRowColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'brightness': _brightness,
@@ -1171,6 +1501,34 @@ class ThemeColorPalette_web implements ThemeColorPalette {
     'popupMenuTheme': _popupMenuTheme.toJson(),
     'dividerTheme': _dividerTheme.toJson(),
     'selectedRowColor': _selectedRowColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'brightness': _brightness.name,
+    'accentColor': _accentColor.stringValue,
+    'primaryColor': _primaryColor.stringValue,
+    'primaryColorLight': _primaryColorLight.stringValue,
+    'secondaryColor': secondaryColor.stringValue,
+    'errorColor': _errorColor.stringValue,
+    'disabledColor': _disabledColor.stringValue,
+    'textEmphasis': textEmphasis.toYaml(),
+    'iconEmphasis': iconEmphasis.toYaml(),
+    'border': border.toYaml(),
+    'background': background.toYaml(),
+    'floatingActionButton': floatingActionButton.toYaml(),
+    'task': task.toYaml(),
+    'form': form.toYaml(),
+    'notification': notification.toYaml(),
+    'projectTimeline': projectTimeline.toYaml(),
+    'pin': pin.toYaml(),
+    'hoverColor': _hoverColor.stringValue,
+    'appBarTheme': appBarTheme.toYaml(),
+    'bottomAppBarTheme': bottomAppBarTheme.toYaml(),
+    'tooltipTheme': _tooltipTheme.toYaml(),
+    'popupMenuTheme': _popupMenuTheme.toYaml(),
+    'dividerTheme': _dividerTheme.toYaml(),
+    'selectedRowColor': _selectedRowColor.stringValue,
   };
 }
 
@@ -1221,6 +1579,16 @@ class ThemeColorPalette$TextEmphasis {
     low = json['low'] as Color,
     disabled = json['disabled'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis.fromYaml(Map<String, dynamic> yaml):
+    _accent = _ColorToString.fromString(yaml['accent'] as String)!,
+    success = _ColorToString.fromString(yaml['success'] as String)!,
+    error = _ColorToString.fromString(yaml['error'] as String)!,
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!;
+
   /// Accent color
   ///
   /// Use `theme.accentColor` instead.
@@ -1244,6 +1612,7 @@ class ThemeColorPalette$TextEmphasis {
   /// Disabled emphasis
   final Color disabled;
 
+  /// Copy with.
   ThemeColorPalette$TextEmphasis copyWith({
     Color? accent,
     Color? success,
@@ -1264,7 +1633,7 @@ class ThemeColorPalette$TextEmphasis {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$TextEmphasis copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1280,7 +1649,23 @@ class ThemeColorPalette$TextEmphasis {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$TextEmphasis copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      accent: _ColorToString.fromString(yaml['accent'] as String?),
+      success: _ColorToString.fromString(yaml['success'] as String?),
+      error: _ColorToString.fromString(yaml['error'] as String?),
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'accent': _accent,
     'success': success,
@@ -1289,6 +1674,17 @@ class ThemeColorPalette$TextEmphasis {
     'medium': medium,
     'low': low,
     'disabled': disabled,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'accent': _accent.stringValue,
+    'success': success.stringValue,
+    'error': error.stringValue,
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
   };
 }
 
@@ -1342,6 +1738,17 @@ class ThemeColorPalette$TextEmphasis_mobile implements ThemeColorPalette$TextEmp
     low = json['low'] as Color,
     disabled = json['disabled'] as Color,
     reversedMobile = ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.fromJson(json['reversedMobile'] as Map<String, dynamic>);
+
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis_mobile.fromYaml(Map<String, dynamic> yaml):
+    _accent = _ColorToString.fromString(yaml['accent'] as String)!,
+    success = _ColorToString.fromString(yaml['success'] as String)!,
+    error = _ColorToString.fromString(yaml['error'] as String)!,
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    reversedMobile = ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.fromYaml(yaml['reversedMobile'] as Map<String, dynamic>);
 
   /// Accent color
   ///
@@ -1400,7 +1807,6 @@ class ThemeColorPalette$TextEmphasis_mobile implements ThemeColorPalette$TextEmp
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TextEmphasis_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1417,7 +1823,23 @@ class ThemeColorPalette$TextEmphasis_mobile implements ThemeColorPalette$TextEmp
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TextEmphasis_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      accent: _ColorToString.fromString(yaml['accent'] as String?),
+      success: _ColorToString.fromString(yaml['success'] as String?),
+      error: _ColorToString.fromString(yaml['error'] as String?),
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      reversedMobile: reversedMobile.copyWithYaml(yaml['reversedMobile'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'accent': _accent,
@@ -1428,6 +1850,18 @@ class ThemeColorPalette$TextEmphasis_mobile implements ThemeColorPalette$TextEmp
     'low': low,
     'disabled': disabled,
     'reversedMobile': reversedMobile.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'accent': _accent.stringValue,
+    'success': success.stringValue,
+    'error': error.stringValue,
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
+    'reversedMobile': reversedMobile.toYaml(),
   };
 }
 
@@ -1481,6 +1915,17 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
     low = json['low'] as Color,
     disabled = json['disabled'] as Color,
     reversedWeb = ThemeColorPalette$TextEmphasis$ReversedWeb_web.fromJson(json['reversedWeb'] as Map<String, dynamic>);
+
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis_web.fromYaml(Map<String, dynamic> yaml):
+    _accent = _ColorToString.fromString(yaml['accent'] as String)!,
+    success = _ColorToString.fromString(yaml['success'] as String)!,
+    error = _ColorToString.fromString(yaml['error'] as String)!,
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    reversedWeb = ThemeColorPalette$TextEmphasis$ReversedWeb_web.fromYaml(yaml['reversedWeb'] as Map<String, dynamic>);
 
   /// Accent color
   ///
@@ -1539,7 +1984,6 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TextEmphasis_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1556,7 +2000,23 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TextEmphasis_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      accent: _ColorToString.fromString(yaml['accent'] as String?),
+      success: _ColorToString.fromString(yaml['success'] as String?),
+      error: _ColorToString.fromString(yaml['error'] as String?),
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      reversedWeb: reversedWeb.copyWithYaml(yaml['reversedWeb'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'accent': _accent,
@@ -1567,6 +2027,18 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
     'low': low,
     'disabled': disabled,
     'reversedWeb': reversedWeb.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'accent': _accent.stringValue,
+    'success': success.stringValue,
+    'error': error.stringValue,
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
+    'reversedWeb': reversedWeb.toYaml(),
   };
 }
 
@@ -1587,12 +2059,16 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile {
   /// From json.
   ThemeColorPalette$TextEmphasis$ReversedMobile.fromJson(Map<String, dynamic> json);
 
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis$ReversedMobile.fromYaml(Map<String, dynamic> yaml);
+
+  /// Copy with.
   ThemeColorPalette$TextEmphasis$ReversedMobile copyWith(){
     return ThemeColorPalette$TextEmphasis$ReversedMobile(
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$TextEmphasis$ReversedMobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1601,8 +2077,21 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$TextEmphasis$ReversedMobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
   };
 }
 
@@ -1640,6 +2129,13 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
     low = json['low'] as Color,
     disabled = json['disabled'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!;
+
   /// Reversed high emphasis
   final Color high;
 
@@ -1668,7 +2164,6 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TextEmphasis$ReversedMobile_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1681,13 +2176,33 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TextEmphasis$ReversedMobile_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'low': low,
     'disabled': disabled,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
   };
 }
 
@@ -1708,12 +2223,16 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb {
   /// From json.
   ThemeColorPalette$TextEmphasis$ReversedWeb.fromJson(Map<String, dynamic> json);
 
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis$ReversedWeb.fromYaml(Map<String, dynamic> yaml);
+
+  /// Copy with.
   ThemeColorPalette$TextEmphasis$ReversedWeb copyWith(){
     return ThemeColorPalette$TextEmphasis$ReversedWeb(
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$TextEmphasis$ReversedWeb copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1722,8 +2241,21 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$TextEmphasis$ReversedWeb copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
   };
 }
 
@@ -1761,6 +2293,13 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb_web implements ThemeColorPalett
     low = json['low'] as Color,
     disabled = json['disabled'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$TextEmphasis$ReversedWeb_web.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!;
+
   /// Reversed high emphasis
   final Color high;
 
@@ -1789,7 +2328,6 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb_web implements ThemeColorPalett
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TextEmphasis$ReversedWeb_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1802,13 +2340,33 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb_web implements ThemeColorPalett
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TextEmphasis$ReversedWeb_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'low': low,
     'disabled': disabled,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
   };
 }
 
@@ -1850,6 +2408,14 @@ class ThemeColorPalette$IconEmphasis {
     disabled = json['disabled'] as Color,
     reversed = ThemeColorPalette$IconEmphasis$Reversed.fromJson(json['reversed'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$IconEmphasis.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    reversed = ThemeColorPalette$IconEmphasis$Reversed.fromYaml(yaml['reversed'] as Map<String, dynamic>);
+
   /// High emphasis
   final Color high;
 
@@ -1865,6 +2431,7 @@ class ThemeColorPalette$IconEmphasis {
   /// Reversed icon emphasis
   final ThemeColorPalette$IconEmphasis$Reversed reversed;
 
+  /// Copy with.
   ThemeColorPalette$IconEmphasis copyWith({
     Color? high,
     Color? medium,
@@ -1881,7 +2448,7 @@ class ThemeColorPalette$IconEmphasis {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$IconEmphasis copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1895,13 +2462,36 @@ class ThemeColorPalette$IconEmphasis {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$IconEmphasis copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      reversed: reversed.copyWithYaml(yaml['reversed'] as Map<String, dynamic>?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'low': low,
     'disabled': disabled,
     'reversed': reversed.toJson(),
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
+    'reversed': reversed.toYaml(),
   };
 }
 
@@ -1943,6 +2533,14 @@ class ThemeColorPalette$IconEmphasis_mobile implements ThemeColorPalette$IconEmp
     disabled = json['disabled'] as Color,
     reversed = ThemeColorPalette$IconEmphasis$Reversed_mobile.fromJson(json['reversed'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$IconEmphasis_mobile.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    reversed = ThemeColorPalette$IconEmphasis$Reversed_mobile.fromYaml(yaml['reversed'] as Map<String, dynamic>);
+
   /// High emphasis
   @override
   final Color high;
@@ -1981,7 +2579,6 @@ class ThemeColorPalette$IconEmphasis_mobile implements ThemeColorPalette$IconEmp
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$IconEmphasis_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -1995,7 +2592,20 @@ class ThemeColorPalette$IconEmphasis_mobile implements ThemeColorPalette$IconEmp
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$IconEmphasis_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      reversed: reversed.copyWithYaml(yaml['reversed'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
@@ -2003,6 +2613,15 @@ class ThemeColorPalette$IconEmphasis_mobile implements ThemeColorPalette$IconEmp
     'low': low,
     'disabled': disabled,
     'reversed': reversed.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
+    'reversed': reversed.toYaml(),
   };
 }
 
@@ -2044,6 +2663,14 @@ class ThemeColorPalette$IconEmphasis_web implements ThemeColorPalette$IconEmphas
     disabled = json['disabled'] as Color,
     reversed = ThemeColorPalette$IconEmphasis$Reversed_web.fromJson(json['reversed'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$IconEmphasis_web.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    reversed = ThemeColorPalette$IconEmphasis$Reversed_web.fromYaml(yaml['reversed'] as Map<String, dynamic>);
+
   /// High emphasis
   @override
   final Color high;
@@ -2082,7 +2709,6 @@ class ThemeColorPalette$IconEmphasis_web implements ThemeColorPalette$IconEmphas
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$IconEmphasis_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2096,7 +2722,20 @@ class ThemeColorPalette$IconEmphasis_web implements ThemeColorPalette$IconEmphas
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$IconEmphasis_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      reversed: reversed.copyWithYaml(yaml['reversed'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
@@ -2104,6 +2743,15 @@ class ThemeColorPalette$IconEmphasis_web implements ThemeColorPalette$IconEmphas
     'low': low,
     'disabled': disabled,
     'reversed': reversed.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
+    'reversed': reversed.toYaml(),
   };
 }
 
@@ -2141,6 +2789,13 @@ class ThemeColorPalette$IconEmphasis$Reversed {
     low = json['low'] as Color,
     disabled = json['disabled'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$IconEmphasis$Reversed.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!;
+
   /// Reversed high emphasis
   final Color high;
 
@@ -2153,6 +2808,7 @@ class ThemeColorPalette$IconEmphasis$Reversed {
   /// Reversed disabled emphasis
   final Color disabled;
 
+  /// Copy with.
   ThemeColorPalette$IconEmphasis$Reversed copyWith({
     Color? high,
     Color? medium,
@@ -2167,7 +2823,7 @@ class ThemeColorPalette$IconEmphasis$Reversed {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$IconEmphasis$Reversed copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2180,12 +2836,33 @@ class ThemeColorPalette$IconEmphasis$Reversed {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$IconEmphasis$Reversed copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'low': low,
     'disabled': disabled,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
   };
 }
 
@@ -2223,6 +2900,13 @@ class ThemeColorPalette$IconEmphasis$Reversed_mobile implements ThemeColorPalett
     low = json['low'] as Color,
     disabled = json['disabled'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$IconEmphasis$Reversed_mobile.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!;
+
   /// Reversed high emphasis
   @override
   final Color high;
@@ -2255,7 +2939,6 @@ class ThemeColorPalette$IconEmphasis$Reversed_mobile implements ThemeColorPalett
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$IconEmphasis$Reversed_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2268,13 +2951,33 @@ class ThemeColorPalette$IconEmphasis$Reversed_mobile implements ThemeColorPalett
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$IconEmphasis$Reversed_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'low': low,
     'disabled': disabled,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
   };
 }
 
@@ -2312,6 +3015,13 @@ class ThemeColorPalette$IconEmphasis$Reversed_web implements ThemeColorPalette$I
     low = json['low'] as Color,
     disabled = json['disabled'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$IconEmphasis$Reversed_web.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    low = _ColorToString.fromString(yaml['low'] as String)!,
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!;
+
   /// Reversed high emphasis
   @override
   final Color high;
@@ -2344,7 +3054,6 @@ class ThemeColorPalette$IconEmphasis$Reversed_web implements ThemeColorPalette$I
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$IconEmphasis$Reversed_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2357,13 +3066,33 @@ class ThemeColorPalette$IconEmphasis$Reversed_web implements ThemeColorPalette$I
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$IconEmphasis$Reversed_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      low: _ColorToString.fromString(yaml['low'] as String?),
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'low': low,
     'disabled': disabled,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'low': low.stringValue,
+    'disabled': disabled.stringValue,
   };
 }
 
@@ -2398,6 +3127,12 @@ class ThemeColorPalette$Border {
     medium = json['medium'] as Color,
     _divider = json['divider'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Border.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    _divider = _ColorToString.fromString(yaml['divider'] as String)!;
+
   /// High border
   final Color high;
 
@@ -2409,6 +3144,7 @@ class ThemeColorPalette$Border {
   /// Use `theme.dividerColor` instead.
   final Color _divider;
 
+  /// Copy with.
   ThemeColorPalette$Border copyWith({
     Color? high,
     Color? medium,
@@ -2421,7 +3157,7 @@ class ThemeColorPalette$Border {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$Border copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2433,11 +3169,30 @@ class ThemeColorPalette$Border {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$Border copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      divider: _ColorToString.fromString(yaml['divider'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'divider': _divider,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'divider': _divider.stringValue,
   };
 }
 
@@ -2472,6 +3227,12 @@ class ThemeColorPalette$Border_mobile implements ThemeColorPalette$Border {
     medium = json['medium'] as Color,
     _divider = json['divider'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Border_mobile.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    _divider = _ColorToString.fromString(yaml['divider'] as String)!;
+
   /// High border
   @override
   final Color high;
@@ -2500,7 +3261,6 @@ class ThemeColorPalette$Border_mobile implements ThemeColorPalette$Border {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Border_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2512,12 +3272,30 @@ class ThemeColorPalette$Border_mobile implements ThemeColorPalette$Border {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Border_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      divider: _ColorToString.fromString(yaml['divider'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'divider': _divider,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'divider': _divider.stringValue,
   };
 }
 
@@ -2552,6 +3330,12 @@ class ThemeColorPalette$Border_web implements ThemeColorPalette$Border {
     medium = json['medium'] as Color,
     _divider = json['divider'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Border_web.fromYaml(Map<String, dynamic> yaml):
+    high = _ColorToString.fromString(yaml['high'] as String)!,
+    medium = _ColorToString.fromString(yaml['medium'] as String)!,
+    _divider = _ColorToString.fromString(yaml['divider'] as String)!;
+
   /// High border
   @override
   final Color high;
@@ -2580,7 +3364,6 @@ class ThemeColorPalette$Border_web implements ThemeColorPalette$Border {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Border_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2592,12 +3375,30 @@ class ThemeColorPalette$Border_web implements ThemeColorPalette$Border {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Border_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      high: _ColorToString.fromString(yaml['high'] as String?),
+      medium: _ColorToString.fromString(yaml['medium'] as String?),
+      divider: _ColorToString.fromString(yaml['divider'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'high': high,
     'medium': medium,
     'divider': _divider,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'high': high.stringValue,
+    'medium': medium.stringValue,
+    'divider': _divider.stringValue,
   };
 }
 
@@ -2647,6 +3448,15 @@ class ThemeColorPalette$Background {
     _canvas = json['canvas'] as Color,
     _card = json['card'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Background.fromYaml(Map<String, dynamic> yaml):
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    _backgroundColor = _ColorToString.fromString(yaml['backgroundColor'] as String)!,
+    background1 = _ColorToString.fromString(yaml['background1'] as String)!,
+    _scaffold = _ColorToString.fromString(yaml['scaffold'] as String)!,
+    _canvas = _ColorToString.fromString(yaml['canvas'] as String)!,
+    _card = _ColorToString.fromString(yaml['card'] as String)!;
+
   /// Disabled background
   final Color disabled;
 
@@ -2673,6 +3483,7 @@ class ThemeColorPalette$Background {
   /// Use `theme.cardColor` instead.
   final Color _card;
 
+  /// Copy with.
   ThemeColorPalette$Background copyWith({
     Color? disabled,
     Color? backgroundColor,
@@ -2691,7 +3502,7 @@ class ThemeColorPalette$Background {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$Background copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2706,7 +3517,22 @@ class ThemeColorPalette$Background {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$Background copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      backgroundColor: _ColorToString.fromString(yaml['backgroundColor'] as String?),
+      background1: _ColorToString.fromString(yaml['background1'] as String?),
+      scaffold: _ColorToString.fromString(yaml['scaffold'] as String?),
+      canvas: _ColorToString.fromString(yaml['canvas'] as String?),
+      card: _ColorToString.fromString(yaml['card'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'disabled': disabled,
     'backgroundColor': _backgroundColor,
@@ -2714,6 +3540,16 @@ class ThemeColorPalette$Background {
     'scaffold': _scaffold,
     'canvas': _canvas,
     'card': _card,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'disabled': disabled.stringValue,
+    'backgroundColor': _backgroundColor.stringValue,
+    'background1': background1.stringValue,
+    'scaffold': _scaffold.stringValue,
+    'canvas': _canvas.stringValue,
+    'card': _card.stringValue,
   };
 }
 
@@ -2762,6 +3598,15 @@ class ThemeColorPalette$Background_mobile implements ThemeColorPalette$Backgroun
     _scaffold = json['scaffold'] as Color,
     _canvas = json['canvas'] as Color,
     _card = json['card'] as Color;
+
+  /// From yaml.
+  ThemeColorPalette$Background_mobile.fromYaml(Map<String, dynamic> yaml):
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    _backgroundColor = _ColorToString.fromString(yaml['backgroundColor'] as String)!,
+    background1 = _ColorToString.fromString(yaml['background1'] as String)!,
+    _scaffold = _ColorToString.fromString(yaml['scaffold'] as String)!,
+    _canvas = _ColorToString.fromString(yaml['canvas'] as String)!,
+    _card = _ColorToString.fromString(yaml['card'] as String)!;
 
   /// Disabled background
   @override
@@ -2815,7 +3660,6 @@ class ThemeColorPalette$Background_mobile implements ThemeColorPalette$Backgroun
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Background_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2830,7 +3674,21 @@ class ThemeColorPalette$Background_mobile implements ThemeColorPalette$Backgroun
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Background_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      backgroundColor: _ColorToString.fromString(yaml['backgroundColor'] as String?),
+      background1: _ColorToString.fromString(yaml['background1'] as String?),
+      scaffold: _ColorToString.fromString(yaml['scaffold'] as String?),
+      canvas: _ColorToString.fromString(yaml['canvas'] as String?),
+      card: _ColorToString.fromString(yaml['card'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'disabled': disabled,
@@ -2839,6 +3697,16 @@ class ThemeColorPalette$Background_mobile implements ThemeColorPalette$Backgroun
     'scaffold': _scaffold,
     'canvas': _canvas,
     'card': _card,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'disabled': disabled.stringValue,
+    'backgroundColor': _backgroundColor.stringValue,
+    'background1': background1.stringValue,
+    'scaffold': _scaffold.stringValue,
+    'canvas': _canvas.stringValue,
+    'card': _card.stringValue,
   };
 }
 
@@ -2887,6 +3755,15 @@ class ThemeColorPalette$Background_web implements ThemeColorPalette$Background {
     _scaffold = json['scaffold'] as Color,
     _canvas = json['canvas'] as Color,
     _card = json['card'] as Color;
+
+  /// From yaml.
+  ThemeColorPalette$Background_web.fromYaml(Map<String, dynamic> yaml):
+    disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
+    _backgroundColor = _ColorToString.fromString(yaml['backgroundColor'] as String)!,
+    background1 = _ColorToString.fromString(yaml['background1'] as String)!,
+    _scaffold = _ColorToString.fromString(yaml['scaffold'] as String)!,
+    _canvas = _ColorToString.fromString(yaml['canvas'] as String)!,
+    _card = _ColorToString.fromString(yaml['card'] as String)!;
 
   /// Disabled background
   @override
@@ -2940,7 +3817,6 @@ class ThemeColorPalette$Background_web implements ThemeColorPalette$Background {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Background_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -2955,7 +3831,21 @@ class ThemeColorPalette$Background_web implements ThemeColorPalette$Background {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Background_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabled: _ColorToString.fromString(yaml['disabled'] as String?),
+      backgroundColor: _ColorToString.fromString(yaml['backgroundColor'] as String?),
+      background1: _ColorToString.fromString(yaml['background1'] as String?),
+      scaffold: _ColorToString.fromString(yaml['scaffold'] as String?),
+      canvas: _ColorToString.fromString(yaml['canvas'] as String?),
+      card: _ColorToString.fromString(yaml['card'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'disabled': disabled,
@@ -2964,6 +3854,16 @@ class ThemeColorPalette$Background_web implements ThemeColorPalette$Background {
     'scaffold': _scaffold,
     'canvas': _canvas,
     'card': _card,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'disabled': disabled.stringValue,
+    'backgroundColor': _backgroundColor.stringValue,
+    'background1': background1.stringValue,
+    'scaffold': _scaffold.stringValue,
+    'canvas': _canvas.stringValue,
+    'card': _card.stringValue,
   };
 }
 
@@ -3004,6 +3904,13 @@ class ThemeColorPalette$FloatingActionButton {
     _foregroundColor = json['foregroundColor'] as Color,
     _disabledElevation = json['disabledElevation'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$FloatingActionButton.fromYaml(Map<String, dynamic> yaml):
+    disabledColor = _ColorToString.fromString(yaml['disabledColor'] as String)!,
+    _backgroundColor = _ColorToString.fromString(yaml['backgroundColor'] as String)!,
+    _foregroundColor = _ColorToString.fromString(yaml['foregroundColor'] as String)!,
+    _disabledElevation = yaml['disabledElevation'] as double;
+
   /// Disabled color
   final Color disabledColor;
 
@@ -3022,6 +3929,7 @@ class ThemeColorPalette$FloatingActionButton {
   /// Use `theme.floatingActionButtonTheme.disabledElevation` instead.
   final double _disabledElevation;
 
+  /// Copy with.
   ThemeColorPalette$FloatingActionButton copyWith({
     Color? disabledColor,
     Color? backgroundColor,
@@ -3036,7 +3944,7 @@ class ThemeColorPalette$FloatingActionButton {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$FloatingActionButton copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3049,11 +3957,32 @@ class ThemeColorPalette$FloatingActionButton {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$FloatingActionButton copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabledColor: _ColorToString.fromString(yaml['disabledColor'] as String?),
+      backgroundColor: _ColorToString.fromString(yaml['backgroundColor'] as String?),
+      foregroundColor: _ColorToString.fromString(yaml['foregroundColor'] as String?),
+      disabledElevation: yaml['disabledElevation'] as double?,
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'disabledColor': disabledColor,
     'backgroundColor': _backgroundColor,
     'foregroundColor': _foregroundColor,
+    'disabledElevation': _disabledElevation,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'disabledColor': disabledColor.stringValue,
+    'backgroundColor': _backgroundColor.stringValue,
+    'foregroundColor': _foregroundColor.stringValue,
     'disabledElevation': _disabledElevation,
   };
 }
@@ -3095,6 +4024,13 @@ class ThemeColorPalette$FloatingActionButton_mobile implements ThemeColorPalette
     _foregroundColor = json['foregroundColor'] as Color,
     _disabledElevation = json['disabledElevation'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$FloatingActionButton_mobile.fromYaml(Map<String, dynamic> yaml):
+    disabledColor = _ColorToString.fromString(yaml['disabledColor'] as String)!,
+    _backgroundColor = _ColorToString.fromString(yaml['backgroundColor'] as String)!,
+    _foregroundColor = _ColorToString.fromString(yaml['foregroundColor'] as String)!,
+    _disabledElevation = yaml['disabledElevation'] as double;
+
   /// Disabled color
   @override
   final Color disabledColor;
@@ -3133,7 +4069,6 @@ class ThemeColorPalette$FloatingActionButton_mobile implements ThemeColorPalette
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$FloatingActionButton_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3146,12 +4081,32 @@ class ThemeColorPalette$FloatingActionButton_mobile implements ThemeColorPalette
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$FloatingActionButton_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabledColor: _ColorToString.fromString(yaml['disabledColor'] as String?),
+      backgroundColor: _ColorToString.fromString(yaml['backgroundColor'] as String?),
+      foregroundColor: _ColorToString.fromString(yaml['foregroundColor'] as String?),
+      disabledElevation: yaml['disabledElevation'] as double?,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'disabledColor': disabledColor,
     'backgroundColor': _backgroundColor,
     'foregroundColor': _foregroundColor,
+    'disabledElevation': _disabledElevation,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'disabledColor': disabledColor.stringValue,
+    'backgroundColor': _backgroundColor.stringValue,
+    'foregroundColor': _foregroundColor.stringValue,
     'disabledElevation': _disabledElevation,
   };
 }
@@ -3193,6 +4148,13 @@ class ThemeColorPalette$FloatingActionButton_web implements ThemeColorPalette$Fl
     _foregroundColor = json['foregroundColor'] as Color,
     _disabledElevation = json['disabledElevation'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$FloatingActionButton_web.fromYaml(Map<String, dynamic> yaml):
+    disabledColor = _ColorToString.fromString(yaml['disabledColor'] as String)!,
+    _backgroundColor = _ColorToString.fromString(yaml['backgroundColor'] as String)!,
+    _foregroundColor = _ColorToString.fromString(yaml['foregroundColor'] as String)!,
+    _disabledElevation = yaml['disabledElevation'] as double;
+
   /// Disabled color
   @override
   final Color disabledColor;
@@ -3231,7 +4193,6 @@ class ThemeColorPalette$FloatingActionButton_web implements ThemeColorPalette$Fl
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$FloatingActionButton_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3244,12 +4205,32 @@ class ThemeColorPalette$FloatingActionButton_web implements ThemeColorPalette$Fl
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$FloatingActionButton_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      disabledColor: _ColorToString.fromString(yaml['disabledColor'] as String?),
+      backgroundColor: _ColorToString.fromString(yaml['backgroundColor'] as String?),
+      foregroundColor: _ColorToString.fromString(yaml['foregroundColor'] as String?),
+      disabledElevation: yaml['disabledElevation'] as double?,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'disabledColor': disabledColor,
     'backgroundColor': _backgroundColor,
     'foregroundColor': _foregroundColor,
+    'disabledElevation': _disabledElevation,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'disabledColor': disabledColor.stringValue,
+    'backgroundColor': _backgroundColor.stringValue,
+    'foregroundColor': _foregroundColor.stringValue,
     'disabledElevation': _disabledElevation,
   };
 }
@@ -3284,6 +4265,12 @@ class ThemeColorPalette$Task {
     workInProgress = json['workInProgress'] as Color,
     completed = json['completed'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Task.fromYaml(Map<String, dynamic> yaml):
+    notStarted = _ColorToString.fromString(yaml['notStarted'] as String)!,
+    workInProgress = _ColorToString.fromString(yaml['workInProgress'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!;
+
   /// Not started color
   final Color notStarted;
 
@@ -3293,6 +4280,7 @@ class ThemeColorPalette$Task {
   /// Completed color
   final Color completed;
 
+  /// Copy with.
   ThemeColorPalette$Task copyWith({
     Color? notStarted,
     Color? workInProgress,
@@ -3305,7 +4293,7 @@ class ThemeColorPalette$Task {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$Task copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3317,11 +4305,30 @@ class ThemeColorPalette$Task {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$Task copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      notStarted: _ColorToString.fromString(yaml['notStarted'] as String?),
+      workInProgress: _ColorToString.fromString(yaml['workInProgress'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'notStarted': notStarted,
     'workInProgress': workInProgress,
     'completed': completed,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'notStarted': notStarted.stringValue,
+    'workInProgress': workInProgress.stringValue,
+    'completed': completed.stringValue,
   };
 }
 
@@ -3355,6 +4362,12 @@ class ThemeColorPalette$Task_mobile implements ThemeColorPalette$Task {
     workInProgress = json['workInProgress'] as Color,
     completed = json['completed'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Task_mobile.fromYaml(Map<String, dynamic> yaml):
+    notStarted = _ColorToString.fromString(yaml['notStarted'] as String)!,
+    workInProgress = _ColorToString.fromString(yaml['workInProgress'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!;
+
   /// Not started color
   @override
   final Color notStarted;
@@ -3381,7 +4394,6 @@ class ThemeColorPalette$Task_mobile implements ThemeColorPalette$Task {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Task_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3393,12 +4405,30 @@ class ThemeColorPalette$Task_mobile implements ThemeColorPalette$Task {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Task_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      notStarted: _ColorToString.fromString(yaml['notStarted'] as String?),
+      workInProgress: _ColorToString.fromString(yaml['workInProgress'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'notStarted': notStarted,
     'workInProgress': workInProgress,
     'completed': completed,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'notStarted': notStarted.stringValue,
+    'workInProgress': workInProgress.stringValue,
+    'completed': completed.stringValue,
   };
 }
 
@@ -3432,6 +4462,12 @@ class ThemeColorPalette$Task_web implements ThemeColorPalette$Task {
     workInProgress = json['workInProgress'] as Color,
     completed = json['completed'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Task_web.fromYaml(Map<String, dynamic> yaml):
+    notStarted = _ColorToString.fromString(yaml['notStarted'] as String)!,
+    workInProgress = _ColorToString.fromString(yaml['workInProgress'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!;
+
   /// Not started color
   @override
   final Color notStarted;
@@ -3458,7 +4494,6 @@ class ThemeColorPalette$Task_web implements ThemeColorPalette$Task {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Task_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3470,12 +4505,30 @@ class ThemeColorPalette$Task_web implements ThemeColorPalette$Task {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Task_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      notStarted: _ColorToString.fromString(yaml['notStarted'] as String?),
+      workInProgress: _ColorToString.fromString(yaml['workInProgress'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'notStarted': notStarted,
     'workInProgress': workInProgress,
     'completed': completed,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'notStarted': notStarted.stringValue,
+    'workInProgress': workInProgress.stringValue,
+    'completed': completed.stringValue,
   };
 }
 
@@ -3513,6 +4566,13 @@ class ThemeColorPalette$Form {
     completed = json['completed'] as Color,
     rejected = json['rejected'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Form.fromYaml(Map<String, dynamic> yaml):
+    draft = _ColorToString.fromString(yaml['draft'] as String)!,
+    actionRequired = _ColorToString.fromString(yaml['actionRequired'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!,
+    rejected = _ColorToString.fromString(yaml['rejected'] as String)!;
+
   /// Draft color
   final Color draft;
 
@@ -3525,6 +4585,7 @@ class ThemeColorPalette$Form {
   /// Rejected color
   final Color rejected;
 
+  /// Copy with.
   ThemeColorPalette$Form copyWith({
     Color? draft,
     Color? actionRequired,
@@ -3539,7 +4600,7 @@ class ThemeColorPalette$Form {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$Form copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3552,12 +4613,33 @@ class ThemeColorPalette$Form {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$Form copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      draft: _ColorToString.fromString(yaml['draft'] as String?),
+      actionRequired: _ColorToString.fromString(yaml['actionRequired'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+      rejected: _ColorToString.fromString(yaml['rejected'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'draft': draft,
     'actionRequired': actionRequired,
     'completed': completed,
     'rejected': rejected,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'draft': draft.stringValue,
+    'actionRequired': actionRequired.stringValue,
+    'completed': completed.stringValue,
+    'rejected': rejected.stringValue,
   };
 }
 
@@ -3595,6 +4677,13 @@ class ThemeColorPalette$Form_mobile implements ThemeColorPalette$Form {
     completed = json['completed'] as Color,
     rejected = json['rejected'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Form_mobile.fromYaml(Map<String, dynamic> yaml):
+    draft = _ColorToString.fromString(yaml['draft'] as String)!,
+    actionRequired = _ColorToString.fromString(yaml['actionRequired'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!,
+    rejected = _ColorToString.fromString(yaml['rejected'] as String)!;
+
   /// Draft color
   @override
   final Color draft;
@@ -3627,7 +4716,6 @@ class ThemeColorPalette$Form_mobile implements ThemeColorPalette$Form {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Form_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3640,13 +4728,33 @@ class ThemeColorPalette$Form_mobile implements ThemeColorPalette$Form {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Form_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      draft: _ColorToString.fromString(yaml['draft'] as String?),
+      actionRequired: _ColorToString.fromString(yaml['actionRequired'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+      rejected: _ColorToString.fromString(yaml['rejected'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'draft': draft,
     'actionRequired': actionRequired,
     'completed': completed,
     'rejected': rejected,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'draft': draft.stringValue,
+    'actionRequired': actionRequired.stringValue,
+    'completed': completed.stringValue,
+    'rejected': rejected.stringValue,
   };
 }
 
@@ -3684,6 +4792,13 @@ class ThemeColorPalette$Form_web implements ThemeColorPalette$Form {
     completed = json['completed'] as Color,
     rejected = json['rejected'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Form_web.fromYaml(Map<String, dynamic> yaml):
+    draft = _ColorToString.fromString(yaml['draft'] as String)!,
+    actionRequired = _ColorToString.fromString(yaml['actionRequired'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!,
+    rejected = _ColorToString.fromString(yaml['rejected'] as String)!;
+
   /// Draft color
   @override
   final Color draft;
@@ -3716,7 +4831,6 @@ class ThemeColorPalette$Form_web implements ThemeColorPalette$Form {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Form_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3729,13 +4843,33 @@ class ThemeColorPalette$Form_web implements ThemeColorPalette$Form {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Form_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      draft: _ColorToString.fromString(yaml['draft'] as String?),
+      actionRequired: _ColorToString.fromString(yaml['actionRequired'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+      rejected: _ColorToString.fromString(yaml['rejected'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'draft': draft,
     'actionRequired': actionRequired,
     'completed': completed,
     'rejected': rejected,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'draft': draft.stringValue,
+    'actionRequired': actionRequired.stringValue,
+    'completed': completed.stringValue,
+    'rejected': rejected.stringValue,
   };
 }
 
@@ -3761,9 +4895,14 @@ class ThemeColorPalette$Notification {
   ThemeColorPalette$Notification.fromJson(Map<String, dynamic> json):
     countBubbleColor = json['countBubbleColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Notification.fromYaml(Map<String, dynamic> yaml):
+    countBubbleColor = _ColorToString.fromString(yaml['countBubbleColor'] as String)!;
+
   /// Color of the notification bubble
   final Color countBubbleColor;
 
+  /// Copy with.
   ThemeColorPalette$Notification copyWith({
     Color? countBubbleColor,
   }) {
@@ -3772,7 +4911,7 @@ class ThemeColorPalette$Notification {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$Notification copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3782,9 +4921,24 @@ class ThemeColorPalette$Notification {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$Notification copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      countBubbleColor: _ColorToString.fromString(yaml['countBubbleColor'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'countBubbleColor': countBubbleColor,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'countBubbleColor': countBubbleColor.stringValue,
   };
 }
 
@@ -3810,6 +4964,10 @@ class ThemeColorPalette$Notification_mobile implements ThemeColorPalette$Notific
   ThemeColorPalette$Notification_mobile.fromJson(Map<String, dynamic> json):
     countBubbleColor = json['countBubbleColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Notification_mobile.fromYaml(Map<String, dynamic> yaml):
+    countBubbleColor = _ColorToString.fromString(yaml['countBubbleColor'] as String)!;
+
   /// Color of the notification bubble
   @override
   final Color countBubbleColor;
@@ -3824,7 +4982,6 @@ class ThemeColorPalette$Notification_mobile implements ThemeColorPalette$Notific
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Notification_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3834,10 +4991,24 @@ class ThemeColorPalette$Notification_mobile implements ThemeColorPalette$Notific
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Notification_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      countBubbleColor: _ColorToString.fromString(yaml['countBubbleColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'countBubbleColor': countBubbleColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'countBubbleColor': countBubbleColor.stringValue,
   };
 }
 
@@ -3863,6 +5034,10 @@ class ThemeColorPalette$Notification_web implements ThemeColorPalette$Notificati
   ThemeColorPalette$Notification_web.fromJson(Map<String, dynamic> json):
     countBubbleColor = json['countBubbleColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Notification_web.fromYaml(Map<String, dynamic> yaml):
+    countBubbleColor = _ColorToString.fromString(yaml['countBubbleColor'] as String)!;
+
   /// Color of the notification bubble
   @override
   final Color countBubbleColor;
@@ -3877,7 +5052,6 @@ class ThemeColorPalette$Notification_web implements ThemeColorPalette$Notificati
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Notification_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3887,10 +5061,24 @@ class ThemeColorPalette$Notification_web implements ThemeColorPalette$Notificati
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Notification_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      countBubbleColor: _ColorToString.fromString(yaml['countBubbleColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'countBubbleColor': countBubbleColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'countBubbleColor': countBubbleColor.stringValue,
   };
 }
 
@@ -3940,6 +5128,16 @@ class ThemeColorPalette$ProjectTimeline {
     active = json['active'] as Color,
     progress = json['progress'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$ProjectTimeline.fromYaml(Map<String, dynamic> yaml):
+    plannedLight = _ColorToString.fromString(yaml['plannedLight'] as String)!,
+    planned = _ColorToString.fromString(yaml['planned'] as String)!,
+    start = _ColorToString.fromString(yaml['start'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!,
+    today = _ColorToString.fromString(yaml['today'] as String)!,
+    active = _ColorToString.fromString(yaml['active'] as String)!,
+    progress = _ColorToString.fromString(yaml['progress'] as String)!;
+
   /// Planned disc color
   final Color plannedLight;
 
@@ -3961,6 +5159,7 @@ class ThemeColorPalette$ProjectTimeline {
   /// Color for the active part of the Timeline bar (Start -> Today/Completed)
   final Color progress;
 
+  /// Copy with.
   ThemeColorPalette$ProjectTimeline copyWith({
     Color? plannedLight,
     Color? planned,
@@ -3981,7 +5180,7 @@ class ThemeColorPalette$ProjectTimeline {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$ProjectTimeline copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -3997,7 +5196,23 @@ class ThemeColorPalette$ProjectTimeline {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$ProjectTimeline copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      plannedLight: _ColorToString.fromString(yaml['plannedLight'] as String?),
+      planned: _ColorToString.fromString(yaml['planned'] as String?),
+      start: _ColorToString.fromString(yaml['start'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+      today: _ColorToString.fromString(yaml['today'] as String?),
+      active: _ColorToString.fromString(yaml['active'] as String?),
+      progress: _ColorToString.fromString(yaml['progress'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'plannedLight': plannedLight,
     'planned': planned,
@@ -4006,6 +5221,17 @@ class ThemeColorPalette$ProjectTimeline {
     'today': today,
     'active': active,
     'progress': progress,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'plannedLight': plannedLight.stringValue,
+    'planned': planned.stringValue,
+    'start': start.stringValue,
+    'completed': completed.stringValue,
+    'today': today.stringValue,
+    'active': active.stringValue,
+    'progress': progress.stringValue,
   };
 }
 
@@ -4054,6 +5280,16 @@ class ThemeColorPalette$ProjectTimeline_mobile implements ThemeColorPalette$Proj
     today = json['today'] as Color,
     active = json['active'] as Color,
     progress = json['progress'] as Color;
+
+  /// From yaml.
+  ThemeColorPalette$ProjectTimeline_mobile.fromYaml(Map<String, dynamic> yaml):
+    plannedLight = _ColorToString.fromString(yaml['plannedLight'] as String)!,
+    planned = _ColorToString.fromString(yaml['planned'] as String)!,
+    start = _ColorToString.fromString(yaml['start'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!,
+    today = _ColorToString.fromString(yaml['today'] as String)!,
+    active = _ColorToString.fromString(yaml['active'] as String)!,
+    progress = _ColorToString.fromString(yaml['progress'] as String)!;
 
   /// Planned disc color
   @override
@@ -4105,7 +5341,6 @@ class ThemeColorPalette$ProjectTimeline_mobile implements ThemeColorPalette$Proj
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$ProjectTimeline_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4121,7 +5356,22 @@ class ThemeColorPalette$ProjectTimeline_mobile implements ThemeColorPalette$Proj
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$ProjectTimeline_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      plannedLight: _ColorToString.fromString(yaml['plannedLight'] as String?),
+      planned: _ColorToString.fromString(yaml['planned'] as String?),
+      start: _ColorToString.fromString(yaml['start'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+      today: _ColorToString.fromString(yaml['today'] as String?),
+      active: _ColorToString.fromString(yaml['active'] as String?),
+      progress: _ColorToString.fromString(yaml['progress'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'plannedLight': plannedLight,
@@ -4131,6 +5381,17 @@ class ThemeColorPalette$ProjectTimeline_mobile implements ThemeColorPalette$Proj
     'today': today,
     'active': active,
     'progress': progress,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'plannedLight': plannedLight.stringValue,
+    'planned': planned.stringValue,
+    'start': start.stringValue,
+    'completed': completed.stringValue,
+    'today': today.stringValue,
+    'active': active.stringValue,
+    'progress': progress.stringValue,
   };
 }
 
@@ -4179,6 +5440,16 @@ class ThemeColorPalette$ProjectTimeline_web implements ThemeColorPalette$Project
     today = json['today'] as Color,
     active = json['active'] as Color,
     progress = json['progress'] as Color;
+
+  /// From yaml.
+  ThemeColorPalette$ProjectTimeline_web.fromYaml(Map<String, dynamic> yaml):
+    plannedLight = _ColorToString.fromString(yaml['plannedLight'] as String)!,
+    planned = _ColorToString.fromString(yaml['planned'] as String)!,
+    start = _ColorToString.fromString(yaml['start'] as String)!,
+    completed = _ColorToString.fromString(yaml['completed'] as String)!,
+    today = _ColorToString.fromString(yaml['today'] as String)!,
+    active = _ColorToString.fromString(yaml['active'] as String)!,
+    progress = _ColorToString.fromString(yaml['progress'] as String)!;
 
   /// Planned disc color
   @override
@@ -4230,7 +5501,6 @@ class ThemeColorPalette$ProjectTimeline_web implements ThemeColorPalette$Project
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$ProjectTimeline_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4246,7 +5516,22 @@ class ThemeColorPalette$ProjectTimeline_web implements ThemeColorPalette$Project
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$ProjectTimeline_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      plannedLight: _ColorToString.fromString(yaml['plannedLight'] as String?),
+      planned: _ColorToString.fromString(yaml['planned'] as String?),
+      start: _ColorToString.fromString(yaml['start'] as String?),
+      completed: _ColorToString.fromString(yaml['completed'] as String?),
+      today: _ColorToString.fromString(yaml['today'] as String?),
+      active: _ColorToString.fromString(yaml['active'] as String?),
+      progress: _ColorToString.fromString(yaml['progress'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'plannedLight': plannedLight,
@@ -4256,6 +5541,17 @@ class ThemeColorPalette$ProjectTimeline_web implements ThemeColorPalette$Project
     'today': today,
     'active': active,
     'progress': progress,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'plannedLight': plannedLight.stringValue,
+    'planned': planned.stringValue,
+    'start': start.stringValue,
+    'completed': completed.stringValue,
+    'today': today.stringValue,
+    'active': active.stringValue,
+    'progress': progress.stringValue,
   };
 }
 
@@ -4285,12 +5581,18 @@ class ThemeColorPalette$Pin {
     iconColor = json['iconColor'] as Color,
     disabledBackgroundColor = json['disabledBackgroundColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Pin.fromYaml(Map<String, dynamic> yaml):
+    iconColor = _ColorToString.fromString(yaml['iconColor'] as String)!,
+    disabledBackgroundColor = _ColorToString.fromString(yaml['disabledBackgroundColor'] as String)!;
+
   /// Icon Color
   final Color iconColor;
 
   /// The background color when the pin is disabled
   final Color disabledBackgroundColor;
 
+  /// Copy with.
   ThemeColorPalette$Pin copyWith({
     Color? iconColor,
     Color? disabledBackgroundColor,
@@ -4301,7 +5603,7 @@ class ThemeColorPalette$Pin {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$Pin copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4312,10 +5614,27 @@ class ThemeColorPalette$Pin {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$Pin copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      iconColor: _ColorToString.fromString(yaml['iconColor'] as String?),
+      disabledBackgroundColor: _ColorToString.fromString(yaml['disabledBackgroundColor'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'iconColor': iconColor,
     'disabledBackgroundColor': disabledBackgroundColor,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'iconColor': iconColor.stringValue,
+    'disabledBackgroundColor': disabledBackgroundColor.stringValue,
   };
 }
 
@@ -4345,6 +5664,11 @@ class ThemeColorPalette$Pin_mobile implements ThemeColorPalette$Pin {
     iconColor = json['iconColor'] as Color,
     disabledBackgroundColor = json['disabledBackgroundColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Pin_mobile.fromYaml(Map<String, dynamic> yaml):
+    iconColor = _ColorToString.fromString(yaml['iconColor'] as String)!,
+    disabledBackgroundColor = _ColorToString.fromString(yaml['disabledBackgroundColor'] as String)!;
+
   /// Icon Color
   @override
   final Color iconColor;
@@ -4365,7 +5689,6 @@ class ThemeColorPalette$Pin_mobile implements ThemeColorPalette$Pin {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Pin_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4376,11 +5699,27 @@ class ThemeColorPalette$Pin_mobile implements ThemeColorPalette$Pin {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Pin_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      iconColor: _ColorToString.fromString(yaml['iconColor'] as String?),
+      disabledBackgroundColor: _ColorToString.fromString(yaml['disabledBackgroundColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'iconColor': iconColor,
     'disabledBackgroundColor': disabledBackgroundColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'iconColor': iconColor.stringValue,
+    'disabledBackgroundColor': disabledBackgroundColor.stringValue,
   };
 }
 
@@ -4410,6 +5749,11 @@ class ThemeColorPalette$Pin_web implements ThemeColorPalette$Pin {
     iconColor = json['iconColor'] as Color,
     disabledBackgroundColor = json['disabledBackgroundColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$Pin_web.fromYaml(Map<String, dynamic> yaml):
+    iconColor = _ColorToString.fromString(yaml['iconColor'] as String)!,
+    disabledBackgroundColor = _ColorToString.fromString(yaml['disabledBackgroundColor'] as String)!;
+
   /// Icon Color
   @override
   final Color iconColor;
@@ -4430,7 +5774,6 @@ class ThemeColorPalette$Pin_web implements ThemeColorPalette$Pin {
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$Pin_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4441,11 +5784,27 @@ class ThemeColorPalette$Pin_web implements ThemeColorPalette$Pin {
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$Pin_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      iconColor: _ColorToString.fromString(yaml['iconColor'] as String?),
+      disabledBackgroundColor: _ColorToString.fromString(yaml['disabledBackgroundColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'iconColor': iconColor,
     'disabledBackgroundColor': disabledBackgroundColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'iconColor': iconColor.stringValue,
+    'disabledBackgroundColor': disabledBackgroundColor.stringValue,
   };
 }
 
@@ -4477,6 +5836,11 @@ class ThemeColorPalette$AppBarTheme {
     _color = json['color'] as Color,
     _foregroundColor = json['foregroundColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$AppBarTheme.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _foregroundColor = _ColorToString.fromString(yaml['foregroundColor'] as String)!;
+
   /// Color of the app bar
   ///
   /// Use `theme.appBarTheme.color` instead.
@@ -4487,6 +5851,7 @@ class ThemeColorPalette$AppBarTheme {
   /// Use `theme.appBarTheme.foregroundColor` instead.
   final Color _foregroundColor;
 
+  /// Copy with.
   ThemeColorPalette$AppBarTheme copyWith({
     Color? color,
     Color? foregroundColor,
@@ -4497,7 +5862,7 @@ class ThemeColorPalette$AppBarTheme {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$AppBarTheme copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4508,10 +5873,27 @@ class ThemeColorPalette$AppBarTheme {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$AppBarTheme copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      foregroundColor: _ColorToString.fromString(yaml['foregroundColor'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'color': _color,
     'foregroundColor': _foregroundColor,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
+    'foregroundColor': _foregroundColor.stringValue,
   };
 }
 
@@ -4543,6 +5925,11 @@ class ThemeColorPalette$AppBarTheme_mobile implements ThemeColorPalette$AppBarTh
     _color = json['color'] as Color,
     _foregroundColor = json['foregroundColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$AppBarTheme_mobile.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _foregroundColor = _ColorToString.fromString(yaml['foregroundColor'] as String)!;
+
   /// Color of the app bar
   ///
   /// Use `theme.appBarTheme.color` instead.
@@ -4567,7 +5954,6 @@ class ThemeColorPalette$AppBarTheme_mobile implements ThemeColorPalette$AppBarTh
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$AppBarTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4578,11 +5964,27 @@ class ThemeColorPalette$AppBarTheme_mobile implements ThemeColorPalette$AppBarTh
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$AppBarTheme_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      foregroundColor: _ColorToString.fromString(yaml['foregroundColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
     'foregroundColor': _foregroundColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
+    'foregroundColor': _foregroundColor.stringValue,
   };
 }
 
@@ -4614,6 +6016,11 @@ class ThemeColorPalette$AppBarTheme_web implements ThemeColorPalette$AppBarTheme
     _color = json['color'] as Color,
     _foregroundColor = json['foregroundColor'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$AppBarTheme_web.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _foregroundColor = _ColorToString.fromString(yaml['foregroundColor'] as String)!;
+
   /// Color of the app bar
   ///
   /// Use `theme.appBarTheme.color` instead.
@@ -4638,7 +6045,6 @@ class ThemeColorPalette$AppBarTheme_web implements ThemeColorPalette$AppBarTheme
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$AppBarTheme_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4649,11 +6055,27 @@ class ThemeColorPalette$AppBarTheme_web implements ThemeColorPalette$AppBarTheme
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$AppBarTheme_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      foregroundColor: _ColorToString.fromString(yaml['foregroundColor'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
     'foregroundColor': _foregroundColor,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
+    'foregroundColor': _foregroundColor.stringValue,
   };
 }
 
@@ -4680,11 +6102,16 @@ class ThemeColorPalette$BottomAppBarTheme {
   ThemeColorPalette$BottomAppBarTheme.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$BottomAppBarTheme.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Color of the bottom app bar
   ///
   /// Use `theme.bottomAppBarTheme.color` instead.
   final Color _color;
 
+  /// Copy with.
   ThemeColorPalette$BottomAppBarTheme copyWith({
     Color? color,
   }) {
@@ -4693,7 +6120,7 @@ class ThemeColorPalette$BottomAppBarTheme {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$BottomAppBarTheme copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4703,9 +6130,24 @@ class ThemeColorPalette$BottomAppBarTheme {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$BottomAppBarTheme copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -4732,6 +6174,10 @@ class ThemeColorPalette$BottomAppBarTheme_mobile implements ThemeColorPalette$Bo
   ThemeColorPalette$BottomAppBarTheme_mobile.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$BottomAppBarTheme_mobile.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Color of the bottom app bar
   ///
   /// Use `theme.bottomAppBarTheme.color` instead.
@@ -4748,7 +6194,6 @@ class ThemeColorPalette$BottomAppBarTheme_mobile implements ThemeColorPalette$Bo
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$BottomAppBarTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4758,10 +6203,24 @@ class ThemeColorPalette$BottomAppBarTheme_mobile implements ThemeColorPalette$Bo
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$BottomAppBarTheme_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -4788,6 +6247,10 @@ class ThemeColorPalette$BottomAppBarTheme_web implements ThemeColorPalette$Botto
   ThemeColorPalette$BottomAppBarTheme_web.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$BottomAppBarTheme_web.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Color of the bottom app bar
   ///
   /// Use `theme.bottomAppBarTheme.color` instead.
@@ -4804,7 +6267,6 @@ class ThemeColorPalette$BottomAppBarTheme_web implements ThemeColorPalette$Botto
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$BottomAppBarTheme_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4814,10 +6276,24 @@ class ThemeColorPalette$BottomAppBarTheme_web implements ThemeColorPalette$Botto
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$BottomAppBarTheme_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -4851,6 +6327,11 @@ class ThemeColorPalette$TooltipTheme {
     _decoration = ThemeColorPalette$TooltipTheme$Decoration.fromJson(json['decoration'] as Map<String, dynamic>),
     _textStyle = ThemeColorPalette$TooltipTheme$TextStyle.fromJson(json['textStyle'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme.fromYaml(Map<String, dynamic> yaml):
+    _decoration = ThemeColorPalette$TooltipTheme$Decoration.fromYaml(yaml['decoration'] as Map<String, dynamic>),
+    _textStyle = ThemeColorPalette$TooltipTheme$TextStyle.fromYaml(yaml['textStyle'] as Map<String, dynamic>);
+
   /// Tooltip decoration
   ///
   /// Use `theme.decoration` instead.
@@ -4861,6 +6342,7 @@ class ThemeColorPalette$TooltipTheme {
   /// Use `theme.tooltipTheme.textStyle` instead.
   final ThemeColorPalette$TooltipTheme$TextStyle _textStyle;
 
+  /// Copy with.
   ThemeColorPalette$TooltipTheme copyWith({
     covariant ThemeColorPalette$TooltipTheme$Decoration? decoration,
     covariant ThemeColorPalette$TooltipTheme$TextStyle? textStyle,
@@ -4871,7 +6353,7 @@ class ThemeColorPalette$TooltipTheme {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$TooltipTheme copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4882,10 +6364,27 @@ class ThemeColorPalette$TooltipTheme {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$TooltipTheme copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      decoration: _decoration.copyWithYaml(yaml['decoration'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'decoration': _decoration.toJson(),
     'textStyle': _textStyle.toJson(),
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'decoration': _decoration.toYaml(),
+    'textStyle': _textStyle.toYaml(),
   };
 }
 
@@ -4919,6 +6418,11 @@ class ThemeColorPalette$TooltipTheme_mobile implements ThemeColorPalette$Tooltip
     _decoration = ThemeColorPalette$TooltipTheme$Decoration_mobile.fromJson(json['decoration'] as Map<String, dynamic>),
     _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_mobile.fromJson(json['textStyle'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme_mobile.fromYaml(Map<String, dynamic> yaml):
+    _decoration = ThemeColorPalette$TooltipTheme$Decoration_mobile.fromYaml(yaml['decoration'] as Map<String, dynamic>),
+    _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_mobile.fromYaml(yaml['textStyle'] as Map<String, dynamic>);
+
   /// Tooltip decoration
   ///
   /// Use `theme.decoration` instead.
@@ -4943,7 +6447,6 @@ class ThemeColorPalette$TooltipTheme_mobile implements ThemeColorPalette$Tooltip
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TooltipTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -4954,11 +6457,27 @@ class ThemeColorPalette$TooltipTheme_mobile implements ThemeColorPalette$Tooltip
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TooltipTheme_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      decoration: _decoration.copyWithYaml(yaml['decoration'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'decoration': _decoration.toJson(),
     'textStyle': _textStyle.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'decoration': _decoration.toYaml(),
+    'textStyle': _textStyle.toYaml(),
   };
 }
 
@@ -4992,6 +6511,11 @@ class ThemeColorPalette$TooltipTheme_web implements ThemeColorPalette$TooltipThe
     _decoration = ThemeColorPalette$TooltipTheme$Decoration_web.fromJson(json['decoration'] as Map<String, dynamic>),
     _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_web.fromJson(json['textStyle'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme_web.fromYaml(Map<String, dynamic> yaml):
+    _decoration = ThemeColorPalette$TooltipTheme$Decoration_web.fromYaml(yaml['decoration'] as Map<String, dynamic>),
+    _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_web.fromYaml(yaml['textStyle'] as Map<String, dynamic>);
+
   /// Tooltip decoration
   ///
   /// Use `theme.decoration` instead.
@@ -5016,7 +6540,6 @@ class ThemeColorPalette$TooltipTheme_web implements ThemeColorPalette$TooltipThe
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TooltipTheme_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5027,11 +6550,27 @@ class ThemeColorPalette$TooltipTheme_web implements ThemeColorPalette$TooltipThe
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TooltipTheme_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      decoration: _decoration.copyWithYaml(yaml['decoration'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'decoration': _decoration.toJson(),
     'textStyle': _textStyle.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'decoration': _decoration.toYaml(),
+    'textStyle': _textStyle.toYaml(),
   };
 }
 
@@ -5065,6 +6604,11 @@ class ThemeColorPalette$TooltipTheme$Decoration {
     _color = json['color'] as Color,
     _borderRadius = json['borderRadius'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme$Decoration.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _borderRadius = yaml['borderRadius'] as double;
+
   /// Tooltip decoration color
   ///
   /// Use `theme.tooltipTheme.decoration` instead.
@@ -5075,6 +6619,7 @@ class ThemeColorPalette$TooltipTheme$Decoration {
   /// Use `theme.tooltipTheme.decoration` instead.
   final double _borderRadius;
 
+  /// Copy with.
   ThemeColorPalette$TooltipTheme$Decoration copyWith({
     Color? color,
     double? borderRadius,
@@ -5085,7 +6630,7 @@ class ThemeColorPalette$TooltipTheme$Decoration {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$TooltipTheme$Decoration copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5096,9 +6641,26 @@ class ThemeColorPalette$TooltipTheme$Decoration {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$TooltipTheme$Decoration copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      borderRadius: yaml['borderRadius'] as double?,
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'color': _color,
+    'borderRadius': _borderRadius,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
     'borderRadius': _borderRadius,
   };
 }
@@ -5133,6 +6695,11 @@ class ThemeColorPalette$TooltipTheme$Decoration_mobile implements ThemeColorPale
     _color = json['color'] as Color,
     _borderRadius = json['borderRadius'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme$Decoration_mobile.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _borderRadius = yaml['borderRadius'] as double;
+
   /// Tooltip decoration color
   ///
   /// Use `theme.tooltipTheme.decoration` instead.
@@ -5157,7 +6724,6 @@ class ThemeColorPalette$TooltipTheme$Decoration_mobile implements ThemeColorPale
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TooltipTheme$Decoration_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5168,10 +6734,26 @@ class ThemeColorPalette$TooltipTheme$Decoration_mobile implements ThemeColorPale
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TooltipTheme$Decoration_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      borderRadius: yaml['borderRadius'] as double?,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+    'borderRadius': _borderRadius,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
     'borderRadius': _borderRadius,
   };
 }
@@ -5206,6 +6788,11 @@ class ThemeColorPalette$TooltipTheme$Decoration_web implements ThemeColorPalette
     _color = json['color'] as Color,
     _borderRadius = json['borderRadius'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme$Decoration_web.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _borderRadius = yaml['borderRadius'] as double;
+
   /// Tooltip decoration color
   ///
   /// Use `theme.tooltipTheme.decoration` instead.
@@ -5230,7 +6817,6 @@ class ThemeColorPalette$TooltipTheme$Decoration_web implements ThemeColorPalette
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TooltipTheme$Decoration_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5241,10 +6827,26 @@ class ThemeColorPalette$TooltipTheme$Decoration_web implements ThemeColorPalette
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TooltipTheme$Decoration_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      borderRadius: yaml['borderRadius'] as double?,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+    'borderRadius': _borderRadius,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
     'borderRadius': _borderRadius,
   };
 }
@@ -5274,11 +6876,16 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
   ThemeColorPalette$TooltipTheme$TextStyle.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme$TextStyle.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Tooltip text textStyle color
   ///
   /// Use `theme.tooltipTheme.textStyle.color` instead.
   final Color _color;
 
+  /// Copy with.
   ThemeColorPalette$TooltipTheme$TextStyle copyWith({
     Color? color,
   }) {
@@ -5287,7 +6894,7 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$TooltipTheme$TextStyle copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5297,9 +6904,24 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$TooltipTheme$TextStyle copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -5328,6 +6950,10 @@ class ThemeColorPalette$TooltipTheme$TextStyle_mobile implements ThemeColorPalet
   ThemeColorPalette$TooltipTheme$TextStyle_mobile.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme$TextStyle_mobile.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Tooltip text textStyle color
   ///
   /// Use `theme.tooltipTheme.textStyle.color` instead.
@@ -5344,7 +6970,6 @@ class ThemeColorPalette$TooltipTheme$TextStyle_mobile implements ThemeColorPalet
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TooltipTheme$TextStyle_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5354,10 +6979,24 @@ class ThemeColorPalette$TooltipTheme$TextStyle_mobile implements ThemeColorPalet
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TooltipTheme$TextStyle_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -5386,6 +7025,10 @@ class ThemeColorPalette$TooltipTheme$TextStyle_web implements ThemeColorPalette$
   ThemeColorPalette$TooltipTheme$TextStyle_web.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$TooltipTheme$TextStyle_web.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Tooltip text textStyle color
   ///
   /// Use `theme.tooltipTheme.textStyle.color` instead.
@@ -5402,7 +7045,6 @@ class ThemeColorPalette$TooltipTheme$TextStyle_web implements ThemeColorPalette$
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$TooltipTheme$TextStyle_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5412,10 +7054,24 @@ class ThemeColorPalette$TooltipTheme$TextStyle_web implements ThemeColorPalette$
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$TooltipTheme$TextStyle_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -5444,11 +7100,16 @@ class ThemeColorPalette$PopupMenuTheme {
   ThemeColorPalette$PopupMenuTheme.fromJson(Map<String, dynamic> json):
     _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle.fromJson(json['textStyle'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$PopupMenuTheme.fromYaml(Map<String, dynamic> yaml):
+    _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle.fromYaml(yaml['textStyle'] as Map<String, dynamic>);
+
   /// Popup menu theme text style
   ///
   /// Use `theme.popupMenuTheme.textStyle` instead.
   final ThemeColorPalette$PopupMenuTheme$TextStyle _textStyle;
 
+  /// Copy with.
   ThemeColorPalette$PopupMenuTheme copyWith({
     covariant ThemeColorPalette$PopupMenuTheme$TextStyle? textStyle,
   }) {
@@ -5457,7 +7118,7 @@ class ThemeColorPalette$PopupMenuTheme {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$PopupMenuTheme copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5467,9 +7128,24 @@ class ThemeColorPalette$PopupMenuTheme {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$PopupMenuTheme copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'textStyle': _textStyle.toJson(),
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'textStyle': _textStyle.toYaml(),
   };
 }
 
@@ -5498,6 +7174,10 @@ class ThemeColorPalette$PopupMenuTheme_mobile implements ThemeColorPalette$Popup
   ThemeColorPalette$PopupMenuTheme_mobile.fromJson(Map<String, dynamic> json):
     _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromJson(json['textStyle'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$PopupMenuTheme_mobile.fromYaml(Map<String, dynamic> yaml):
+    _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromYaml(yaml['textStyle'] as Map<String, dynamic>);
+
   /// Popup menu theme text style
   ///
   /// Use `theme.popupMenuTheme.textStyle` instead.
@@ -5514,7 +7194,6 @@ class ThemeColorPalette$PopupMenuTheme_mobile implements ThemeColorPalette$Popup
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$PopupMenuTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5524,10 +7203,24 @@ class ThemeColorPalette$PopupMenuTheme_mobile implements ThemeColorPalette$Popup
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$PopupMenuTheme_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'textStyle': _textStyle.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'textStyle': _textStyle.toYaml(),
   };
 }
 
@@ -5556,6 +7249,10 @@ class ThemeColorPalette$PopupMenuTheme_web implements ThemeColorPalette$PopupMen
   ThemeColorPalette$PopupMenuTheme_web.fromJson(Map<String, dynamic> json):
     _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromJson(json['textStyle'] as Map<String, dynamic>);
 
+  /// From yaml.
+  ThemeColorPalette$PopupMenuTheme_web.fromYaml(Map<String, dynamic> yaml):
+    _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromYaml(yaml['textStyle'] as Map<String, dynamic>);
+
   /// Popup menu theme text style
   ///
   /// Use `theme.popupMenuTheme.textStyle` instead.
@@ -5572,7 +7269,6 @@ class ThemeColorPalette$PopupMenuTheme_web implements ThemeColorPalette$PopupMen
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$PopupMenuTheme_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5582,10 +7278,24 @@ class ThemeColorPalette$PopupMenuTheme_web implements ThemeColorPalette$PopupMen
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$PopupMenuTheme_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'textStyle': _textStyle.toJson(),
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'textStyle': _textStyle.toYaml(),
   };
 }
 
@@ -5614,11 +7324,16 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
   ThemeColorPalette$PopupMenuTheme$TextStyle.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$PopupMenuTheme$TextStyle.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Popup menu theme text style color
   ///
   /// Use `theme.popupMenuTheme.textStyle.color` instead.
   final Color _color;
 
+  /// Copy with.
   ThemeColorPalette$PopupMenuTheme$TextStyle copyWith({
     Color? color,
   }) {
@@ -5627,7 +7342,7 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$PopupMenuTheme$TextStyle copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5637,9 +7352,24 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$PopupMenuTheme$TextStyle copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -5668,6 +7398,10 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_mobile implements ThemeColorPal
   ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Popup menu theme text style color
   ///
   /// Use `theme.popupMenuTheme.textStyle.color` instead.
@@ -5684,7 +7418,6 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_mobile implements ThemeColorPal
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$PopupMenuTheme$TextStyle_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5694,10 +7427,24 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_mobile implements ThemeColorPal
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$PopupMenuTheme$TextStyle_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -5726,6 +7473,10 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_web implements ThemeColorPalett
   ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
 
+  /// From yaml.
+  ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!;
+
   /// Popup menu theme text style color
   ///
   /// Use `theme.popupMenuTheme.textStyle.color` instead.
@@ -5742,7 +7493,6 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_web implements ThemeColorPalett
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$PopupMenuTheme$TextStyle_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5752,10 +7502,24 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_web implements ThemeColorPalett
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$PopupMenuTheme$TextStyle_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
   };
 }
 
@@ -5789,6 +7553,11 @@ class ThemeColorPalette$DividerTheme {
     _color = json['color'] as Color,
     _thickness = json['thickness'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$DividerTheme.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _thickness = yaml['thickness'] as double;
+
   /// Divider color
   ///
   /// Use `theme.dividerColor` instead.
@@ -5799,6 +7568,7 @@ class ThemeColorPalette$DividerTheme {
   /// Use `theme.dividerTheme.thickness` instead.
   final double _thickness;
 
+  /// Copy with.
   ThemeColorPalette$DividerTheme copyWith({
     Color? color,
     double? thickness,
@@ -5809,7 +7579,7 @@ class ThemeColorPalette$DividerTheme {
     );
   }
 
-  /// Copy with json method.
+  /// Copy with json.
   ThemeColorPalette$DividerTheme copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5820,9 +7590,26 @@ class ThemeColorPalette$DividerTheme {
     );
   }
 
-  /// To json method.
+  /// Copy with yaml.
+  ThemeColorPalette$DividerTheme copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      thickness: yaml['thickness'] as double?,
+    );
+  }
+
+  /// To json.
   Map<String, dynamic> toJson() => {
     'color': _color,
+    'thickness': _thickness,
+  };
+
+  /// To yaml.
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
     'thickness': _thickness,
   };
 }
@@ -5857,6 +7644,11 @@ class ThemeColorPalette$DividerTheme_mobile implements ThemeColorPalette$Divider
     _color = json['color'] as Color,
     _thickness = json['thickness'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$DividerTheme_mobile.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _thickness = yaml['thickness'] as double;
+
   /// Divider color
   ///
   /// Use `theme.dividerColor` instead.
@@ -5881,7 +7673,6 @@ class ThemeColorPalette$DividerTheme_mobile implements ThemeColorPalette$Divider
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$DividerTheme_mobile copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5892,10 +7683,26 @@ class ThemeColorPalette$DividerTheme_mobile implements ThemeColorPalette$Divider
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$DividerTheme_mobile copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      thickness: yaml['thickness'] as double?,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+    'thickness': _thickness,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
     'thickness': _thickness,
   };
 }
@@ -5930,6 +7737,11 @@ class ThemeColorPalette$DividerTheme_web implements ThemeColorPalette$DividerThe
     _color = json['color'] as Color,
     _thickness = json['thickness'] as double;
 
+  /// From yaml.
+  ThemeColorPalette$DividerTheme_web.fromYaml(Map<String, dynamic> yaml):
+    _color = _ColorToString.fromString(yaml['color'] as String)!,
+    _thickness = yaml['thickness'] as double;
+
   /// Divider color
   ///
   /// Use `theme.dividerColor` instead.
@@ -5954,7 +7766,6 @@ class ThemeColorPalette$DividerTheme_web implements ThemeColorPalette$DividerThe
   }
 
   @override
-  /// Copy with json method.
   ThemeColorPalette$DividerTheme_web copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -5965,10 +7776,26 @@ class ThemeColorPalette$DividerTheme_web implements ThemeColorPalette$DividerThe
     );
   }
 
-  /// To json method.
+  @override
+  ThemeColorPalette$DividerTheme_web copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+      color: _ColorToString.fromString(yaml['color'] as String?),
+      thickness: yaml['thickness'] as double?,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'color': _color,
+    'thickness': _thickness,
+  };
+
+  @override
+  Map<String, dynamic> toYaml() => {
+    'color': _color.stringValue,
     'thickness': _thickness,
   };
 }
