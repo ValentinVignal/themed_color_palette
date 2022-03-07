@@ -152,4 +152,17 @@ class FontWeight extends Value {
   String get dartConstructor {
     return 'FontWeight.${fontWeight.string}';
   }
+
+  @override
+  String castFromYamlString({
+    required String value,
+    required bool nullable,
+  }) =>
+      '_FontWeightToString.fromString($value as String${nullable ? '?' : ''})${nullable ? '' : '!'}';
+
+  @override
+  String castToYamlString({
+    required String value,
+  }) =>
+      '$value.name';
 }

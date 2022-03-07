@@ -143,13 +143,10 @@ abstract class ThemedJsonToDart extends JsonToDart {
       buffer
         ..writeln()
         ..writeLine(1, '/// From json.');
-      final jsonInitializers = platformValues.map((value) {
-        return '${value.instanceName} = json[\'${value.context.name}\'] as ${value.classNameWithPlatform(platform: platform)}';
-      });
       final fromJsonConstructorLine = '${classNameWithPlatform(
         platform: platform,
       )}.fromJson(Map<String, dynamic> json)';
-      if (jsonInitializers.isEmpty) {
+      if (platformValues.isEmpty) {
         buffer.writeLine(1, '$fromJsonConstructorLine;');
       } else {
         buffer.writeLine(1, '$fromJsonConstructorLine:');
@@ -160,6 +157,29 @@ abstract class ThemedJsonToDart extends JsonToDart {
           buffer.writeLine(
             2,
             '${value.instanceName} = ${value.fromJsonString(value: jsonValue, platform: platform)}$endLine',
+          );
+        }
+      }
+
+      // fromYamlJson constructor
+      buffer
+        ..writeln()
+        ..writeLine(1, '/// From yaml.');
+
+      final fromYamlConstructorLine = '${classNameWithPlatform(
+        platform: platform,
+      )}.fromYaml(Map<String, dynamic> yaml)';
+      if (platformValues.isEmpty) {
+        buffer.writeLine(1, '$fromYamlConstructorLine;');
+      } else {
+        buffer.writeLine(1, '$fromYamlConstructorLine:');
+        for (final entry in platformValues.toList().asMap().entries) {
+          final endLine = entry.key == platformValues.length - 1 ? ';' : ',';
+          final value = entry.value;
+          final yamlValue = 'yaml[\'${value.context.name}\']';
+          buffer.writeLine(
+            2,
+            '${value.instanceName} = ${value.fromYamlString(value: yamlValue, platform: platform)}$endLine',
           );
         }
       }
@@ -191,6 +211,8 @@ abstract class ThemedJsonToDart extends JsonToDart {
       buffer.writeln();
       if (!isAllPlatformGenericClass) {
         buffer.writeLine(1, '@override');
+      } else {
+        buffer.writeLine(1, '/// Copy with.');
       }
 
       buffer.writeLine(
@@ -228,9 +250,10 @@ abstract class ThemedJsonToDart extends JsonToDart {
         ..writeln();
       if (!isAllPlatformGenericClass) {
         buffer.writeLine(1, '@override');
+      } else {
+        buffer.writeLine(1, '/// Copy with json.');
       }
       buffer.write('''
-  /// Copy with json method.
   ${classNameWithPlatform(platform: platform)} copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
@@ -248,18 +271,59 @@ abstract class ThemedJsonToDart extends JsonToDart {
         ..writeLine(2, ');')
         ..writeLine(1, '}')
 
-        // toJson
-
-        ..writeln()
-        ..writeLine(1, '/// To json method.');
+        // copyWithYaml
+        ..writeln();
       if (!isAllPlatformGenericClass) {
         buffer.writeLine(1, '@override');
+      } else {
+        buffer.writeLine(1, '/// Copy with yaml.');
+      }
+      buffer.write('''
+  ${classNameWithPlatform(platform: platform)} copyWithYaml([Map<String, dynamic>? yaml]) {
+    if (yaml == null || yaml.isEmpty) {
+      return this;
+    }
+    return copyWith(
+''');
+      for (final value in platformValues) {
+        buffer.writeLine(
+          3,
+          '${value.context.name}: ${value.copyWithYamlString(value: 'yaml[\'${value.context.name}\']', platform: platform)},',
+        );
+      }
+      buffer
+        ..writeLine(2, ');')
+        ..writeLine(1, '}')
+
+        // toJson
+        ..writeln();
+      if (!isAllPlatformGenericClass) {
+        buffer.writeLine(1, '@override');
+      } else {
+        buffer.writeLine(1, '/// To json.');
       }
       buffer.writeLine(1, 'Map<String, dynamic> toJson() => {');
       for (final value in platformValues) {
         buffer.writeLine(
           2,
           '\'${value.context.name}\': ${value.toJsonString()},',
+        );
+      }
+      buffer
+        ..writeLine(1, '};')
+
+        // To yaml
+        ..writeln();
+      if (!isAllPlatformGenericClass) {
+        buffer.writeLine(1, '@override');
+      } else {
+        buffer.writeLine(1, '/// To yaml.');
+      }
+      buffer.writeLine(1, 'Map<String, dynamic> toYaml() => {');
+      for (final value in platformValues) {
+        buffer.writeLine(
+          2,
+          '\'${value.context.name}\': ${value.toYamlString()},',
         );
       }
       buffer
@@ -327,4 +391,27 @@ abstract class ThemedJsonToDart extends JsonToDart {
   ///
   /// This method should return the string that handles this value.
   String copyWithJsonString({required String value, required String platform});
+
+  /// From yaml string method.
+  ///
+  /// value will be a string like
+  /// ```dart
+  /// yaml['myKey']
+  /// ```
+  ///
+  /// This method should return the string that handles this value.
+  String fromYamlString({required String value, required String platform});
+
+  /// Copy with yaml string method.
+  ///
+  /// value will be a string like
+  /// ```dart
+  /// yaml['myKey']
+  /// ```
+  ///
+  /// This method should return the string that handles this value.
+  String copyWithYamlString({required String value, required String platform});
+
+  /// To yaml string method.
+  String toYamlString();
 }

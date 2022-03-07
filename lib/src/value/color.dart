@@ -79,4 +79,17 @@ class Color extends Value {
   String get dartConstructor {
     return 'const Color(0x$value)';
   }
+
+  @override
+  String castFromYamlString({
+    required String value,
+    required bool nullable,
+  }) =>
+      '_ColorToString.fromString($value as String${nullable ? '?' : ''})${nullable ? '' : '!'}';
+
+  @override
+  String castToYamlString({
+    required String value,
+  }) =>
+      '$value.stringValue';
 }

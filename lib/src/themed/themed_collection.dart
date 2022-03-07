@@ -48,4 +48,19 @@ class ThemedCollection extends ThemedJsonToDart {
   String copyWithJsonString({required String value, required String platform}) {
     return '$instanceName.copyWithJson($value as Map<String, dynamic>?)';
   }
+
+  @override
+  String fromYamlString({required String value, required String platform}) {
+    return '${classNameWithPlatform(platform: platform)}.fromYaml($value as Map<String, dynamic>)';
+  }
+
+  @override
+  String copyWithYamlString({required String value, required String platform}) {
+    return '$instanceName.copyWithYaml($value as Map<String, dynamic>?)';
+  }
+
+  @override
+  String toYamlString() {
+    return '$instanceName.toYaml()';
+  }
 }
