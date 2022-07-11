@@ -1,3 +1,7 @@
+## [0.3.0] 11/07/2022
+
+- Deploy on pub.
+
 ## [0.2.4] 07/03/2022
 
 - `fromYaml`, `toYaml`, `copyWithYaml`.
