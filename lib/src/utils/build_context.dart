@@ -1,10 +1,10 @@
-import 'package:theme_color_palette/src/utils/utils.dart';
+import 'package:themed_color_palette/src/utils/utils.dart';
 
-/// {@template valentin_vignal.theme_color_palette.build_context}
+/// {@template valentin_vignal.themed_color_palette.build_context}
 /// Context given to a [JsonToDart] constructor when constructed.
 /// {@endtemplate}
 class BuildContext {
-  /// {@macro valentin_vignal.theme_color_palette.build_context}
+  /// {@macro valentin_vignal.themed_color_palette.build_context}
   BuildContext({
     this.names = const [],
     this.platforms = const [],

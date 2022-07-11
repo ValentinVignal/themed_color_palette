@@ -1,12 +1,14 @@
-name: theme_color_palette
-description: A new Flutter package project.
+name: themed_color_palette
+description: A code generator to create a themed color palette.
+repository: https://github.com/ValentinVignal/theme_color_palette
+issue_tracker: https://github.com/ValentinVignal/theme_color_palette/issues
 version: 0.2.4
 dependencies:
   build: ^2.2.1
   yaml: ^3.1.0
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dev_dependencies:
   flutter:

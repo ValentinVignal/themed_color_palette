@@ -1,4 +1,4 @@
-part of theme_color_palette;
+part of themed_color_palette;
 
 /// Shard Json to dart
 abstract class SharedJsonToDart extends JsonToDart {

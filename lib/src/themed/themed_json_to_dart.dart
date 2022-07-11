@@ -1,10 +1,10 @@
-part of theme_color_palette;
+part of themed_color_palette;
 
-/// {@template valentin_vignal.theme_color_palette.themed_json_to_dart}
+/// {@template valentin_vignal.themed_color_palette.themed_json_to_dart}
 /// Json to dart that is themed dependent.
 /// {@endtemplate}
 abstract class ThemedJsonToDart extends JsonToDart {
-  /// {@macro valentin_vignal.theme_color_palette.themed_json_to_dart}
+  /// {@macro valentin_vignal.themed_color_palette.themed_json_to_dart}
   ThemedJsonToDart({
     required Map<String, dynamic> json,
     required BuildContext context,

@@ -8,8 +8,6 @@ analyzer:
   strong-mode:
     implicit-casts: false
     implicit-dynamic: true
-  enable-experiment:
-    - nonfunction-type-aliases
 linter:
   rules:
     - always_declare_return_types

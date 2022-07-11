@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:theme_color_palette/src/theme_color_palette.dart';
-import 'package:theme_color_palette/src/utils/utils.dart';
+import 'package:themed_color_palette/src/themed_color_palette.dart';
+import 'package:themed_color_palette/src/utils/utils.dart';
 
 class _TestThemedJsonToDart extends ThemedJsonToDart {
   _TestThemedJsonToDart({

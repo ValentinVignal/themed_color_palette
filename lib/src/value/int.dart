@@ -1,4 +1,4 @@
-part of theme_color_palette;
+part of themed_color_palette;
 
 /// Int
 class Int extends Value {

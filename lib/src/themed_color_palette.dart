@@ -1,8 +1,8 @@
-library theme_color_palette;
+library themed_color_palette;
 
 import 'dart:math';
 
-import 'package:theme_color_palette/src/utils/utils.dart';
+import 'package:themed_color_palette/src/utils/utils.dart';
 
 part 'json_to_dart.dart';
 part 'shared/shared_collection.dart';

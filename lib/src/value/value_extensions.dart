@@ -1,4 +1,4 @@
-part of theme_color_palette;
+part of themed_color_palette;
 
 /// The body to create utils extensions on the different values.
 const valueExtensions = r'''

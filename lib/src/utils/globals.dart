@@ -1,4 +1,4 @@
-import 'package:theme_color_palette/src/theme_color_palette.dart';
+import 'package:themed_color_palette/src/themed_color_palette.dart';
 
 /// Divider for class names.
 const divider = r'$';
