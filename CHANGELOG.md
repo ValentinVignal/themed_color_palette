@@ -1,3 +1,7 @@
+## [0.3.1] 19/07/2022
+
+- Add a better documentation.
+
 ## [0.3.0] 11/07/2022
 
 - Deploy on pub.
