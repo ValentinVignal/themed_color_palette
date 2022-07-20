@@ -6,15 +6,15 @@ import 'package:themed_color_palette/src/utils/dart_define_context.dart';
 import 'package:themed_color_palette/src/utils/globals.dart';
 import 'package:yaml/yaml.dart';
 
-/// Theme Color Palette
-Builder themeColorPaletteGeneratorBuilder(BuilderOptions options) {
-  return ThemeColorPaletteBuilder();
+/// Themed color palette.
+Builder themedColorPaletteGeneratorBuilder(BuilderOptions options) {
+  return ThemedColorPaletteBuilder();
 }
 
-/// Theme Color Palette Builder
-class ThemeColorPaletteBuilder implements Builder {
+/// Themed color palette builder.
+class ThemedColorPaletteBuilder implements Builder {
   @override
-  Map<String, List<String>> get buildExtensions => {
+  Map<String, List<String>> get buildExtensions => const {
         '.theme.yaml': ['.theme.g.dart'],
       };
 

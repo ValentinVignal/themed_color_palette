@@ -1,7 +1,7 @@
 builders:
-  themeColorPaletteGeneratorBuilder:
+  themedColorPaletteGeneratorBuilder:
     import: "package:themed_color_palette/themed_color_palette.dart"
-    builder_factories: ["themeColorPaletteGeneratorBuilder"]
+    builder_factories: ["themedColorPaletteGeneratorBuilder"]
     build_extensions: { ".theme.yaml": [".theme.g.dart"] }
     build_to: source
     auto_apply: dependents
