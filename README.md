@@ -81,7 +81,7 @@ There are different type of values:
   flutter theme (ex: `theme.cardColor`) It will indicates to the user to use the
   `cardColor` from the Flutter Material Theme instead.
 
- # Imports
+ #### Imports
 
  You can only import values that have been PREVIOUSLY defined (aka higher in the file).
 
@@ -89,6 +89,20 @@ There are different type of values:
 ### Editing on VSCode
  
 You can install [this VSCode extension](https://marketplace.visualstudio.com/items?itemName=valentin-vignal.themed-color-palette-vscode-extension) to provide a better editing experience with highlighting and decorations.
+
+## Builder configuration
+
+Create a `build.yaml` at the root of your repository:
+
+```yaml
+targets:
+  $default:
+    builders:
+      themed_color_palette:themedColorPaletteGeneratorBuilder:
+        enabled: true
+        generate_for:
+          - lib/*
+```
 
 ## Generates the code
 
