@@ -1,3 +1,7 @@
+## [0.3.3] 20/07/2022
+
+- Rename the builder to `themedColorPaletteGeneratorBuilder`.
+
 ## [0.3.2] 19/07/2022
 
 - Reduce the minimum dart version to `2.16.0`.
