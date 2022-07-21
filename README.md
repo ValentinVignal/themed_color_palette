@@ -13,9 +13,6 @@ Fill the yaml files with the collections of values of your theme:
 .themes: # Those are the different themes of the app.
   - light
   - dark
-.platforms: # Those are themes not handle by the generator.
-  - mobile
-  - web
 .name: themedColorPalette
 .description: The Themed Color Palette
 .shared: # The shared values are constants independent of the theme.
