@@ -1,3 +1,7 @@
+## [0.3.4] 20/07/2022
+
+- Remove (wrong) platform example from the README to make it simpler.
+
 ## [0.3.3] 20/07/2022
 
 - Rename the builder to `themedColorPaletteGeneratorBuilder`.
