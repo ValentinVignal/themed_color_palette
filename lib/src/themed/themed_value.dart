@@ -11,16 +11,33 @@ class ThemedValue extends ThemedJsonToDart {
     final values = Map.fromEntries(
       json.entries.where((entry) => !entry.key.startsWith('.')),
     );
-    final defaultValue = values[Themes.defaultTheme];
+
+    /// Returns the value for the given [theme] by looking for the value in the
+    /// imported ones.
+    T _findValue<T>(ThemeDefinition theme) {
+      if (values.containsKey(theme.name)) {
+        // If the value is defined in the current theme, return it.
+        return values[theme.name] as T;
+      } else if (theme.from != null) {
+        // If the theme import another theme, look for the value in the imported
+        // theme.
+        return _findValue(
+          Themes.themes.firstWhere((t) => t.name == theme.from),
+        );
+      } else {
+        return values[Themes.defaultTheme] as T;
+      }
+    }
+
     themedValues.addEntries(
       Themes.themes.map(
         (theme) => MapEntry(
-          theme,
+          theme.name,
           Value.fromJson(
-            value: values[theme] ?? defaultValue,
+            value: _findValue(theme),
             type: type,
             path: context.names,
-            theme: theme,
+            theme: theme.name,
           ),
         ),
       ),

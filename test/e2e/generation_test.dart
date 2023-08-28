@@ -1,30 +1,44 @@
-import 'dart:convert' as dart_convert;
 import 'dart:io';
 
+import 'package:build/build.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:themed_color_palette/src/themed_color_palette.dart';
-import 'package:themed_color_palette/src/utils/dart_define_context.dart';
-import 'package:yaml/yaml.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:themed_color_palette/themed_color_palette.dart';
+
+// ignore: subtype_of_sealed_class
+class _MockBuildStep extends Mock implements BuildStep {}
 
 void main() {
+  setUpAll(() {
+    registerFallbackValue(AssetId('package', 'path'));
+  });
   test('It should generate test.theme.g.dart', () async {
     final yamlContent = await File('test/e2e/test.theme.yaml').readAsString();
-    final json = dart_convert.json.decode(
-      dart_convert.json.encode(loadYaml(yamlContent)),
+    final buildStep = _MockBuildStep();
+
+    final builder = ThemedColorPaletteBuilder();
+    final assetId = AssetId('package', 'path');
+    when(() => buildStep.inputId).thenReturn(assetId);
+    when(() => buildStep.readAsString(any())).thenAnswer(
+      (_) async => yamlContent,
     );
-    final colorPalette = ColorPalette.fromJson(
-      json: json as Map<String, dynamic>,
+    when(() => buildStep.writeAsString(any(), any())).thenAnswer(
+      (_) async {},
     );
 
-    final buffer = StringBuffer()
-      ..writeln('import \'package:flutter/material.dart\';')
-      ..writeln()
-      ..write(colorPalette.dartDefine(const DartDefineContext()));
+    await builder.build(buildStep);
+
+    final generated = verify(() => buildStep.writeAsString(any(), captureAny()))
+        .captured
+        .first as String;
 
     final generatedContent = await File(
       'test/e2e/test.theme.g.dart',
     ).readAsString();
 
-    expect(buffer.toString(), generatedContent);
+    expect(
+      generated.split('\n').skip(3).join('\n'),
+      generatedContent.split('\n').skip(1).join('\n'),
+    );
   });
 }

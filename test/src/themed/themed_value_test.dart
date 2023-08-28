@@ -1,11 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:themed_color_palette/src/themed_color_palette.dart';
+import 'package:themed_color_palette/src/utils/theme.dart';
 import 'package:themed_color_palette/src/utils/utils.dart';
 
 void main() {
   group('double', () {
     test('non private double', () {
-      Themes.themes.addAll(['light', 'dark']);
+      Themes.themes.addAll(const [
+        ThemeDefinition(name: 'light'),
+        ThemeDefinition(name: 'dark')
+      ]);
       final themedValue = ThemedValue(
         json: {
           '.type': 'double',
