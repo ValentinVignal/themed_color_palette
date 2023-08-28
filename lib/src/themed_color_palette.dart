@@ -2,6 +2,7 @@ library themed_color_palette;
 
 import 'dart:math';
 
+import 'package:themed_color_palette/src/utils/theme.dart';
 import 'package:themed_color_palette/src/utils/utils.dart';
 
 part 'json_to_dart.dart';
@@ -26,9 +27,9 @@ class ColorPalette extends ThemedJsonToDart {
   /// The color palette containing everything.
   factory ColorPalette.fromJson({required Map<String, dynamic> json}) {
     // Themes.
-    _addThemes(List<String>.from(json['.themes'] as List));
+    _addThemes(json['.themes'] as List);
     BaseName.colorPalette = (json['.name'] as String).firstUpperCase;
-    _addPlatforms(List<String>.from(json['.platforms'] as List? ?? []));
+    _addPlatforms(List<String>.from(json['.platforms'] as List? ?? const []));
     return ColorPalette._fromJson(json: json);
   }
 
@@ -39,7 +40,8 @@ class ColorPalette extends ThemedJsonToDart {
           json: json,
           context: BuildContext(
             names: [json['.name'] as String],
-            platforms: List<String>.from(json['.platforms'] as List? ?? []),
+            platforms:
+                List<String>.from(json['.platforms'] as List? ?? const []),
           ),
         ) {
     // Check the themes have valid names (camelCase)
@@ -69,12 +71,24 @@ class ColorPalette extends ThemedJsonToDart {
         .toList());
   }
 
-  static void _addThemes(List<String> themes) {
-    // Add it to the global variable.
-    Themes.themes.addAll(themes);
+  static void _addThemes(List themes) {
     // Check the names.
     for (final theme in themes) {
-      if (!camelCaseRegExp.hasMatch(theme)) {
+      final ThemeDefinition themeDefinition;
+      if (theme is String) {
+        themeDefinition = ThemeDefinition(name: theme);
+      } else if (theme is Map) {
+        print('theme $theme');
+        themeDefinition = ThemeDefinition(
+          name: theme.keys.single as String,
+          from: (theme.values.single as Map)['import'] as String,
+        );
+      } else {
+        errors.add('Theme $theme is not a String or a Map');
+        continue;
+      }
+      Themes.themes.add(themeDefinition);
+      if (!camelCaseRegExp.hasMatch(themeDefinition.name)) {
         errors.add('Theme "$theme" is not in camelCase');
       }
     }
@@ -137,8 +151,8 @@ class ColorPalette extends ThemedJsonToDart {
     // Add the enum
     for (final theme in Themes.themes) {
       buffer
-        ..writeLine(1, '/// ${theme.firstUpperCase} theme.')
-        ..writeLine(1, '${theme.firstLowerCase},');
+        ..writeLine(1, '/// ${theme.name.firstUpperCase} theme.')
+        ..writeLine(1, '${theme.name.firstLowerCase},');
     }
     buffer
       ..writeLine(0, '}')
@@ -152,9 +166,9 @@ class ColorPalette extends ThemedJsonToDart {
       final extensionGetterBody = StringBuffer();
       for (final theme in Themes.themes.sublist(1)) {
         extensionGetterBody
-          ..writeLine(3, 'case Themes.${theme.firstLowerCase}:')
+          ..writeLine(3, 'case Themes.${theme.name.firstLowerCase}:')
           ..writeLine(4,
-              'return ${dartConstructor(theme: theme, platform: platform)};');
+              'return ${dartConstructor(theme: theme.name, platform: platform)};');
       }
       extensionGetterBody
         ..writeLine(3, 'case Themes.${Themes.defaultTheme.firstLowerCase}:')

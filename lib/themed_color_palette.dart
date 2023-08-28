@@ -26,8 +26,9 @@ class ThemedColorPaletteBuilder implements Builder {
     // Create a new target `AssetId` based on the current one
     final copyAssetId = inputId.changeExtension('.g.dart');
     final content = await buildStep.readAsString(inputId);
-    final json =
-        dart_convert.json.decode(dart_convert.json.encode(loadYaml(content)));
+    final json = dart_convert.json.decode(
+      dart_convert.json.encode(loadYaml(content)),
+    );
     final colorPalette = ColorPalette.fromJson(
       json: json as Map<String, dynamic>,
     );

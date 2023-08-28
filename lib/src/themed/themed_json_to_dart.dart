@@ -112,7 +112,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
       for (final theme in Themes.themes) {
         buffer.writeln();
         final initializers = platformValues.map((value) {
-          return '${value.instanceName} = ${value.dartConstructor(theme: theme, platform: platform)}';
+          return '${value.instanceName} = ${value.dartConstructor(theme: theme.name, platform: platform)}';
         });
 
         buffer.writeLine(1, comment);
@@ -120,7 +120,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
           buffer.writeLine(
             1,
             [
-              dartConstructor(theme: theme, platform: platform),
+              dartConstructor(theme: theme.name, platform: platform),
               if (initializers.isNotEmpty) ': ',
               initializers.join(', '),
               ';',
@@ -129,7 +129,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
         } else {
           buffer.writeLine(
             1,
-            dartConstructor(theme: theme, platform: platform) + ':',
+            dartConstructor(theme: theme.name, platform: platform) + ':',
           );
           for (final entry in initializers.toList().asMap().entries) {
             final initializer = entry.value +
