@@ -1,6 +1,7 @@
 import 'dart:convert' as dart_convert;
 
 import 'package:build/build.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:themed_color_palette/src/themed_color_palette.dart';
 import 'package:themed_color_palette/src/utils/dart_define_context.dart';
 import 'package:themed_color_palette/src/utils/globals.dart';
@@ -40,8 +41,9 @@ class ThemedColorPaletteBuilder implements Builder {
           "part of '${inputId.changeExtension('').changeExtension('.dart').pathSegments.last}';")
       ..writeln()
       ..write(colorPalette.dartDefine(const DartDefineContext()));
+    final formatted = DartFormatter().format(buffer.toString());
     // Write out the new asset
-    await buildStep.writeAsString(copyAssetId, buffer.toString());
+    await buildStep.writeAsString(copyAssetId, formatted);
 
     if (errors.isNotEmpty) {
       log.warning(r' /!\ ----- Errors ----- /!\');
