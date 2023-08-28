@@ -78,7 +78,6 @@ class ColorPalette extends ThemedJsonToDart {
       if (theme is String) {
         themeDefinition = ThemeDefinition(name: theme);
       } else if (theme is Map) {
-        print('theme $theme');
         themeDefinition = ThemeDefinition(
           name: theme.keys.single as String,
           from: (theme.values.single as Map)['import'] as String,
