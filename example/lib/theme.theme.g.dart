@@ -10,6 +10,8 @@ enum Themes {
   light,
   /// Dark theme.
   dark,
+  /// DarkCopy theme.
+  darkCopy,
 }
 
 /// Extension on [Themes].
@@ -20,6 +22,8 @@ extension ThemesExtension on Themes {
     switch (this) {
       case Themes.dark:
         return const ThemeColorPalette.dark();
+      case Themes.darkCopy:
+        return const ThemeColorPalette.darkCopy();
       case Themes.light:
       default:
         return const ThemeColorPalette.light();
@@ -31,6 +35,8 @@ extension ThemesExtension on Themes {
     switch (this) {
       case Themes.dark:
         return const ThemeColorPalette_mobile.dark();
+      case Themes.darkCopy:
+        return const ThemeColorPalette_mobile.darkCopy();
       case Themes.light:
       default:
         return const ThemeColorPalette_mobile.light();
@@ -42,6 +48,8 @@ extension ThemesExtension on Themes {
     switch (this) {
       case Themes.dark:
         return const ThemeColorPalette_web.dark();
+      case Themes.darkCopy:
+        return const ThemeColorPalette_web.darkCopy();
       case Themes.light:
       default:
         return const ThemeColorPalette_web.light();
@@ -241,6 +249,33 @@ class ThemeColorPalette {
     _tooltipTheme = const ThemeColorPalette$TooltipTheme.dark(),
     _popupMenuTheme = const ThemeColorPalette$PopupMenuTheme.dark(),
     _dividerTheme = const ThemeColorPalette$DividerTheme.dark(),
+    _selectedRowColor = const Color(0x14699fcf);
+
+  /// The Theme Color Palette
+  const ThemeColorPalette.darkCopy():
+    _brightness = Brightness.dark,
+    _accentColor = const Color(0xff699fcf),
+    _primaryColor = const Color(0xffc1dbef),
+    _primaryColorLight = const Color(0xff2c2c2c),
+    secondaryColor = const Color(0xff7ec141),
+    _errorColor = const Color(0xff354d39),
+    _disabledColor = const Color(0x61ffffff),
+    textEmphasis = const ThemeColorPalette$TextEmphasis.darkCopy(),
+    iconEmphasis = const ThemeColorPalette$IconEmphasis.darkCopy(),
+    border = const ThemeColorPalette$Border.darkCopy(),
+    background = const ThemeColorPalette$Background.darkCopy(),
+    floatingActionButton = const ThemeColorPalette$FloatingActionButton.darkCopy(),
+    task = const ThemeColorPalette$Task.darkCopy(),
+    form = const ThemeColorPalette$Form.darkCopy(),
+    notification = const ThemeColorPalette$Notification.darkCopy(),
+    projectTimeline = const ThemeColorPalette$ProjectTimeline.darkCopy(),
+    pin = const ThemeColorPalette$Pin.darkCopy(),
+    _hoverColor = const Color(0xa699fcf),
+    appBarTheme = const ThemeColorPalette$AppBarTheme.darkCopy(),
+    bottomAppBarTheme = const ThemeColorPalette$BottomAppBarTheme.darkCopy(),
+    _tooltipTheme = const ThemeColorPalette$TooltipTheme.darkCopy(),
+    _popupMenuTheme = const ThemeColorPalette$PopupMenuTheme.darkCopy(),
+    _dividerTheme = const ThemeColorPalette$DividerTheme.darkCopy(),
     _selectedRowColor = const Color(0x14699fcf);
 
   /// From json.
@@ -684,6 +719,33 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
     _tooltipTheme = const ThemeColorPalette$TooltipTheme_mobile.dark(),
     _popupMenuTheme = const ThemeColorPalette$PopupMenuTheme_mobile.dark(),
     _dividerTheme = const ThemeColorPalette$DividerTheme_mobile.dark(),
+    _selectedRowColor = const Color(0x14699fcf);
+
+  /// The Theme Color Palette
+  const ThemeColorPalette_mobile.darkCopy():
+    _brightness = Brightness.dark,
+    _accentColor = const Color(0xff699fcf),
+    _primaryColor = const Color(0xffc1dbef),
+    _primaryColorLight = const Color(0xff2c2c2c),
+    secondaryColor = const Color(0xff7ec141),
+    _errorColor = const Color(0xff354d39),
+    _disabledColor = const Color(0x61ffffff),
+    textEmphasis = const ThemeColorPalette$TextEmphasis_mobile.darkCopy(),
+    iconEmphasis = const ThemeColorPalette$IconEmphasis_mobile.darkCopy(),
+    border = const ThemeColorPalette$Border_mobile.darkCopy(),
+    background = const ThemeColorPalette$Background_mobile.darkCopy(),
+    floatingActionButton = const ThemeColorPalette$FloatingActionButton_mobile.darkCopy(),
+    task = const ThemeColorPalette$Task_mobile.darkCopy(),
+    form = const ThemeColorPalette$Form_mobile.darkCopy(),
+    notification = const ThemeColorPalette$Notification_mobile.darkCopy(),
+    projectTimeline = const ThemeColorPalette$ProjectTimeline_mobile.darkCopy(),
+    pin = const ThemeColorPalette$Pin_mobile.darkCopy(),
+    _hoverColor = const Color(0xa699fcf),
+    appBarTheme = const ThemeColorPalette$AppBarTheme_mobile.darkCopy(),
+    bottomAppBarTheme = const ThemeColorPalette$BottomAppBarTheme_mobile.darkCopy(),
+    _tooltipTheme = const ThemeColorPalette$TooltipTheme_mobile.darkCopy(),
+    _popupMenuTheme = const ThemeColorPalette$PopupMenuTheme_mobile.darkCopy(),
+    _dividerTheme = const ThemeColorPalette$DividerTheme_mobile.darkCopy(),
     _selectedRowColor = const Color(0x14699fcf);
 
   /// From json.
@@ -1162,6 +1224,33 @@ class ThemeColorPalette_web implements ThemeColorPalette {
     _dividerTheme = const ThemeColorPalette$DividerTheme_web.dark(),
     _selectedRowColor = const Color(0x14699fcf);
 
+  /// The Theme Color Palette
+  const ThemeColorPalette_web.darkCopy():
+    _brightness = Brightness.dark,
+    _accentColor = const Color(0xff699fcf),
+    _primaryColor = const Color(0xffc1dbef),
+    _primaryColorLight = const Color(0xff2c2c2c),
+    secondaryColor = const Color(0xff7ec141),
+    _errorColor = const Color(0xff354d39),
+    _disabledColor = const Color(0x61ffffff),
+    textEmphasis = const ThemeColorPalette$TextEmphasis_web.darkCopy(),
+    iconEmphasis = const ThemeColorPalette$IconEmphasis_web.darkCopy(),
+    border = const ThemeColorPalette$Border_web.darkCopy(),
+    background = const ThemeColorPalette$Background_web.darkCopy(),
+    floatingActionButton = const ThemeColorPalette$FloatingActionButton_web.darkCopy(),
+    task = const ThemeColorPalette$Task_web.darkCopy(),
+    form = const ThemeColorPalette$Form_web.darkCopy(),
+    notification = const ThemeColorPalette$Notification_web.darkCopy(),
+    projectTimeline = const ThemeColorPalette$ProjectTimeline_web.darkCopy(),
+    pin = const ThemeColorPalette$Pin_web.darkCopy(),
+    _hoverColor = const Color(0xa699fcf),
+    appBarTheme = const ThemeColorPalette$AppBarTheme_web.darkCopy(),
+    bottomAppBarTheme = const ThemeColorPalette$BottomAppBarTheme_web.darkCopy(),
+    _tooltipTheme = const ThemeColorPalette$TooltipTheme_web.darkCopy(),
+    _popupMenuTheme = const ThemeColorPalette$PopupMenuTheme_web.darkCopy(),
+    _dividerTheme = const ThemeColorPalette$DividerTheme_web.darkCopy(),
+    _selectedRowColor = const Color(0x14699fcf);
+
   /// From json.
   ThemeColorPalette_web.fromJson(Map<String, dynamic> json):
     _brightness = json['brightness'] as Brightness,
@@ -1571,6 +1660,16 @@ class ThemeColorPalette$TextEmphasis {
     low = const Color(0x99ffffff),
     disabled = const Color(0x99ffffff);
 
+  /// The different text emphasis
+  const ThemeColorPalette$TextEmphasis.darkCopy():
+    _accent = const Color(0xff699fcf),
+    success = const Color(0xff7ec141),
+    error = const Color(0xffe54d39),
+    high = const Color(0xffffffff),
+    medium = const Color(0xdeffffff),
+    low = const Color(0x99ffffff),
+    disabled = const Color(0x99ffffff);
+
   /// From json.
   ThemeColorPalette$TextEmphasis.fromJson(Map<String, dynamic> json):
     _accent = json['accent'] as Color,
@@ -1729,6 +1828,17 @@ class ThemeColorPalette$TextEmphasis_mobile implements ThemeColorPalette$TextEmp
     low = const Color(0x99ffffff),
     disabled = const Color(0x99ffffff),
     reversedMobile = const ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.dark();
+
+  /// The different text emphasis
+  const ThemeColorPalette$TextEmphasis_mobile.darkCopy():
+    _accent = const Color(0xff699fcf),
+    success = const Color(0xff7ec141),
+    error = const Color(0xffe54d39),
+    high = const Color(0xffffffff),
+    medium = const Color(0xdeffffff),
+    low = const Color(0x99ffffff),
+    disabled = const Color(0x99ffffff),
+    reversedMobile = const ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.darkCopy();
 
   /// From json.
   ThemeColorPalette$TextEmphasis_mobile.fromJson(Map<String, dynamic> json):
@@ -1907,6 +2017,17 @@ class ThemeColorPalette$TextEmphasis_web implements ThemeColorPalette$TextEmphas
     disabled = const Color(0x99ffffff),
     reversedWeb = const ThemeColorPalette$TextEmphasis$ReversedWeb_web.dark();
 
+  /// The different text emphasis
+  const ThemeColorPalette$TextEmphasis_web.darkCopy():
+    _accent = const Color(0xff699fcf),
+    success = const Color(0xff7ec141),
+    error = const Color(0xffe54d39),
+    high = const Color(0xffffffff),
+    medium = const Color(0xdeffffff),
+    low = const Color(0x99ffffff),
+    disabled = const Color(0x99ffffff),
+    reversedWeb = const ThemeColorPalette$TextEmphasis$ReversedWeb_web.darkCopy();
+
   /// From json.
   ThemeColorPalette$TextEmphasis_web.fromJson(Map<String, dynamic> json):
     _accent = json['accent'] as Color,
@@ -2058,6 +2179,9 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile {
   /// Reversed text emphasis
   const ThemeColorPalette$TextEmphasis$ReversedMobile.dark();
 
+  /// Reversed text emphasis
+  const ThemeColorPalette$TextEmphasis$ReversedMobile.darkCopy();
+
   /// From json.
   ThemeColorPalette$TextEmphasis$ReversedMobile.fromJson(Map<String, dynamic> json);
 
@@ -2119,6 +2243,13 @@ class ThemeColorPalette$TextEmphasis$ReversedMobile_mobile implements ThemeColor
 
   /// Reversed text emphasis
   const ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.dark():
+    high = const Color(0xff000000),
+    medium = const Color(0xde000000),
+    low = const Color(0x99000000),
+    disabled = const Color(0x99000000);
+
+  /// Reversed text emphasis
+  const ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.darkCopy():
     high = const Color(0xff000000),
     medium = const Color(0xde000000),
     low = const Color(0x99000000),
@@ -2222,6 +2353,9 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb {
   /// Reversed text emphasis
   const ThemeColorPalette$TextEmphasis$ReversedWeb.dark();
 
+  /// Reversed text emphasis
+  const ThemeColorPalette$TextEmphasis$ReversedWeb.darkCopy();
+
   /// From json.
   ThemeColorPalette$TextEmphasis$ReversedWeb.fromJson(Map<String, dynamic> json);
 
@@ -2283,6 +2417,13 @@ class ThemeColorPalette$TextEmphasis$ReversedWeb_web implements ThemeColorPalett
 
   /// Reversed text emphasis
   const ThemeColorPalette$TextEmphasis$ReversedWeb_web.dark():
+    high = const Color(0xff000000),
+    medium = const Color(0xde000000),
+    low = const Color(0x99000000),
+    disabled = const Color(0x99000000);
+
+  /// Reversed text emphasis
+  const ThemeColorPalette$TextEmphasis$ReversedWeb_web.darkCopy():
     high = const Color(0xff000000),
     medium = const Color(0xde000000),
     low = const Color(0x99000000),
@@ -2401,6 +2542,14 @@ class ThemeColorPalette$IconEmphasis {
     low = const Color(0x99ffffff),
     disabled = const Color(0x99ffffff),
     reversed = const ThemeColorPalette$IconEmphasis$Reversed.dark();
+
+  /// The different icon emphasis
+  const ThemeColorPalette$IconEmphasis.darkCopy():
+    high = const Color(0xffffffff),
+    medium = const Color(0xdeffffff),
+    low = const Color(0x99ffffff),
+    disabled = const Color(0x99ffffff),
+    reversed = const ThemeColorPalette$IconEmphasis$Reversed.darkCopy();
 
   /// From json.
   ThemeColorPalette$IconEmphasis.fromJson(Map<String, dynamic> json):
@@ -2526,6 +2675,14 @@ class ThemeColorPalette$IconEmphasis_mobile implements ThemeColorPalette$IconEmp
     low = const Color(0x99ffffff),
     disabled = const Color(0x99ffffff),
     reversed = const ThemeColorPalette$IconEmphasis$Reversed_mobile.dark();
+
+  /// The different icon emphasis
+  const ThemeColorPalette$IconEmphasis_mobile.darkCopy():
+    high = const Color(0xffffffff),
+    medium = const Color(0xdeffffff),
+    low = const Color(0x99ffffff),
+    disabled = const Color(0x99ffffff),
+    reversed = const ThemeColorPalette$IconEmphasis$Reversed_mobile.darkCopy();
 
   /// From json.
   ThemeColorPalette$IconEmphasis_mobile.fromJson(Map<String, dynamic> json):
@@ -2657,6 +2814,14 @@ class ThemeColorPalette$IconEmphasis_web implements ThemeColorPalette$IconEmphas
     disabled = const Color(0x99ffffff),
     reversed = const ThemeColorPalette$IconEmphasis$Reversed_web.dark();
 
+  /// The different icon emphasis
+  const ThemeColorPalette$IconEmphasis_web.darkCopy():
+    high = const Color(0xffffffff),
+    medium = const Color(0xdeffffff),
+    low = const Color(0x99ffffff),
+    disabled = const Color(0x99ffffff),
+    reversed = const ThemeColorPalette$IconEmphasis$Reversed_web.darkCopy();
+
   /// From json.
   ThemeColorPalette$IconEmphasis_web.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
@@ -2784,6 +2949,13 @@ class ThemeColorPalette$IconEmphasis$Reversed {
     low = const Color(0x99000000),
     disabled = const Color(0x99000000);
 
+  /// Reversed icon emphasis
+  const ThemeColorPalette$IconEmphasis$Reversed.darkCopy():
+    high = const Color(0xff000000),
+    medium = const Color(0xde000000),
+    low = const Color(0x99000000),
+    disabled = const Color(0x99000000);
+
   /// From json.
   ThemeColorPalette$IconEmphasis$Reversed.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
@@ -2890,6 +3062,13 @@ class ThemeColorPalette$IconEmphasis$Reversed_mobile implements ThemeColorPalett
 
   /// Reversed icon emphasis
   const ThemeColorPalette$IconEmphasis$Reversed_mobile.dark():
+    high = const Color(0xff000000),
+    medium = const Color(0xde000000),
+    low = const Color(0x99000000),
+    disabled = const Color(0x99000000);
+
+  /// Reversed icon emphasis
+  const ThemeColorPalette$IconEmphasis$Reversed_mobile.darkCopy():
     high = const Color(0xff000000),
     medium = const Color(0xde000000),
     low = const Color(0x99000000),
@@ -3010,6 +3189,13 @@ class ThemeColorPalette$IconEmphasis$Reversed_web implements ThemeColorPalette$I
     low = const Color(0x99000000),
     disabled = const Color(0x99000000);
 
+  /// Reversed icon emphasis
+  const ThemeColorPalette$IconEmphasis$Reversed_web.darkCopy():
+    high = const Color(0xff000000),
+    medium = const Color(0xde000000),
+    low = const Color(0x99000000),
+    disabled = const Color(0x99000000);
+
   /// From json.
   ThemeColorPalette$IconEmphasis$Reversed_web.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
@@ -3123,6 +3309,12 @@ class ThemeColorPalette$Border {
     medium = const Color(0xff474747),
     _divider = const Color(0xff434343);
 
+  /// Borders
+  const ThemeColorPalette$Border.darkCopy():
+    high = const Color(0xfff5f5f5),
+    medium = const Color(0xff474747),
+    _divider = const Color(0xff434343);
+
   /// From json.
   ThemeColorPalette$Border.fromJson(Map<String, dynamic> json):
     high = json['high'] as Color,
@@ -3219,6 +3411,12 @@ class ThemeColorPalette$Border_mobile implements ThemeColorPalette$Border {
 
   /// Borders
   const ThemeColorPalette$Border_mobile.dark():
+    high = const Color(0xfff5f5f5),
+    medium = const Color(0xff474747),
+    _divider = const Color(0xff434343);
+
+  /// Borders
+  const ThemeColorPalette$Border_mobile.darkCopy():
     high = const Color(0xfff5f5f5),
     medium = const Color(0xff474747),
     _divider = const Color(0xff434343);
@@ -3322,6 +3520,12 @@ class ThemeColorPalette$Border_web implements ThemeColorPalette$Border {
 
   /// Borders
   const ThemeColorPalette$Border_web.dark():
+    high = const Color(0xfff5f5f5),
+    medium = const Color(0xff474747),
+    _divider = const Color(0xff434343);
+
+  /// Borders
+  const ThemeColorPalette$Border_web.darkCopy():
     high = const Color(0xfff5f5f5),
     medium = const Color(0xff474747),
     _divider = const Color(0xff434343);
@@ -3434,6 +3638,15 @@ class ThemeColorPalette$Background {
 
   /// Backgrounds
   const ThemeColorPalette$Background.dark():
+    disabled = const Color(0xff121212),
+    _backgroundColor = const Color(0xff000000),
+    background1 = const Color(0xff2e2e2e),
+    _scaffold = const Color(0xff121212),
+    _canvas = const Color(0xfff8f8f8),
+    _card = const Color(0xff1e1e1e);
+
+  /// Backgrounds
+  const ThemeColorPalette$Background.darkCopy():
     disabled = const Color(0xff121212),
     _backgroundColor = const Color(0xff000000),
     background1 = const Color(0xff2e2e2e),
@@ -3585,6 +3798,15 @@ class ThemeColorPalette$Background_mobile implements ThemeColorPalette$Backgroun
 
   /// Backgrounds
   const ThemeColorPalette$Background_mobile.dark():
+    disabled = const Color(0xff121212),
+    _backgroundColor = const Color(0xff000000),
+    background1 = const Color(0xff2e2e2e),
+    _scaffold = const Color(0xff121212),
+    _canvas = const Color(0xfff8f8f8),
+    _card = const Color(0xff1e1e1e);
+
+  /// Backgrounds
+  const ThemeColorPalette$Background_mobile.darkCopy():
     disabled = const Color(0xff121212),
     _backgroundColor = const Color(0xff000000),
     background1 = const Color(0xff2e2e2e),
@@ -3749,6 +3971,15 @@ class ThemeColorPalette$Background_web implements ThemeColorPalette$Background {
     _canvas = const Color(0xfff8f8f8),
     _card = const Color(0xff1e1e1e);
 
+  /// Backgrounds
+  const ThemeColorPalette$Background_web.darkCopy():
+    disabled = const Color(0xff121212),
+    _backgroundColor = const Color(0xff000000),
+    background1 = const Color(0xff2e2e2e),
+    _scaffold = const Color(0xff121212),
+    _canvas = const Color(0xfff8f8f8),
+    _card = const Color(0xff1e1e1e);
+
   /// From json.
   ThemeColorPalette$Background_web.fromJson(Map<String, dynamic> json):
     disabled = json['disabled'] as Color,
@@ -3899,6 +4130,13 @@ class ThemeColorPalette$FloatingActionButton {
     _foregroundColor = const Color(0xff000000),
     _disabledElevation = 0.0;
 
+  /// Floating action button
+  const ThemeColorPalette$FloatingActionButton.darkCopy():
+    disabledColor = const Color(0xff225281),
+    _backgroundColor = const Color(0xff699fcf),
+    _foregroundColor = const Color(0xff000000),
+    _disabledElevation = 0.0;
+
   /// From json.
   ThemeColorPalette$FloatingActionButton.fromJson(Map<String, dynamic> json):
     disabledColor = json['disabledColor'] as Color,
@@ -4014,6 +4252,13 @@ class ThemeColorPalette$FloatingActionButton_mobile implements ThemeColorPalette
 
   /// Floating action button
   const ThemeColorPalette$FloatingActionButton_mobile.dark():
+    disabledColor = const Color(0xff225281),
+    _backgroundColor = const Color(0xff699fcf),
+    _foregroundColor = const Color(0xff000000),
+    _disabledElevation = 0.0;
+
+  /// Floating action button
+  const ThemeColorPalette$FloatingActionButton_mobile.darkCopy():
     disabledColor = const Color(0xff225281),
     _backgroundColor = const Color(0xff699fcf),
     _foregroundColor = const Color(0xff000000),
@@ -4143,6 +4388,13 @@ class ThemeColorPalette$FloatingActionButton_web implements ThemeColorPalette$Fl
     _foregroundColor = const Color(0xff000000),
     _disabledElevation = 0.0;
 
+  /// Floating action button
+  const ThemeColorPalette$FloatingActionButton_web.darkCopy():
+    disabledColor = const Color(0xff225281),
+    _backgroundColor = const Color(0xff699fcf),
+    _foregroundColor = const Color(0xff000000),
+    _disabledElevation = 0.0;
+
   /// From json.
   ThemeColorPalette$FloatingActionButton_web.fromJson(Map<String, dynamic> json):
     disabledColor = json['disabledColor'] as Color,
@@ -4261,6 +4513,12 @@ class ThemeColorPalette$Task {
     workInProgress = const Color(0xffeaa60f),
     completed = const Color(0xff81bf48);
 
+  /// Task color palette
+  const ThemeColorPalette$Task.darkCopy():
+    notStarted = const Color(0xffed6e19),
+    workInProgress = const Color(0xffeaa60f),
+    completed = const Color(0xff81bf48);
+
   /// From json.
   ThemeColorPalette$Task.fromJson(Map<String, dynamic> json):
     notStarted = json['notStarted'] as Color,
@@ -4354,6 +4612,12 @@ class ThemeColorPalette$Task_mobile implements ThemeColorPalette$Task {
 
   /// Task color palette
   const ThemeColorPalette$Task_mobile.dark():
+    notStarted = const Color(0xffed6e19),
+    workInProgress = const Color(0xffeaa60f),
+    completed = const Color(0xff81bf48);
+
+  /// Task color palette
+  const ThemeColorPalette$Task_mobile.darkCopy():
     notStarted = const Color(0xffed6e19),
     workInProgress = const Color(0xffeaa60f),
     completed = const Color(0xff81bf48);
@@ -4458,6 +4722,12 @@ class ThemeColorPalette$Task_web implements ThemeColorPalette$Task {
     workInProgress = const Color(0xffeaa60f),
     completed = const Color(0xff81bf48);
 
+  /// Task color palette
+  const ThemeColorPalette$Task_web.darkCopy():
+    notStarted = const Color(0xffed6e19),
+    workInProgress = const Color(0xffeaa60f),
+    completed = const Color(0xff81bf48);
+
   /// From json.
   ThemeColorPalette$Task_web.fromJson(Map<String, dynamic> json):
     notStarted = json['notStarted'] as Color,
@@ -4556,6 +4826,13 @@ class ThemeColorPalette$Form {
 
   /// Form color palette
   const ThemeColorPalette$Form.dark():
+    draft = const Color(0xffed6e19),
+    actionRequired = const Color(0xffeaa60f),
+    completed = const Color(0xff666666),
+    rejected = const Color(0xffc73826);
+
+  /// Form color palette
+  const ThemeColorPalette$Form.darkCopy():
     draft = const Color(0xffed6e19),
     actionRequired = const Color(0xffeaa60f),
     completed = const Color(0xff666666),
@@ -4667,6 +4944,13 @@ class ThemeColorPalette$Form_mobile implements ThemeColorPalette$Form {
 
   /// Form color palette
   const ThemeColorPalette$Form_mobile.dark():
+    draft = const Color(0xffed6e19),
+    actionRequired = const Color(0xffeaa60f),
+    completed = const Color(0xff666666),
+    rejected = const Color(0xffc73826);
+
+  /// Form color palette
+  const ThemeColorPalette$Form_mobile.darkCopy():
     draft = const Color(0xffed6e19),
     actionRequired = const Color(0xffeaa60f),
     completed = const Color(0xff666666),
@@ -4787,6 +5071,13 @@ class ThemeColorPalette$Form_web implements ThemeColorPalette$Form {
     completed = const Color(0xff666666),
     rejected = const Color(0xffc73826);
 
+  /// Form color palette
+  const ThemeColorPalette$Form_web.darkCopy():
+    draft = const Color(0xffed6e19),
+    actionRequired = const Color(0xffeaa60f),
+    completed = const Color(0xff666666),
+    rejected = const Color(0xffc73826);
+
   /// From json.
   ThemeColorPalette$Form_web.fromJson(Map<String, dynamic> json):
     draft = json['draft'] as Color,
@@ -4893,6 +5184,10 @@ class ThemeColorPalette$Notification {
   const ThemeColorPalette$Notification.dark():
     countBubbleColor = const Color(0xfff26716);
 
+  /// Notification color palette
+  const ThemeColorPalette$Notification.darkCopy():
+    countBubbleColor = const Color(0xfff26716);
+
   /// From json.
   ThemeColorPalette$Notification.fromJson(Map<String, dynamic> json):
     countBubbleColor = json['countBubbleColor'] as Color;
@@ -4960,6 +5255,10 @@ class ThemeColorPalette$Notification_mobile implements ThemeColorPalette$Notific
 
   /// Notification color palette
   const ThemeColorPalette$Notification_mobile.dark():
+    countBubbleColor = const Color(0xfff26716);
+
+  /// Notification color palette
+  const ThemeColorPalette$Notification_mobile.darkCopy():
     countBubbleColor = const Color(0xfff26716);
 
   /// From json.
@@ -5030,6 +5329,10 @@ class ThemeColorPalette$Notification_web implements ThemeColorPalette$Notificati
 
   /// Notification color palette
   const ThemeColorPalette$Notification_web.dark():
+    countBubbleColor = const Color(0xfff26716);
+
+  /// Notification color palette
+  const ThemeColorPalette$Notification_web.darkCopy():
     countBubbleColor = const Color(0xfff26716);
 
   /// From json.
@@ -5112,6 +5415,16 @@ class ThemeColorPalette$ProjectTimeline {
 
   /// Project time line color palette
   const ThemeColorPalette$ProjectTimeline.dark():
+    plannedLight = const Color(0xffeef3f8),
+    planned = const Color(0xff647e9b),
+    start = const Color(0xffeaa60f),
+    completed = const Color(0xff7ec141),
+    today = const Color(0xffc1dbef),
+    active = const Color(0xffeef3f8),
+    progress = const Color(0xff2864ac);
+
+  /// Project time line color palette
+  const ThemeColorPalette$ProjectTimeline.darkCopy():
     plannedLight = const Color(0xffeef3f8),
     planned = const Color(0xff647e9b),
     start = const Color(0xffeaa60f),
@@ -5265,6 +5578,16 @@ class ThemeColorPalette$ProjectTimeline_mobile implements ThemeColorPalette$Proj
 
   /// Project time line color palette
   const ThemeColorPalette$ProjectTimeline_mobile.dark():
+    plannedLight = const Color(0xffeef3f8),
+    planned = const Color(0xff647e9b),
+    start = const Color(0xffeaa60f),
+    completed = const Color(0xff7ec141),
+    today = const Color(0xffc1dbef),
+    active = const Color(0xffeef3f8),
+    progress = const Color(0xff2864ac);
+
+  /// Project time line color palette
+  const ThemeColorPalette$ProjectTimeline_mobile.darkCopy():
     plannedLight = const Color(0xffeef3f8),
     planned = const Color(0xff647e9b),
     start = const Color(0xffeaa60f),
@@ -5433,6 +5756,16 @@ class ThemeColorPalette$ProjectTimeline_web implements ThemeColorPalette$Project
     active = const Color(0xffeef3f8),
     progress = const Color(0xff2864ac);
 
+  /// Project time line color palette
+  const ThemeColorPalette$ProjectTimeline_web.darkCopy():
+    plannedLight = const Color(0xffeef3f8),
+    planned = const Color(0xff647e9b),
+    start = const Color(0xffeaa60f),
+    completed = const Color(0xff7ec141),
+    today = const Color(0xffc1dbef),
+    active = const Color(0xffeef3f8),
+    progress = const Color(0xff2864ac);
+
   /// From json.
   ThemeColorPalette$ProjectTimeline_web.fromJson(Map<String, dynamic> json):
     plannedLight = json['plannedLight'] as Color,
@@ -5578,6 +5911,11 @@ class ThemeColorPalette$Pin {
     iconColor = const Color(0xffffffff),
     disabledBackgroundColor = const Color(0xff8d8d8d);
 
+  /// Pin theme
+  const ThemeColorPalette$Pin.darkCopy():
+    iconColor = const Color(0xffffffff),
+    disabledBackgroundColor = const Color(0xff8d8d8d);
+
   /// From json.
   ThemeColorPalette$Pin.fromJson(Map<String, dynamic> json):
     iconColor = json['iconColor'] as Color,
@@ -5658,6 +5996,11 @@ class ThemeColorPalette$Pin_mobile implements ThemeColorPalette$Pin {
 
   /// Pin theme
   const ThemeColorPalette$Pin_mobile.dark():
+    iconColor = const Color(0xffffffff),
+    disabledBackgroundColor = const Color(0xff8d8d8d);
+
+  /// Pin theme
+  const ThemeColorPalette$Pin_mobile.darkCopy():
     iconColor = const Color(0xffffffff),
     disabledBackgroundColor = const Color(0xff8d8d8d);
 
@@ -5743,6 +6086,11 @@ class ThemeColorPalette$Pin_web implements ThemeColorPalette$Pin {
 
   /// Pin theme
   const ThemeColorPalette$Pin_web.dark():
+    iconColor = const Color(0xffffffff),
+    disabledBackgroundColor = const Color(0xff8d8d8d);
+
+  /// Pin theme
+  const ThemeColorPalette$Pin_web.darkCopy():
     iconColor = const Color(0xffffffff),
     disabledBackgroundColor = const Color(0xff8d8d8d);
 
@@ -5833,6 +6181,11 @@ class ThemeColorPalette$AppBarTheme {
     _color = const Color(0xff1e1e1e),
     _foregroundColor = const Color(0xffffffff);
 
+  /// 
+  const ThemeColorPalette$AppBarTheme.darkCopy():
+    _color = const Color(0xff1e1e1e),
+    _foregroundColor = const Color(0xffffffff);
+
   /// From json.
   ThemeColorPalette$AppBarTheme.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
@@ -5919,6 +6272,11 @@ class ThemeColorPalette$AppBarTheme_mobile implements ThemeColorPalette$AppBarTh
 
   /// 
   const ThemeColorPalette$AppBarTheme_mobile.dark():
+    _color = const Color(0xff1e1e1e),
+    _foregroundColor = const Color(0xffffffff);
+
+  /// 
+  const ThemeColorPalette$AppBarTheme_mobile.darkCopy():
     _color = const Color(0xff1e1e1e),
     _foregroundColor = const Color(0xffffffff);
 
@@ -6013,6 +6371,11 @@ class ThemeColorPalette$AppBarTheme_web implements ThemeColorPalette$AppBarTheme
     _color = const Color(0xff1e1e1e),
     _foregroundColor = const Color(0xffffffff);
 
+  /// 
+  const ThemeColorPalette$AppBarTheme_web.darkCopy():
+    _color = const Color(0xff1e1e1e),
+    _foregroundColor = const Color(0xffffffff);
+
   /// From json.
   ThemeColorPalette$AppBarTheme_web.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
@@ -6100,6 +6463,10 @@ class ThemeColorPalette$BottomAppBarTheme {
   const ThemeColorPalette$BottomAppBarTheme.dark():
     _color = const Color(0xff2e2e2e);
 
+  /// 
+  const ThemeColorPalette$BottomAppBarTheme.darkCopy():
+    _color = const Color(0xff2e2e2e);
+
   /// From json.
   ThemeColorPalette$BottomAppBarTheme.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
@@ -6170,6 +6537,10 @@ class ThemeColorPalette$BottomAppBarTheme_mobile implements ThemeColorPalette$Bo
 
   /// 
   const ThemeColorPalette$BottomAppBarTheme_mobile.dark():
+    _color = const Color(0xff2e2e2e);
+
+  /// 
+  const ThemeColorPalette$BottomAppBarTheme_mobile.darkCopy():
     _color = const Color(0xff2e2e2e);
 
   /// From json.
@@ -6243,6 +6614,10 @@ class ThemeColorPalette$BottomAppBarTheme_web implements ThemeColorPalette$Botto
 
   /// 
   const ThemeColorPalette$BottomAppBarTheme_web.dark():
+    _color = const Color(0xff2e2e2e);
+
+  /// 
+  const ThemeColorPalette$BottomAppBarTheme_web.darkCopy():
     _color = const Color(0xff2e2e2e);
 
   /// From json.
@@ -6323,6 +6698,11 @@ class ThemeColorPalette$TooltipTheme {
   const ThemeColorPalette$TooltipTheme.dark():
     _decoration = const ThemeColorPalette$TooltipTheme$Decoration.dark(),
     _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle.dark();
+
+  /// Tooltip theme
+  const ThemeColorPalette$TooltipTheme.darkCopy():
+    _decoration = const ThemeColorPalette$TooltipTheme$Decoration.darkCopy(),
+    _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle.darkCopy();
 
   /// From json.
   ThemeColorPalette$TooltipTheme.fromJson(Map<String, dynamic> json):
@@ -6414,6 +6794,11 @@ class ThemeColorPalette$TooltipTheme_mobile implements ThemeColorPalette$Tooltip
   const ThemeColorPalette$TooltipTheme_mobile.dark():
     _decoration = const ThemeColorPalette$TooltipTheme$Decoration_mobile.dark(),
     _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle_mobile.dark();
+
+  /// Tooltip theme
+  const ThemeColorPalette$TooltipTheme_mobile.darkCopy():
+    _decoration = const ThemeColorPalette$TooltipTheme$Decoration_mobile.darkCopy(),
+    _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle_mobile.darkCopy();
 
   /// From json.
   ThemeColorPalette$TooltipTheme_mobile.fromJson(Map<String, dynamic> json):
@@ -6508,6 +6893,11 @@ class ThemeColorPalette$TooltipTheme_web implements ThemeColorPalette$TooltipThe
     _decoration = const ThemeColorPalette$TooltipTheme$Decoration_web.dark(),
     _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle_web.dark();
 
+  /// Tooltip theme
+  const ThemeColorPalette$TooltipTheme_web.darkCopy():
+    _decoration = const ThemeColorPalette$TooltipTheme$Decoration_web.darkCopy(),
+    _textStyle = const ThemeColorPalette$TooltipTheme$TextStyle_web.darkCopy();
+
   /// From json.
   ThemeColorPalette$TooltipTheme_web.fromJson(Map<String, dynamic> json):
     _decoration = ThemeColorPalette$TooltipTheme$Decoration_web.fromJson(json['decoration'] as Map<String, dynamic>),
@@ -6601,6 +6991,11 @@ class ThemeColorPalette$TooltipTheme$Decoration {
     _color = const Color(0xffffffff),
     _borderRadius = 4.0;
 
+  /// Tooltip decoration
+  const ThemeColorPalette$TooltipTheme$Decoration.darkCopy():
+    _color = const Color(0xffffffff),
+    _borderRadius = 4.0;
+
   /// From json.
   ThemeColorPalette$TooltipTheme$Decoration.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
@@ -6689,6 +7084,11 @@ class ThemeColorPalette$TooltipTheme$Decoration_mobile implements ThemeColorPale
 
   /// Tooltip decoration
   const ThemeColorPalette$TooltipTheme$Decoration_mobile.dark():
+    _color = const Color(0xffffffff),
+    _borderRadius = 4.0;
+
+  /// Tooltip decoration
+  const ThemeColorPalette$TooltipTheme$Decoration_mobile.darkCopy():
     _color = const Color(0xffffffff),
     _borderRadius = 4.0;
 
@@ -6785,6 +7185,11 @@ class ThemeColorPalette$TooltipTheme$Decoration_web implements ThemeColorPalette
     _color = const Color(0xffffffff),
     _borderRadius = 4.0;
 
+  /// Tooltip decoration
+  const ThemeColorPalette$TooltipTheme$Decoration_web.darkCopy():
+    _color = const Color(0xffffffff),
+    _borderRadius = 4.0;
+
   /// From json.
   ThemeColorPalette$TooltipTheme$Decoration_web.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
@@ -6874,6 +7279,10 @@ class ThemeColorPalette$TooltipTheme$TextStyle {
   const ThemeColorPalette$TooltipTheme$TextStyle.dark():
     _color = const Color(0xff000000);
 
+  /// Tooltip text textStyle
+  const ThemeColorPalette$TooltipTheme$TextStyle.darkCopy():
+    _color = const Color(0xff000000);
+
   /// From json.
   ThemeColorPalette$TooltipTheme$TextStyle.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
@@ -6946,6 +7355,10 @@ class ThemeColorPalette$TooltipTheme$TextStyle_mobile implements ThemeColorPalet
 
   /// Tooltip text textStyle
   const ThemeColorPalette$TooltipTheme$TextStyle_mobile.dark():
+    _color = const Color(0xff000000);
+
+  /// Tooltip text textStyle
+  const ThemeColorPalette$TooltipTheme$TextStyle_mobile.darkCopy():
     _color = const Color(0xff000000);
 
   /// From json.
@@ -7023,6 +7436,10 @@ class ThemeColorPalette$TooltipTheme$TextStyle_web implements ThemeColorPalette$
   const ThemeColorPalette$TooltipTheme$TextStyle_web.dark():
     _color = const Color(0xff000000);
 
+  /// Tooltip text textStyle
+  const ThemeColorPalette$TooltipTheme$TextStyle_web.darkCopy():
+    _color = const Color(0xff000000);
+
   /// From json.
   ThemeColorPalette$TooltipTheme$TextStyle_web.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
@@ -7098,6 +7515,10 @@ class ThemeColorPalette$PopupMenuTheme {
   const ThemeColorPalette$PopupMenuTheme.dark():
     _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle.dark();
 
+  /// Popup menu theme
+  const ThemeColorPalette$PopupMenuTheme.darkCopy():
+    _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle.darkCopy();
+
   /// From json.
   ThemeColorPalette$PopupMenuTheme.fromJson(Map<String, dynamic> json):
     _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle.fromJson(json['textStyle'] as Map<String, dynamic>);
@@ -7171,6 +7592,10 @@ class ThemeColorPalette$PopupMenuTheme_mobile implements ThemeColorPalette$Popup
   /// Popup menu theme
   const ThemeColorPalette$PopupMenuTheme_mobile.dark():
     _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.dark();
+
+  /// Popup menu theme
+  const ThemeColorPalette$PopupMenuTheme_mobile.darkCopy():
+    _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.darkCopy();
 
   /// From json.
   ThemeColorPalette$PopupMenuTheme_mobile.fromJson(Map<String, dynamic> json):
@@ -7247,6 +7672,10 @@ class ThemeColorPalette$PopupMenuTheme_web implements ThemeColorPalette$PopupMen
   const ThemeColorPalette$PopupMenuTheme_web.dark():
     _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle_web.dark();
 
+  /// Popup menu theme
+  const ThemeColorPalette$PopupMenuTheme_web.darkCopy():
+    _textStyle = const ThemeColorPalette$PopupMenuTheme$TextStyle_web.darkCopy();
+
   /// From json.
   ThemeColorPalette$PopupMenuTheme_web.fromJson(Map<String, dynamic> json):
     _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromJson(json['textStyle'] as Map<String, dynamic>);
@@ -7320,6 +7749,10 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle {
 
   /// Popup menu theme text style
   const ThemeColorPalette$PopupMenuTheme$TextStyle.dark():
+    _color = const Color(0xff699fcf);
+
+  /// Popup menu theme text style
+  const ThemeColorPalette$PopupMenuTheme$TextStyle.darkCopy():
     _color = const Color(0xff699fcf);
 
   /// From json.
@@ -7396,6 +7829,10 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_mobile implements ThemeColorPal
   const ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.dark():
     _color = const Color(0xff699fcf);
 
+  /// Popup menu theme text style
+  const ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.darkCopy():
+    _color = const Color(0xff699fcf);
+
   /// From json.
   ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color;
@@ -7469,6 +7906,10 @@ class ThemeColorPalette$PopupMenuTheme$TextStyle_web implements ThemeColorPalett
 
   /// Popup menu theme text style
   const ThemeColorPalette$PopupMenuTheme$TextStyle_web.dark():
+    _color = const Color(0xff699fcf);
+
+  /// Popup menu theme text style
+  const ThemeColorPalette$PopupMenuTheme$TextStyle_web.darkCopy():
     _color = const Color(0xff699fcf);
 
   /// From json.
@@ -7547,6 +7988,11 @@ class ThemeColorPalette$DividerTheme {
 
   /// Divider theme
   const ThemeColorPalette$DividerTheme.dark():
+    _color = const Color(0xff434343),
+    _thickness = 2.0;
+
+  /// Divider theme
+  const ThemeColorPalette$DividerTheme.darkCopy():
     _color = const Color(0xff434343),
     _thickness = 2.0;
 
@@ -7641,6 +8087,11 @@ class ThemeColorPalette$DividerTheme_mobile implements ThemeColorPalette$Divider
     _color = const Color(0xff434343),
     _thickness = 2.0;
 
+  /// Divider theme
+  const ThemeColorPalette$DividerTheme_mobile.darkCopy():
+    _color = const Color(0xff434343),
+    _thickness = 2.0;
+
   /// From json.
   ThemeColorPalette$DividerTheme_mobile.fromJson(Map<String, dynamic> json):
     _color = json['color'] as Color,
@@ -7731,6 +8182,11 @@ class ThemeColorPalette$DividerTheme_web implements ThemeColorPalette$DividerThe
 
   /// Divider theme
   const ThemeColorPalette$DividerTheme_web.dark():
+    _color = const Color(0xff434343),
+    _thickness = 2.0;
+
+  /// Divider theme
+  const ThemeColorPalette$DividerTheme_web.darkCopy():
     _color = const Color(0xff434343),
     _thickness = 2.0;
 

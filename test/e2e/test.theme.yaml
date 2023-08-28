@@ -1,5 +1,4 @@
 # This yaml file describes the different themes.
-# It should be edited by the design team only
 
 # Each object has several properties:
 # - .name:
@@ -57,6 +56,8 @@
   # If a theme is not specified for an object, it will use the value of the light theme
   - light
   - dark
+  - darkCopy:
+      import: dark
 .platforms:
   # Those are themes not handle by the generator.
   - mobile
