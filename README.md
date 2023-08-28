@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/ValentinVignal/themed_color_palette/branch/main/graph/badge.svg?token=QDQAEZDFLI)](https://codecov.io/gh/ValentinVignal/themed_color_palette)
+[![wakatime](https://wakatime.com/badge/github/ValentinVignal/themed_color_palette.svg)](https://wakatime.com/badge/github/ValentinVignal/themed_color_palette)
 
 
 # Themed Color Palette
