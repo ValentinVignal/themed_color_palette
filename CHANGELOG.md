@@ -1,3 +1,7 @@
+## [0.4.0] 28/08/2023
+
+- Allow to base a theme on another theme than the default one.
+
 ## [0.3.4] 20/07/2022
 
 - Remove (wrong) platform example from the README to make it simpler.
