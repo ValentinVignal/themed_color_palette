@@ -1,6 +1,7 @@
 ## NEXT
 
 - Upgrade dependencies.
+- Fixes a bug where `Map<dynamic, dynamic>` couldn't be casted as `Map<String, dynamic>`.
 
 ## [0.4.0] 28/08/2023
 

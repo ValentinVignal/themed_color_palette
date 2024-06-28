@@ -292,36 +292,36 @@ class ThemeColorPalette {
         _errorColor = json['errorColor'] as Color,
         _disabledColor = json['disabledColor'] as Color,
         textEmphasis = ThemeColorPalette$TextEmphasis.fromJson(
-            json['textEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['textEmphasis'] as Map)),
         iconEmphasis = ThemeColorPalette$IconEmphasis.fromJson(
-            json['iconEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['iconEmphasis'] as Map)),
         border = ThemeColorPalette$Border.fromJson(
-            json['border'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['border'] as Map)),
         background = ThemeColorPalette$Background.fromJson(
-            json['background'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['background'] as Map)),
         floatingActionButton = ThemeColorPalette$FloatingActionButton.fromJson(
-            json['floatingActionButton'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['floatingActionButton'] as Map)),
         task = ThemeColorPalette$Task.fromJson(
-            json['task'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['task'] as Map)),
         form = ThemeColorPalette$Form.fromJson(
-            json['form'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['form'] as Map)),
         notification = ThemeColorPalette$Notification.fromJson(
-            json['notification'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['notification'] as Map)),
         projectTimeline = ThemeColorPalette$ProjectTimeline.fromJson(
-            json['projectTimeline'] as Map<String, dynamic>),
-        pin =
-            ThemeColorPalette$Pin.fromJson(json['pin'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['projectTimeline'] as Map)),
+        pin = ThemeColorPalette$Pin.fromJson(
+            Map<String, dynamic>.from(json['pin'] as Map)),
         _hoverColor = json['hoverColor'] as Color,
         appBarTheme = ThemeColorPalette$AppBarTheme.fromJson(
-            json['appBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['appBarTheme'] as Map)),
         bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme.fromJson(
-            json['bottomAppBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['bottomAppBarTheme'] as Map)),
         _tooltipTheme = ThemeColorPalette$TooltipTheme.fromJson(
-            json['tooltipTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['tooltipTheme'] as Map)),
         _popupMenuTheme = ThemeColorPalette$PopupMenuTheme.fromJson(
-            json['popupMenuTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['popupMenuTheme'] as Map)),
         _dividerTheme = ThemeColorPalette$DividerTheme.fromJson(
-            json['dividerTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['dividerTheme'] as Map)),
         _selectedRowColor = json['selectedRowColor'] as Color;
 
   /// From yaml.
@@ -340,36 +340,36 @@ class ThemeColorPalette {
         _disabledColor =
             _ColorToString.fromString(yaml['disabledColor'] as String)!,
         textEmphasis = ThemeColorPalette$TextEmphasis.fromYaml(
-            yaml['textEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['textEmphasis'] as Map)),
         iconEmphasis = ThemeColorPalette$IconEmphasis.fromYaml(
-            yaml['iconEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['iconEmphasis'] as Map)),
         border = ThemeColorPalette$Border.fromYaml(
-            yaml['border'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['border'] as Map)),
         background = ThemeColorPalette$Background.fromYaml(
-            yaml['background'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['background'] as Map)),
         floatingActionButton = ThemeColorPalette$FloatingActionButton.fromYaml(
-            yaml['floatingActionButton'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['floatingActionButton'] as Map)),
         task = ThemeColorPalette$Task.fromYaml(
-            yaml['task'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['task'] as Map)),
         form = ThemeColorPalette$Form.fromYaml(
-            yaml['form'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['form'] as Map)),
         notification = ThemeColorPalette$Notification.fromYaml(
-            yaml['notification'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['notification'] as Map)),
         projectTimeline = ThemeColorPalette$ProjectTimeline.fromYaml(
-            yaml['projectTimeline'] as Map<String, dynamic>),
-        pin =
-            ThemeColorPalette$Pin.fromYaml(yaml['pin'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['projectTimeline'] as Map)),
+        pin = ThemeColorPalette$Pin.fromYaml(
+            Map<String, dynamic>.from(yaml['pin'] as Map)),
         _hoverColor = _ColorToString.fromString(yaml['hoverColor'] as String)!,
         appBarTheme = ThemeColorPalette$AppBarTheme.fromYaml(
-            yaml['appBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['appBarTheme'] as Map)),
         bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme.fromYaml(
-            yaml['bottomAppBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['bottomAppBarTheme'] as Map)),
         _tooltipTheme = ThemeColorPalette$TooltipTheme.fromYaml(
-            yaml['tooltipTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['tooltipTheme'] as Map)),
         _popupMenuTheme = ThemeColorPalette$PopupMenuTheme.fromYaml(
-            yaml['popupMenuTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['popupMenuTheme'] as Map)),
         _dividerTheme = ThemeColorPalette$DividerTheme.fromYaml(
-            yaml['dividerTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['dividerTheme'] as Map)),
         _selectedRowColor =
             _ColorToString.fromString(yaml['selectedRowColor'] as String)!;
 
@@ -557,33 +557,56 @@ class ThemeColorPalette {
       secondaryColor: json['secondaryColor'] as Color?,
       errorColor: json['errorColor'] as Color?,
       disabledColor: json['disabledColor'] as Color?,
-      textEmphasis: textEmphasis
-          .copyWithJson(json['textEmphasis'] as Map<String, dynamic>?),
-      iconEmphasis: iconEmphasis
-          .copyWithJson(json['iconEmphasis'] as Map<String, dynamic>?),
-      border: border.copyWithJson(json['border'] as Map<String, dynamic>?),
-      background:
-          background.copyWithJson(json['background'] as Map<String, dynamic>?),
-      floatingActionButton: floatingActionButton
-          .copyWithJson(json['floatingActionButton'] as Map<String, dynamic>?),
-      task: task.copyWithJson(json['task'] as Map<String, dynamic>?),
-      form: form.copyWithJson(json['form'] as Map<String, dynamic>?),
-      notification: notification
-          .copyWithJson(json['notification'] as Map<String, dynamic>?),
-      projectTimeline: projectTimeline
-          .copyWithJson(json['projectTimeline'] as Map<String, dynamic>?),
-      pin: pin.copyWithJson(json['pin'] as Map<String, dynamic>?),
+      textEmphasis: textEmphasis.copyWithJson(json['textEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textEmphasis'] as Map)),
+      iconEmphasis: iconEmphasis.copyWithJson(json['iconEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(json['iconEmphasis'] as Map)),
+      border: border.copyWithJson(json['border'] == null
+          ? null
+          : Map<String, dynamic>.from(json['border'] as Map)),
+      background: background.copyWithJson(json['background'] == null
+          ? null
+          : Map<String, dynamic>.from(json['background'] as Map)),
+      floatingActionButton: floatingActionButton.copyWithJson(
+          json['floatingActionButton'] == null
+              ? null
+              : Map<String, dynamic>.from(json['floatingActionButton'] as Map)),
+      task: task.copyWithJson(json['task'] == null
+          ? null
+          : Map<String, dynamic>.from(json['task'] as Map)),
+      form: form.copyWithJson(json['form'] == null
+          ? null
+          : Map<String, dynamic>.from(json['form'] as Map)),
+      notification: notification.copyWithJson(json['notification'] == null
+          ? null
+          : Map<String, dynamic>.from(json['notification'] as Map)),
+      projectTimeline: projectTimeline.copyWithJson(
+          json['projectTimeline'] == null
+              ? null
+              : Map<String, dynamic>.from(json['projectTimeline'] as Map)),
+      pin: pin.copyWithJson(json['pin'] == null
+          ? null
+          : Map<String, dynamic>.from(json['pin'] as Map)),
       hoverColor: json['hoverColor'] as Color?,
-      appBarTheme: appBarTheme
-          .copyWithJson(json['appBarTheme'] as Map<String, dynamic>?),
-      bottomAppBarTheme: bottomAppBarTheme
-          .copyWithJson(json['bottomAppBarTheme'] as Map<String, dynamic>?),
-      tooltipTheme: _tooltipTheme
-          .copyWithJson(json['tooltipTheme'] as Map<String, dynamic>?),
-      popupMenuTheme: _popupMenuTheme
-          .copyWithJson(json['popupMenuTheme'] as Map<String, dynamic>?),
-      dividerTheme: _dividerTheme
-          .copyWithJson(json['dividerTheme'] as Map<String, dynamic>?),
+      appBarTheme: appBarTheme.copyWithJson(json['appBarTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['appBarTheme'] as Map)),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithJson(
+          json['bottomAppBarTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(json['bottomAppBarTheme'] as Map)),
+      tooltipTheme: _tooltipTheme.copyWithJson(json['tooltipTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['tooltipTheme'] as Map)),
+      popupMenuTheme: _popupMenuTheme.copyWithJson(
+          json['popupMenuTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(json['popupMenuTheme'] as Map)),
+      dividerTheme: _dividerTheme.copyWithJson(json['dividerTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['dividerTheme'] as Map)),
       selectedRowColor: json['selectedRowColor'] as Color?,
     );
   }
@@ -604,33 +627,56 @@ class ThemeColorPalette {
       errorColor: _ColorToString.fromString(yaml['errorColor'] as String?),
       disabledColor:
           _ColorToString.fromString(yaml['disabledColor'] as String?),
-      textEmphasis: textEmphasis
-          .copyWithYaml(yaml['textEmphasis'] as Map<String, dynamic>?),
-      iconEmphasis: iconEmphasis
-          .copyWithYaml(yaml['iconEmphasis'] as Map<String, dynamic>?),
-      border: border.copyWithYaml(yaml['border'] as Map<String, dynamic>?),
-      background:
-          background.copyWithYaml(yaml['background'] as Map<String, dynamic>?),
-      floatingActionButton: floatingActionButton
-          .copyWithYaml(yaml['floatingActionButton'] as Map<String, dynamic>?),
-      task: task.copyWithYaml(yaml['task'] as Map<String, dynamic>?),
-      form: form.copyWithYaml(yaml['form'] as Map<String, dynamic>?),
-      notification: notification
-          .copyWithYaml(yaml['notification'] as Map<String, dynamic>?),
-      projectTimeline: projectTimeline
-          .copyWithYaml(yaml['projectTimeline'] as Map<String, dynamic>?),
-      pin: pin.copyWithYaml(yaml['pin'] as Map<String, dynamic>?),
+      textEmphasis: textEmphasis.copyWithYaml(yaml['textEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textEmphasis'] as Map)),
+      iconEmphasis: iconEmphasis.copyWithYaml(yaml['iconEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['iconEmphasis'] as Map)),
+      border: border.copyWithYaml(yaml['border'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['border'] as Map)),
+      background: background.copyWithYaml(yaml['background'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['background'] as Map)),
+      floatingActionButton: floatingActionButton.copyWithYaml(
+          yaml['floatingActionButton'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['floatingActionButton'] as Map)),
+      task: task.copyWithYaml(yaml['task'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['task'] as Map)),
+      form: form.copyWithYaml(yaml['form'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['form'] as Map)),
+      notification: notification.copyWithYaml(yaml['notification'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['notification'] as Map)),
+      projectTimeline: projectTimeline.copyWithYaml(
+          yaml['projectTimeline'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['projectTimeline'] as Map)),
+      pin: pin.copyWithYaml(yaml['pin'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['pin'] as Map)),
       hoverColor: _ColorToString.fromString(yaml['hoverColor'] as String?),
-      appBarTheme: appBarTheme
-          .copyWithYaml(yaml['appBarTheme'] as Map<String, dynamic>?),
-      bottomAppBarTheme: bottomAppBarTheme
-          .copyWithYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>?),
-      tooltipTheme: _tooltipTheme
-          .copyWithYaml(yaml['tooltipTheme'] as Map<String, dynamic>?),
-      popupMenuTheme: _popupMenuTheme
-          .copyWithYaml(yaml['popupMenuTheme'] as Map<String, dynamic>?),
-      dividerTheme: _dividerTheme
-          .copyWithYaml(yaml['dividerTheme'] as Map<String, dynamic>?),
+      appBarTheme: appBarTheme.copyWithYaml(yaml['appBarTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['appBarTheme'] as Map)),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithYaml(
+          yaml['bottomAppBarTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['bottomAppBarTheme'] as Map)),
+      tooltipTheme: _tooltipTheme.copyWithYaml(yaml['tooltipTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['tooltipTheme'] as Map)),
+      popupMenuTheme: _popupMenuTheme.copyWithYaml(
+          yaml['popupMenuTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['popupMenuTheme'] as Map)),
+      dividerTheme: _dividerTheme.copyWithYaml(yaml['dividerTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['dividerTheme'] as Map)),
       selectedRowColor:
           _ColorToString.fromString(yaml['selectedRowColor'] as String?),
     );
@@ -835,37 +881,37 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
         _errorColor = json['errorColor'] as Color,
         _disabledColor = json['disabledColor'] as Color,
         textEmphasis = ThemeColorPalette$TextEmphasis_mobile.fromJson(
-            json['textEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['textEmphasis'] as Map)),
         iconEmphasis = ThemeColorPalette$IconEmphasis_mobile.fromJson(
-            json['iconEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['iconEmphasis'] as Map)),
         border = ThemeColorPalette$Border_mobile.fromJson(
-            json['border'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['border'] as Map)),
         background = ThemeColorPalette$Background_mobile.fromJson(
-            json['background'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['background'] as Map)),
         floatingActionButton =
             ThemeColorPalette$FloatingActionButton_mobile.fromJson(
-                json['floatingActionButton'] as Map<String, dynamic>),
+                Map<String, dynamic>.from(json['floatingActionButton'] as Map)),
         task = ThemeColorPalette$Task_mobile.fromJson(
-            json['task'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['task'] as Map)),
         form = ThemeColorPalette$Form_mobile.fromJson(
-            json['form'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['form'] as Map)),
         notification = ThemeColorPalette$Notification_mobile.fromJson(
-            json['notification'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['notification'] as Map)),
         projectTimeline = ThemeColorPalette$ProjectTimeline_mobile.fromJson(
-            json['projectTimeline'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['projectTimeline'] as Map)),
         pin = ThemeColorPalette$Pin_mobile.fromJson(
-            json['pin'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['pin'] as Map)),
         _hoverColor = json['hoverColor'] as Color,
         appBarTheme = ThemeColorPalette$AppBarTheme_mobile.fromJson(
-            json['appBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['appBarTheme'] as Map)),
         bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme_mobile.fromJson(
-            json['bottomAppBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['bottomAppBarTheme'] as Map)),
         _tooltipTheme = ThemeColorPalette$TooltipTheme_mobile.fromJson(
-            json['tooltipTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['tooltipTheme'] as Map)),
         _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_mobile.fromJson(
-            json['popupMenuTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['popupMenuTheme'] as Map)),
         _dividerTheme = ThemeColorPalette$DividerTheme_mobile.fromJson(
-            json['dividerTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['dividerTheme'] as Map)),
         _selectedRowColor = json['selectedRowColor'] as Color;
 
   /// From yaml.
@@ -884,37 +930,37 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
         _disabledColor =
             _ColorToString.fromString(yaml['disabledColor'] as String)!,
         textEmphasis = ThemeColorPalette$TextEmphasis_mobile.fromYaml(
-            yaml['textEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['textEmphasis'] as Map)),
         iconEmphasis = ThemeColorPalette$IconEmphasis_mobile.fromYaml(
-            yaml['iconEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['iconEmphasis'] as Map)),
         border = ThemeColorPalette$Border_mobile.fromYaml(
-            yaml['border'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['border'] as Map)),
         background = ThemeColorPalette$Background_mobile.fromYaml(
-            yaml['background'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['background'] as Map)),
         floatingActionButton =
             ThemeColorPalette$FloatingActionButton_mobile.fromYaml(
-                yaml['floatingActionButton'] as Map<String, dynamic>),
+                Map<String, dynamic>.from(yaml['floatingActionButton'] as Map)),
         task = ThemeColorPalette$Task_mobile.fromYaml(
-            yaml['task'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['task'] as Map)),
         form = ThemeColorPalette$Form_mobile.fromYaml(
-            yaml['form'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['form'] as Map)),
         notification = ThemeColorPalette$Notification_mobile.fromYaml(
-            yaml['notification'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['notification'] as Map)),
         projectTimeline = ThemeColorPalette$ProjectTimeline_mobile.fromYaml(
-            yaml['projectTimeline'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['projectTimeline'] as Map)),
         pin = ThemeColorPalette$Pin_mobile.fromYaml(
-            yaml['pin'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['pin'] as Map)),
         _hoverColor = _ColorToString.fromString(yaml['hoverColor'] as String)!,
         appBarTheme = ThemeColorPalette$AppBarTheme_mobile.fromYaml(
-            yaml['appBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['appBarTheme'] as Map)),
         bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme_mobile.fromYaml(
-            yaml['bottomAppBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['bottomAppBarTheme'] as Map)),
         _tooltipTheme = ThemeColorPalette$TooltipTheme_mobile.fromYaml(
-            yaml['tooltipTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['tooltipTheme'] as Map)),
         _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_mobile.fromYaml(
-            yaml['popupMenuTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['popupMenuTheme'] as Map)),
         _dividerTheme = ThemeColorPalette$DividerTheme_mobile.fromYaml(
-            yaml['dividerTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['dividerTheme'] as Map)),
         _selectedRowColor =
             _ColorToString.fromString(yaml['selectedRowColor'] as String)!;
 
@@ -1139,33 +1185,56 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
       secondaryColor: json['secondaryColor'] as Color?,
       errorColor: json['errorColor'] as Color?,
       disabledColor: json['disabledColor'] as Color?,
-      textEmphasis: textEmphasis
-          .copyWithJson(json['textEmphasis'] as Map<String, dynamic>?),
-      iconEmphasis: iconEmphasis
-          .copyWithJson(json['iconEmphasis'] as Map<String, dynamic>?),
-      border: border.copyWithJson(json['border'] as Map<String, dynamic>?),
-      background:
-          background.copyWithJson(json['background'] as Map<String, dynamic>?),
-      floatingActionButton: floatingActionButton
-          .copyWithJson(json['floatingActionButton'] as Map<String, dynamic>?),
-      task: task.copyWithJson(json['task'] as Map<String, dynamic>?),
-      form: form.copyWithJson(json['form'] as Map<String, dynamic>?),
-      notification: notification
-          .copyWithJson(json['notification'] as Map<String, dynamic>?),
-      projectTimeline: projectTimeline
-          .copyWithJson(json['projectTimeline'] as Map<String, dynamic>?),
-      pin: pin.copyWithJson(json['pin'] as Map<String, dynamic>?),
+      textEmphasis: textEmphasis.copyWithJson(json['textEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textEmphasis'] as Map)),
+      iconEmphasis: iconEmphasis.copyWithJson(json['iconEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(json['iconEmphasis'] as Map)),
+      border: border.copyWithJson(json['border'] == null
+          ? null
+          : Map<String, dynamic>.from(json['border'] as Map)),
+      background: background.copyWithJson(json['background'] == null
+          ? null
+          : Map<String, dynamic>.from(json['background'] as Map)),
+      floatingActionButton: floatingActionButton.copyWithJson(
+          json['floatingActionButton'] == null
+              ? null
+              : Map<String, dynamic>.from(json['floatingActionButton'] as Map)),
+      task: task.copyWithJson(json['task'] == null
+          ? null
+          : Map<String, dynamic>.from(json['task'] as Map)),
+      form: form.copyWithJson(json['form'] == null
+          ? null
+          : Map<String, dynamic>.from(json['form'] as Map)),
+      notification: notification.copyWithJson(json['notification'] == null
+          ? null
+          : Map<String, dynamic>.from(json['notification'] as Map)),
+      projectTimeline: projectTimeline.copyWithJson(
+          json['projectTimeline'] == null
+              ? null
+              : Map<String, dynamic>.from(json['projectTimeline'] as Map)),
+      pin: pin.copyWithJson(json['pin'] == null
+          ? null
+          : Map<String, dynamic>.from(json['pin'] as Map)),
       hoverColor: json['hoverColor'] as Color?,
-      appBarTheme: appBarTheme
-          .copyWithJson(json['appBarTheme'] as Map<String, dynamic>?),
-      bottomAppBarTheme: bottomAppBarTheme
-          .copyWithJson(json['bottomAppBarTheme'] as Map<String, dynamic>?),
-      tooltipTheme: _tooltipTheme
-          .copyWithJson(json['tooltipTheme'] as Map<String, dynamic>?),
-      popupMenuTheme: _popupMenuTheme
-          .copyWithJson(json['popupMenuTheme'] as Map<String, dynamic>?),
-      dividerTheme: _dividerTheme
-          .copyWithJson(json['dividerTheme'] as Map<String, dynamic>?),
+      appBarTheme: appBarTheme.copyWithJson(json['appBarTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['appBarTheme'] as Map)),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithJson(
+          json['bottomAppBarTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(json['bottomAppBarTheme'] as Map)),
+      tooltipTheme: _tooltipTheme.copyWithJson(json['tooltipTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['tooltipTheme'] as Map)),
+      popupMenuTheme: _popupMenuTheme.copyWithJson(
+          json['popupMenuTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(json['popupMenuTheme'] as Map)),
+      dividerTheme: _dividerTheme.copyWithJson(json['dividerTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['dividerTheme'] as Map)),
       selectedRowColor: json['selectedRowColor'] as Color?,
     );
   }
@@ -1186,33 +1255,56 @@ class ThemeColorPalette_mobile implements ThemeColorPalette {
       errorColor: _ColorToString.fromString(yaml['errorColor'] as String?),
       disabledColor:
           _ColorToString.fromString(yaml['disabledColor'] as String?),
-      textEmphasis: textEmphasis
-          .copyWithYaml(yaml['textEmphasis'] as Map<String, dynamic>?),
-      iconEmphasis: iconEmphasis
-          .copyWithYaml(yaml['iconEmphasis'] as Map<String, dynamic>?),
-      border: border.copyWithYaml(yaml['border'] as Map<String, dynamic>?),
-      background:
-          background.copyWithYaml(yaml['background'] as Map<String, dynamic>?),
-      floatingActionButton: floatingActionButton
-          .copyWithYaml(yaml['floatingActionButton'] as Map<String, dynamic>?),
-      task: task.copyWithYaml(yaml['task'] as Map<String, dynamic>?),
-      form: form.copyWithYaml(yaml['form'] as Map<String, dynamic>?),
-      notification: notification
-          .copyWithYaml(yaml['notification'] as Map<String, dynamic>?),
-      projectTimeline: projectTimeline
-          .copyWithYaml(yaml['projectTimeline'] as Map<String, dynamic>?),
-      pin: pin.copyWithYaml(yaml['pin'] as Map<String, dynamic>?),
+      textEmphasis: textEmphasis.copyWithYaml(yaml['textEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textEmphasis'] as Map)),
+      iconEmphasis: iconEmphasis.copyWithYaml(yaml['iconEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['iconEmphasis'] as Map)),
+      border: border.copyWithYaml(yaml['border'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['border'] as Map)),
+      background: background.copyWithYaml(yaml['background'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['background'] as Map)),
+      floatingActionButton: floatingActionButton.copyWithYaml(
+          yaml['floatingActionButton'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['floatingActionButton'] as Map)),
+      task: task.copyWithYaml(yaml['task'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['task'] as Map)),
+      form: form.copyWithYaml(yaml['form'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['form'] as Map)),
+      notification: notification.copyWithYaml(yaml['notification'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['notification'] as Map)),
+      projectTimeline: projectTimeline.copyWithYaml(
+          yaml['projectTimeline'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['projectTimeline'] as Map)),
+      pin: pin.copyWithYaml(yaml['pin'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['pin'] as Map)),
       hoverColor: _ColorToString.fromString(yaml['hoverColor'] as String?),
-      appBarTheme: appBarTheme
-          .copyWithYaml(yaml['appBarTheme'] as Map<String, dynamic>?),
-      bottomAppBarTheme: bottomAppBarTheme
-          .copyWithYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>?),
-      tooltipTheme: _tooltipTheme
-          .copyWithYaml(yaml['tooltipTheme'] as Map<String, dynamic>?),
-      popupMenuTheme: _popupMenuTheme
-          .copyWithYaml(yaml['popupMenuTheme'] as Map<String, dynamic>?),
-      dividerTheme: _dividerTheme
-          .copyWithYaml(yaml['dividerTheme'] as Map<String, dynamic>?),
+      appBarTheme: appBarTheme.copyWithYaml(yaml['appBarTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['appBarTheme'] as Map)),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithYaml(
+          yaml['bottomAppBarTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['bottomAppBarTheme'] as Map)),
+      tooltipTheme: _tooltipTheme.copyWithYaml(yaml['tooltipTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['tooltipTheme'] as Map)),
+      popupMenuTheme: _popupMenuTheme.copyWithYaml(
+          yaml['popupMenuTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['popupMenuTheme'] as Map)),
+      dividerTheme: _dividerTheme.copyWithYaml(yaml['dividerTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['dividerTheme'] as Map)),
       selectedRowColor:
           _ColorToString.fromString(yaml['selectedRowColor'] as String?),
     );
@@ -1415,37 +1507,37 @@ class ThemeColorPalette_web implements ThemeColorPalette {
         _errorColor = json['errorColor'] as Color,
         _disabledColor = json['disabledColor'] as Color,
         textEmphasis = ThemeColorPalette$TextEmphasis_web.fromJson(
-            json['textEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['textEmphasis'] as Map)),
         iconEmphasis = ThemeColorPalette$IconEmphasis_web.fromJson(
-            json['iconEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['iconEmphasis'] as Map)),
         border = ThemeColorPalette$Border_web.fromJson(
-            json['border'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['border'] as Map)),
         background = ThemeColorPalette$Background_web.fromJson(
-            json['background'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['background'] as Map)),
         floatingActionButton =
             ThemeColorPalette$FloatingActionButton_web.fromJson(
-                json['floatingActionButton'] as Map<String, dynamic>),
+                Map<String, dynamic>.from(json['floatingActionButton'] as Map)),
         task = ThemeColorPalette$Task_web.fromJson(
-            json['task'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['task'] as Map)),
         form = ThemeColorPalette$Form_web.fromJson(
-            json['form'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['form'] as Map)),
         notification = ThemeColorPalette$Notification_web.fromJson(
-            json['notification'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['notification'] as Map)),
         projectTimeline = ThemeColorPalette$ProjectTimeline_web.fromJson(
-            json['projectTimeline'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['projectTimeline'] as Map)),
         pin = ThemeColorPalette$Pin_web.fromJson(
-            json['pin'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['pin'] as Map)),
         _hoverColor = json['hoverColor'] as Color,
         appBarTheme = ThemeColorPalette$AppBarTheme_web.fromJson(
-            json['appBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['appBarTheme'] as Map)),
         bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme_web.fromJson(
-            json['bottomAppBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['bottomAppBarTheme'] as Map)),
         _tooltipTheme = ThemeColorPalette$TooltipTheme_web.fromJson(
-            json['tooltipTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['tooltipTheme'] as Map)),
         _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_web.fromJson(
-            json['popupMenuTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['popupMenuTheme'] as Map)),
         _dividerTheme = ThemeColorPalette$DividerTheme_web.fromJson(
-            json['dividerTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['dividerTheme'] as Map)),
         _selectedRowColor = json['selectedRowColor'] as Color;
 
   /// From yaml.
@@ -1464,37 +1556,37 @@ class ThemeColorPalette_web implements ThemeColorPalette {
         _disabledColor =
             _ColorToString.fromString(yaml['disabledColor'] as String)!,
         textEmphasis = ThemeColorPalette$TextEmphasis_web.fromYaml(
-            yaml['textEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['textEmphasis'] as Map)),
         iconEmphasis = ThemeColorPalette$IconEmphasis_web.fromYaml(
-            yaml['iconEmphasis'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['iconEmphasis'] as Map)),
         border = ThemeColorPalette$Border_web.fromYaml(
-            yaml['border'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['border'] as Map)),
         background = ThemeColorPalette$Background_web.fromYaml(
-            yaml['background'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['background'] as Map)),
         floatingActionButton =
             ThemeColorPalette$FloatingActionButton_web.fromYaml(
-                yaml['floatingActionButton'] as Map<String, dynamic>),
+                Map<String, dynamic>.from(yaml['floatingActionButton'] as Map)),
         task = ThemeColorPalette$Task_web.fromYaml(
-            yaml['task'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['task'] as Map)),
         form = ThemeColorPalette$Form_web.fromYaml(
-            yaml['form'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['form'] as Map)),
         notification = ThemeColorPalette$Notification_web.fromYaml(
-            yaml['notification'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['notification'] as Map)),
         projectTimeline = ThemeColorPalette$ProjectTimeline_web.fromYaml(
-            yaml['projectTimeline'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['projectTimeline'] as Map)),
         pin = ThemeColorPalette$Pin_web.fromYaml(
-            yaml['pin'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['pin'] as Map)),
         _hoverColor = _ColorToString.fromString(yaml['hoverColor'] as String)!,
         appBarTheme = ThemeColorPalette$AppBarTheme_web.fromYaml(
-            yaml['appBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['appBarTheme'] as Map)),
         bottomAppBarTheme = ThemeColorPalette$BottomAppBarTheme_web.fromYaml(
-            yaml['bottomAppBarTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['bottomAppBarTheme'] as Map)),
         _tooltipTheme = ThemeColorPalette$TooltipTheme_web.fromYaml(
-            yaml['tooltipTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['tooltipTheme'] as Map)),
         _popupMenuTheme = ThemeColorPalette$PopupMenuTheme_web.fromYaml(
-            yaml['popupMenuTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['popupMenuTheme'] as Map)),
         _dividerTheme = ThemeColorPalette$DividerTheme_web.fromYaml(
-            yaml['dividerTheme'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['dividerTheme'] as Map)),
         _selectedRowColor =
             _ColorToString.fromString(yaml['selectedRowColor'] as String)!;
 
@@ -1709,33 +1801,56 @@ class ThemeColorPalette_web implements ThemeColorPalette {
       secondaryColor: json['secondaryColor'] as Color?,
       errorColor: json['errorColor'] as Color?,
       disabledColor: json['disabledColor'] as Color?,
-      textEmphasis: textEmphasis
-          .copyWithJson(json['textEmphasis'] as Map<String, dynamic>?),
-      iconEmphasis: iconEmphasis
-          .copyWithJson(json['iconEmphasis'] as Map<String, dynamic>?),
-      border: border.copyWithJson(json['border'] as Map<String, dynamic>?),
-      background:
-          background.copyWithJson(json['background'] as Map<String, dynamic>?),
-      floatingActionButton: floatingActionButton
-          .copyWithJson(json['floatingActionButton'] as Map<String, dynamic>?),
-      task: task.copyWithJson(json['task'] as Map<String, dynamic>?),
-      form: form.copyWithJson(json['form'] as Map<String, dynamic>?),
-      notification: notification
-          .copyWithJson(json['notification'] as Map<String, dynamic>?),
-      projectTimeline: projectTimeline
-          .copyWithJson(json['projectTimeline'] as Map<String, dynamic>?),
-      pin: pin.copyWithJson(json['pin'] as Map<String, dynamic>?),
+      textEmphasis: textEmphasis.copyWithJson(json['textEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textEmphasis'] as Map)),
+      iconEmphasis: iconEmphasis.copyWithJson(json['iconEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(json['iconEmphasis'] as Map)),
+      border: border.copyWithJson(json['border'] == null
+          ? null
+          : Map<String, dynamic>.from(json['border'] as Map)),
+      background: background.copyWithJson(json['background'] == null
+          ? null
+          : Map<String, dynamic>.from(json['background'] as Map)),
+      floatingActionButton: floatingActionButton.copyWithJson(
+          json['floatingActionButton'] == null
+              ? null
+              : Map<String, dynamic>.from(json['floatingActionButton'] as Map)),
+      task: task.copyWithJson(json['task'] == null
+          ? null
+          : Map<String, dynamic>.from(json['task'] as Map)),
+      form: form.copyWithJson(json['form'] == null
+          ? null
+          : Map<String, dynamic>.from(json['form'] as Map)),
+      notification: notification.copyWithJson(json['notification'] == null
+          ? null
+          : Map<String, dynamic>.from(json['notification'] as Map)),
+      projectTimeline: projectTimeline.copyWithJson(
+          json['projectTimeline'] == null
+              ? null
+              : Map<String, dynamic>.from(json['projectTimeline'] as Map)),
+      pin: pin.copyWithJson(json['pin'] == null
+          ? null
+          : Map<String, dynamic>.from(json['pin'] as Map)),
       hoverColor: json['hoverColor'] as Color?,
-      appBarTheme: appBarTheme
-          .copyWithJson(json['appBarTheme'] as Map<String, dynamic>?),
-      bottomAppBarTheme: bottomAppBarTheme
-          .copyWithJson(json['bottomAppBarTheme'] as Map<String, dynamic>?),
-      tooltipTheme: _tooltipTheme
-          .copyWithJson(json['tooltipTheme'] as Map<String, dynamic>?),
-      popupMenuTheme: _popupMenuTheme
-          .copyWithJson(json['popupMenuTheme'] as Map<String, dynamic>?),
-      dividerTheme: _dividerTheme
-          .copyWithJson(json['dividerTheme'] as Map<String, dynamic>?),
+      appBarTheme: appBarTheme.copyWithJson(json['appBarTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['appBarTheme'] as Map)),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithJson(
+          json['bottomAppBarTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(json['bottomAppBarTheme'] as Map)),
+      tooltipTheme: _tooltipTheme.copyWithJson(json['tooltipTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['tooltipTheme'] as Map)),
+      popupMenuTheme: _popupMenuTheme.copyWithJson(
+          json['popupMenuTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(json['popupMenuTheme'] as Map)),
+      dividerTheme: _dividerTheme.copyWithJson(json['dividerTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(json['dividerTheme'] as Map)),
       selectedRowColor: json['selectedRowColor'] as Color?,
     );
   }
@@ -1756,33 +1871,56 @@ class ThemeColorPalette_web implements ThemeColorPalette {
       errorColor: _ColorToString.fromString(yaml['errorColor'] as String?),
       disabledColor:
           _ColorToString.fromString(yaml['disabledColor'] as String?),
-      textEmphasis: textEmphasis
-          .copyWithYaml(yaml['textEmphasis'] as Map<String, dynamic>?),
-      iconEmphasis: iconEmphasis
-          .copyWithYaml(yaml['iconEmphasis'] as Map<String, dynamic>?),
-      border: border.copyWithYaml(yaml['border'] as Map<String, dynamic>?),
-      background:
-          background.copyWithYaml(yaml['background'] as Map<String, dynamic>?),
-      floatingActionButton: floatingActionButton
-          .copyWithYaml(yaml['floatingActionButton'] as Map<String, dynamic>?),
-      task: task.copyWithYaml(yaml['task'] as Map<String, dynamic>?),
-      form: form.copyWithYaml(yaml['form'] as Map<String, dynamic>?),
-      notification: notification
-          .copyWithYaml(yaml['notification'] as Map<String, dynamic>?),
-      projectTimeline: projectTimeline
-          .copyWithYaml(yaml['projectTimeline'] as Map<String, dynamic>?),
-      pin: pin.copyWithYaml(yaml['pin'] as Map<String, dynamic>?),
+      textEmphasis: textEmphasis.copyWithYaml(yaml['textEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textEmphasis'] as Map)),
+      iconEmphasis: iconEmphasis.copyWithYaml(yaml['iconEmphasis'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['iconEmphasis'] as Map)),
+      border: border.copyWithYaml(yaml['border'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['border'] as Map)),
+      background: background.copyWithYaml(yaml['background'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['background'] as Map)),
+      floatingActionButton: floatingActionButton.copyWithYaml(
+          yaml['floatingActionButton'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['floatingActionButton'] as Map)),
+      task: task.copyWithYaml(yaml['task'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['task'] as Map)),
+      form: form.copyWithYaml(yaml['form'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['form'] as Map)),
+      notification: notification.copyWithYaml(yaml['notification'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['notification'] as Map)),
+      projectTimeline: projectTimeline.copyWithYaml(
+          yaml['projectTimeline'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['projectTimeline'] as Map)),
+      pin: pin.copyWithYaml(yaml['pin'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['pin'] as Map)),
       hoverColor: _ColorToString.fromString(yaml['hoverColor'] as String?),
-      appBarTheme: appBarTheme
-          .copyWithYaml(yaml['appBarTheme'] as Map<String, dynamic>?),
-      bottomAppBarTheme: bottomAppBarTheme
-          .copyWithYaml(yaml['bottomAppBarTheme'] as Map<String, dynamic>?),
-      tooltipTheme: _tooltipTheme
-          .copyWithYaml(yaml['tooltipTheme'] as Map<String, dynamic>?),
-      popupMenuTheme: _popupMenuTheme
-          .copyWithYaml(yaml['popupMenuTheme'] as Map<String, dynamic>?),
-      dividerTheme: _dividerTheme
-          .copyWithYaml(yaml['dividerTheme'] as Map<String, dynamic>?),
+      appBarTheme: appBarTheme.copyWithYaml(yaml['appBarTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['appBarTheme'] as Map)),
+      bottomAppBarTheme: bottomAppBarTheme.copyWithYaml(
+          yaml['bottomAppBarTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['bottomAppBarTheme'] as Map)),
+      tooltipTheme: _tooltipTheme.copyWithYaml(yaml['tooltipTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['tooltipTheme'] as Map)),
+      popupMenuTheme: _popupMenuTheme.copyWithYaml(
+          yaml['popupMenuTheme'] == null
+              ? null
+              : Map<String, dynamic>.from(yaml['popupMenuTheme'] as Map)),
+      dividerTheme: _dividerTheme.copyWithYaml(yaml['dividerTheme'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['dividerTheme'] as Map)),
       selectedRowColor:
           _ColorToString.fromString(yaml['selectedRowColor'] as String?),
     );
@@ -2074,7 +2212,7 @@ class ThemeColorPalette$TextEmphasis_mobile
         disabled = json['disabled'] as Color,
         reversedMobile =
             ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.fromJson(
-                json['reversedMobile'] as Map<String, dynamic>);
+                Map<String, dynamic>.from(json['reversedMobile'] as Map));
 
   /// From yaml.
   ThemeColorPalette$TextEmphasis_mobile.fromYaml(Map<String, dynamic> yaml)
@@ -2087,7 +2225,7 @@ class ThemeColorPalette$TextEmphasis_mobile
         disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
         reversedMobile =
             ThemeColorPalette$TextEmphasis$ReversedMobile_mobile.fromYaml(
-                yaml['reversedMobile'] as Map<String, dynamic>);
+                Map<String, dynamic>.from(yaml['reversedMobile'] as Map));
 
   /// Accent color
   ///
@@ -2159,8 +2297,9 @@ class ThemeColorPalette$TextEmphasis_mobile
       medium: json['medium'] as Color?,
       low: json['low'] as Color?,
       disabled: json['disabled'] as Color?,
-      reversedMobile: reversedMobile
-          .copyWithJson(json['reversedMobile'] as Map<String, dynamic>?),
+      reversedMobile: reversedMobile.copyWithJson(json['reversedMobile'] == null
+          ? null
+          : Map<String, dynamic>.from(json['reversedMobile'] as Map)),
     );
   }
 
@@ -2178,8 +2317,9 @@ class ThemeColorPalette$TextEmphasis_mobile
       medium: _ColorToString.fromString(yaml['medium'] as String?),
       low: _ColorToString.fromString(yaml['low'] as String?),
       disabled: _ColorToString.fromString(yaml['disabled'] as String?),
-      reversedMobile: reversedMobile
-          .copyWithYaml(yaml['reversedMobile'] as Map<String, dynamic>?),
+      reversedMobile: reversedMobile.copyWithYaml(yaml['reversedMobile'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['reversedMobile'] as Map)),
     );
   }
 
@@ -2271,7 +2411,7 @@ class ThemeColorPalette$TextEmphasis_web
         low = json['low'] as Color,
         disabled = json['disabled'] as Color,
         reversedWeb = ThemeColorPalette$TextEmphasis$ReversedWeb_web.fromJson(
-            json['reversedWeb'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['reversedWeb'] as Map));
 
   /// From yaml.
   ThemeColorPalette$TextEmphasis_web.fromYaml(Map<String, dynamic> yaml)
@@ -2283,7 +2423,7 @@ class ThemeColorPalette$TextEmphasis_web
         low = _ColorToString.fromString(yaml['low'] as String)!,
         disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
         reversedWeb = ThemeColorPalette$TextEmphasis$ReversedWeb_web.fromYaml(
-            yaml['reversedWeb'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['reversedWeb'] as Map));
 
   /// Accent color
   ///
@@ -2355,8 +2495,9 @@ class ThemeColorPalette$TextEmphasis_web
       medium: json['medium'] as Color?,
       low: json['low'] as Color?,
       disabled: json['disabled'] as Color?,
-      reversedWeb: reversedWeb
-          .copyWithJson(json['reversedWeb'] as Map<String, dynamic>?),
+      reversedWeb: reversedWeb.copyWithJson(json['reversedWeb'] == null
+          ? null
+          : Map<String, dynamic>.from(json['reversedWeb'] as Map)),
     );
   }
 
@@ -2374,8 +2515,9 @@ class ThemeColorPalette$TextEmphasis_web
       medium: _ColorToString.fromString(yaml['medium'] as String?),
       low: _ColorToString.fromString(yaml['low'] as String?),
       disabled: _ColorToString.fromString(yaml['disabled'] as String?),
-      reversedWeb: reversedWeb
-          .copyWithYaml(yaml['reversedWeb'] as Map<String, dynamic>?),
+      reversedWeb: reversedWeb.copyWithYaml(yaml['reversedWeb'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['reversedWeb'] as Map)),
     );
   }
 
@@ -2800,7 +2942,7 @@ class ThemeColorPalette$IconEmphasis {
         low = json['low'] as Color,
         disabled = json['disabled'] as Color,
         reversed = ThemeColorPalette$IconEmphasis$Reversed.fromJson(
-            json['reversed'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['reversed'] as Map));
 
   /// From yaml.
   ThemeColorPalette$IconEmphasis.fromYaml(Map<String, dynamic> yaml)
@@ -2809,7 +2951,7 @@ class ThemeColorPalette$IconEmphasis {
         low = _ColorToString.fromString(yaml['low'] as String)!,
         disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
         reversed = ThemeColorPalette$IconEmphasis$Reversed.fromYaml(
-            yaml['reversed'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['reversed'] as Map));
 
   /// High emphasis
   final Color high;
@@ -2853,8 +2995,9 @@ class ThemeColorPalette$IconEmphasis {
       medium: json['medium'] as Color?,
       low: json['low'] as Color?,
       disabled: json['disabled'] as Color?,
-      reversed:
-          reversed.copyWithJson(json['reversed'] as Map<String, dynamic>?),
+      reversed: reversed.copyWithJson(json['reversed'] == null
+          ? null
+          : Map<String, dynamic>.from(json['reversed'] as Map)),
     );
   }
 
@@ -2868,8 +3011,9 @@ class ThemeColorPalette$IconEmphasis {
       medium: _ColorToString.fromString(yaml['medium'] as String?),
       low: _ColorToString.fromString(yaml['low'] as String?),
       disabled: _ColorToString.fromString(yaml['disabled'] as String?),
-      reversed:
-          reversed.copyWithYaml(yaml['reversed'] as Map<String, dynamic>?),
+      reversed: reversed.copyWithYaml(yaml['reversed'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['reversed'] as Map)),
     );
   }
 
@@ -2938,7 +3082,7 @@ class ThemeColorPalette$IconEmphasis_mobile
         low = json['low'] as Color,
         disabled = json['disabled'] as Color,
         reversed = ThemeColorPalette$IconEmphasis$Reversed_mobile.fromJson(
-            json['reversed'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['reversed'] as Map));
 
   /// From yaml.
   ThemeColorPalette$IconEmphasis_mobile.fromYaml(Map<String, dynamic> yaml)
@@ -2947,7 +3091,7 @@ class ThemeColorPalette$IconEmphasis_mobile
         low = _ColorToString.fromString(yaml['low'] as String)!,
         disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
         reversed = ThemeColorPalette$IconEmphasis$Reversed_mobile.fromYaml(
-            yaml['reversed'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['reversed'] as Map));
 
   /// High emphasis
   @override
@@ -2997,8 +3141,9 @@ class ThemeColorPalette$IconEmphasis_mobile
       medium: json['medium'] as Color?,
       low: json['low'] as Color?,
       disabled: json['disabled'] as Color?,
-      reversed:
-          reversed.copyWithJson(json['reversed'] as Map<String, dynamic>?),
+      reversed: reversed.copyWithJson(json['reversed'] == null
+          ? null
+          : Map<String, dynamic>.from(json['reversed'] as Map)),
     );
   }
 
@@ -3013,8 +3158,9 @@ class ThemeColorPalette$IconEmphasis_mobile
       medium: _ColorToString.fromString(yaml['medium'] as String?),
       low: _ColorToString.fromString(yaml['low'] as String?),
       disabled: _ColorToString.fromString(yaml['disabled'] as String?),
-      reversed:
-          reversed.copyWithYaml(yaml['reversed'] as Map<String, dynamic>?),
+      reversed: reversed.copyWithYaml(yaml['reversed'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['reversed'] as Map)),
     );
   }
 
@@ -3082,7 +3228,7 @@ class ThemeColorPalette$IconEmphasis_web
         low = json['low'] as Color,
         disabled = json['disabled'] as Color,
         reversed = ThemeColorPalette$IconEmphasis$Reversed_web.fromJson(
-            json['reversed'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['reversed'] as Map));
 
   /// From yaml.
   ThemeColorPalette$IconEmphasis_web.fromYaml(Map<String, dynamic> yaml)
@@ -3091,7 +3237,7 @@ class ThemeColorPalette$IconEmphasis_web
         low = _ColorToString.fromString(yaml['low'] as String)!,
         disabled = _ColorToString.fromString(yaml['disabled'] as String)!,
         reversed = ThemeColorPalette$IconEmphasis$Reversed_web.fromYaml(
-            yaml['reversed'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['reversed'] as Map));
 
   /// High emphasis
   @override
@@ -3141,8 +3287,9 @@ class ThemeColorPalette$IconEmphasis_web
       medium: json['medium'] as Color?,
       low: json['low'] as Color?,
       disabled: json['disabled'] as Color?,
-      reversed:
-          reversed.copyWithJson(json['reversed'] as Map<String, dynamic>?),
+      reversed: reversed.copyWithJson(json['reversed'] == null
+          ? null
+          : Map<String, dynamic>.from(json['reversed'] as Map)),
     );
   }
 
@@ -3157,8 +3304,9 @@ class ThemeColorPalette$IconEmphasis_web
       medium: _ColorToString.fromString(yaml['medium'] as String?),
       low: _ColorToString.fromString(yaml['low'] as String?),
       disabled: _ColorToString.fromString(yaml['disabled'] as String?),
-      reversed:
-          reversed.copyWithYaml(yaml['reversed'] as Map<String, dynamic>?),
+      reversed: reversed.copyWithYaml(yaml['reversed'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['reversed'] as Map)),
     );
   }
 
@@ -7026,16 +7174,16 @@ class ThemeColorPalette$TooltipTheme {
   /// From json.
   ThemeColorPalette$TooltipTheme.fromJson(Map<String, dynamic> json)
       : _decoration = ThemeColorPalette$TooltipTheme$Decoration.fromJson(
-            json['decoration'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['decoration'] as Map)),
         _textStyle = ThemeColorPalette$TooltipTheme$TextStyle.fromJson(
-            json['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['textStyle'] as Map));
 
   /// From yaml.
   ThemeColorPalette$TooltipTheme.fromYaml(Map<String, dynamic> yaml)
       : _decoration = ThemeColorPalette$TooltipTheme$Decoration.fromYaml(
-            yaml['decoration'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['decoration'] as Map)),
         _textStyle = ThemeColorPalette$TooltipTheme$TextStyle.fromYaml(
-            yaml['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['textStyle'] as Map));
 
   /// Tooltip decoration
   ///
@@ -7064,10 +7212,12 @@ class ThemeColorPalette$TooltipTheme {
       return this;
     }
     return copyWith(
-      decoration:
-          _decoration.copyWithJson(json['decoration'] as Map<String, dynamic>?),
-      textStyle:
-          _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+      decoration: _decoration.copyWithJson(json['decoration'] == null
+          ? null
+          : Map<String, dynamic>.from(json['decoration'] as Map)),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textStyle'] as Map)),
     );
   }
 
@@ -7077,10 +7227,12 @@ class ThemeColorPalette$TooltipTheme {
       return this;
     }
     return copyWith(
-      decoration:
-          _decoration.copyWithYaml(yaml['decoration'] as Map<String, dynamic>?),
-      textStyle:
-          _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+      decoration: _decoration.copyWithYaml(yaml['decoration'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['decoration'] as Map)),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textStyle'] as Map)),
     );
   }
 
@@ -7135,16 +7287,16 @@ class ThemeColorPalette$TooltipTheme_mobile
   /// From json.
   ThemeColorPalette$TooltipTheme_mobile.fromJson(Map<String, dynamic> json)
       : _decoration = ThemeColorPalette$TooltipTheme$Decoration_mobile.fromJson(
-            json['decoration'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['decoration'] as Map)),
         _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_mobile.fromJson(
-            json['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['textStyle'] as Map));
 
   /// From yaml.
   ThemeColorPalette$TooltipTheme_mobile.fromYaml(Map<String, dynamic> yaml)
       : _decoration = ThemeColorPalette$TooltipTheme$Decoration_mobile.fromYaml(
-            yaml['decoration'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['decoration'] as Map)),
         _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_mobile.fromYaml(
-            yaml['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['textStyle'] as Map));
 
   /// Tooltip decoration
   ///
@@ -7176,10 +7328,12 @@ class ThemeColorPalette$TooltipTheme_mobile
       return this;
     }
     return copyWith(
-      decoration:
-          _decoration.copyWithJson(json['decoration'] as Map<String, dynamic>?),
-      textStyle:
-          _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+      decoration: _decoration.copyWithJson(json['decoration'] == null
+          ? null
+          : Map<String, dynamic>.from(json['decoration'] as Map)),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textStyle'] as Map)),
     );
   }
 
@@ -7190,10 +7344,12 @@ class ThemeColorPalette$TooltipTheme_mobile
       return this;
     }
     return copyWith(
-      decoration:
-          _decoration.copyWithYaml(yaml['decoration'] as Map<String, dynamic>?),
-      textStyle:
-          _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+      decoration: _decoration.copyWithYaml(yaml['decoration'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['decoration'] as Map)),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textStyle'] as Map)),
     );
   }
 
@@ -7246,16 +7402,16 @@ class ThemeColorPalette$TooltipTheme_web
   /// From json.
   ThemeColorPalette$TooltipTheme_web.fromJson(Map<String, dynamic> json)
       : _decoration = ThemeColorPalette$TooltipTheme$Decoration_web.fromJson(
-            json['decoration'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(json['decoration'] as Map)),
         _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_web.fromJson(
-            json['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['textStyle'] as Map));
 
   /// From yaml.
   ThemeColorPalette$TooltipTheme_web.fromYaml(Map<String, dynamic> yaml)
       : _decoration = ThemeColorPalette$TooltipTheme$Decoration_web.fromYaml(
-            yaml['decoration'] as Map<String, dynamic>),
+            Map<String, dynamic>.from(yaml['decoration'] as Map)),
         _textStyle = ThemeColorPalette$TooltipTheme$TextStyle_web.fromYaml(
-            yaml['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['textStyle'] as Map));
 
   /// Tooltip decoration
   ///
@@ -7287,10 +7443,12 @@ class ThemeColorPalette$TooltipTheme_web
       return this;
     }
     return copyWith(
-      decoration:
-          _decoration.copyWithJson(json['decoration'] as Map<String, dynamic>?),
-      textStyle:
-          _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+      decoration: _decoration.copyWithJson(json['decoration'] == null
+          ? null
+          : Map<String, dynamic>.from(json['decoration'] as Map)),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textStyle'] as Map)),
     );
   }
 
@@ -7301,10 +7459,12 @@ class ThemeColorPalette$TooltipTheme_web
       return this;
     }
     return copyWith(
-      decoration:
-          _decoration.copyWithYaml(yaml['decoration'] as Map<String, dynamic>?),
-      textStyle:
-          _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+      decoration: _decoration.copyWithYaml(yaml['decoration'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['decoration'] as Map)),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textStyle'] as Map)),
     );
   }
 
@@ -7888,12 +8048,12 @@ class ThemeColorPalette$PopupMenuTheme {
   /// From json.
   ThemeColorPalette$PopupMenuTheme.fromJson(Map<String, dynamic> json)
       : _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle.fromJson(
-            json['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['textStyle'] as Map));
 
   /// From yaml.
   ThemeColorPalette$PopupMenuTheme.fromYaml(Map<String, dynamic> yaml)
       : _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle.fromYaml(
-            yaml['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['textStyle'] as Map));
 
   /// Popup menu theme text style
   ///
@@ -7915,8 +8075,9 @@ class ThemeColorPalette$PopupMenuTheme {
       return this;
     }
     return copyWith(
-      textStyle:
-          _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textStyle'] as Map)),
     );
   }
 
@@ -7926,8 +8087,9 @@ class ThemeColorPalette$PopupMenuTheme {
       return this;
     }
     return copyWith(
-      textStyle:
-          _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textStyle'] as Map)),
     );
   }
 
@@ -7972,12 +8134,12 @@ class ThemeColorPalette$PopupMenuTheme_mobile
   /// From json.
   ThemeColorPalette$PopupMenuTheme_mobile.fromJson(Map<String, dynamic> json)
       : _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromJson(
-            json['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['textStyle'] as Map));
 
   /// From yaml.
   ThemeColorPalette$PopupMenuTheme_mobile.fromYaml(Map<String, dynamic> yaml)
       : _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_mobile.fromYaml(
-            yaml['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['textStyle'] as Map));
 
   /// Popup menu theme text style
   ///
@@ -8001,8 +8163,9 @@ class ThemeColorPalette$PopupMenuTheme_mobile
       return this;
     }
     return copyWith(
-      textStyle:
-          _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textStyle'] as Map)),
     );
   }
 
@@ -8013,8 +8176,9 @@ class ThemeColorPalette$PopupMenuTheme_mobile
       return this;
     }
     return copyWith(
-      textStyle:
-          _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textStyle'] as Map)),
     );
   }
 
@@ -8059,12 +8223,12 @@ class ThemeColorPalette$PopupMenuTheme_web
   /// From json.
   ThemeColorPalette$PopupMenuTheme_web.fromJson(Map<String, dynamic> json)
       : _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromJson(
-            json['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(json['textStyle'] as Map));
 
   /// From yaml.
   ThemeColorPalette$PopupMenuTheme_web.fromYaml(Map<String, dynamic> yaml)
       : _textStyle = ThemeColorPalette$PopupMenuTheme$TextStyle_web.fromYaml(
-            yaml['textStyle'] as Map<String, dynamic>);
+            Map<String, dynamic>.from(yaml['textStyle'] as Map));
 
   /// Popup menu theme text style
   ///
@@ -8088,8 +8252,9 @@ class ThemeColorPalette$PopupMenuTheme_web
       return this;
     }
     return copyWith(
-      textStyle:
-          _textStyle.copyWithJson(json['textStyle'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithJson(json['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(json['textStyle'] as Map)),
     );
   }
 
@@ -8100,8 +8265,9 @@ class ThemeColorPalette$PopupMenuTheme_web
       return this;
     }
     return copyWith(
-      textStyle:
-          _textStyle.copyWithYaml(yaml['textStyle'] as Map<String, dynamic>?),
+      textStyle: _textStyle.copyWithYaml(yaml['textStyle'] == null
+          ? null
+          : Map<String, dynamic>.from(yaml['textStyle'] as Map)),
     );
   }
 
