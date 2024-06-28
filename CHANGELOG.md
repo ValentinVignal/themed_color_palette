@@ -1,3 +1,7 @@
+## NEXT
+
+- Upgrade dependencies.
+
 ## [0.4.0] 28/08/2023
 
 - Allow to base a theme on another theme than the default one.
@@ -47,4 +51,3 @@
 ## [0.1.0] 18/10/2021
 
 - Migration to null-safety: The code generated is now null-safe.
-
