@@ -1,3 +1,7 @@
+## NEXT
+
+- Fixes a bug when no version was provided.
+
 ## [0.4.1] 28/06/2024
 
 - Upgrade dependencies.

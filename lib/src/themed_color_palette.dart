@@ -35,7 +35,7 @@ class ColorPalette extends ThemedJsonToDart {
 
   /// [ColorPalette] from Json.
   ColorPalette._fromJson({required Map<String, dynamic> json})
-      : version = json['.version'] as String,
+      : version = json['.version'] as String?,
         super(
           json: json,
           context: BuildContext(
@@ -45,7 +45,7 @@ class ColorPalette extends ThemedJsonToDart {
           ),
         ) {
     // Check the themes have valid names (camelCase)
-    sharedValues.addAll((json[BaseName.shared] as Map)
+    sharedValues.addAll((json[BaseName.shared] as Map? ?? const {})
         .entries
         .map(
           (entry) => SharedJsonToDart.fromJson(
@@ -57,7 +57,7 @@ class ColorPalette extends ThemedJsonToDart {
           ),
         )
         .toList());
-    collections.addAll((json[BaseName.themed] as Map)
+    collections.addAll((json[BaseName.themed] as Map? ?? const {})
         .entries
         .map(
           (entry) => ThemedJsonToDart.fromJson(
@@ -111,7 +111,7 @@ class ColorPalette extends ThemedJsonToDart {
   final List<SharedJsonToDart> sharedValues = [];
 
   /// Version number.
-  final String version;
+  final String? version;
 
   @override
   List<ThemedJsonToDart> get values => collections;
@@ -141,9 +141,14 @@ class ColorPalette extends ThemedJsonToDart {
 
   @override
   String dartDefine(DartDefineContext dartDefineContext) {
-    final buffer = StringBuffer()
-      ..writeLine(0, '// Version: $version.')
-      ..writeln()
+    final buffer = StringBuffer();
+
+    if (version != null) {
+      buffer
+        ..writeLine(0, '// Version: $version.')
+        ..writeln();
+    }
+    buffer
       ..writeLine(0, '/// Different Themes.')
       ..writeLine(0, 'enum Themes {');
 
