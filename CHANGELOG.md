@@ -1,4 +1,4 @@
-## NEXT
+## [0.4.2] 09/08/2024
 
 - Fixes a bug when no version was provided.
 
