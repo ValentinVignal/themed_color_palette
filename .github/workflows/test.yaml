@@ -16,9 +16,10 @@ jobs:
       - name: Set up Flutter
         # cSpell:ignore subosito
         uses: subosito/flutter-action@v2
-      - run: flutter pub get
+      - run: dart pub get
+      - run: dart pub global activate coverage
       - name: Run the tests
-        run: dart test --coverage=coverage/lcov.info
+        run: dart pub global run coverage:test_with_coverage
       - run: flutter test --coverage
         working-directory: example
 

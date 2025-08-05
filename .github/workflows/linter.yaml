@@ -16,7 +16,7 @@ jobs:
       - name: Set up Flutter
         # cSpell:ignore subosito
         uses: subosito/flutter-action@v2
-      - run: flutter pub get
+      - run: dart pub get
       - run: dart analyze
 
       - name: Analyze dart code
