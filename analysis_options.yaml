@@ -23,6 +23,7 @@ linter:
     - avoid_field_initializers_in_const_classes
     - avoid_function_literals_in_foreach_calls
     - avoid_init_to_null
+    # cspell: ignore ints
     - avoid_js_rounded_ints
     - avoid_null_checks_in_equality_operators
     - avoid_print
@@ -122,6 +123,7 @@ linter:
     - type_init_formals
     - unawaited_futures
     - unnecessary_await_in_return
+    # cspell:ignore interps
     - unnecessary_brace_in_string_interps
     - unnecessary_const
     - unnecessary_getters_setters

@@ -4,7 +4,8 @@
     "cspell.json",
     "pubspec.yaml",
     "pubspec.lock",
-    ".gitignore"
+    ".gitignore",
+    "example/macos/**"
   ],
   "words": [
     "aarrggbb",
@@ -13,6 +14,7 @@
     "Jsons",
     "mocktail",
     "sublist",
+    "unawaited",
     "unimported",
     "vignal",
     "wakatime",
