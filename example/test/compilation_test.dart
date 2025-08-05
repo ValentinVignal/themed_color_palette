@@ -1,6 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-
-import './test.theme.g.dart';
+import 'package:example_themed_color_palette/theme.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('It should compile the generated file', () {

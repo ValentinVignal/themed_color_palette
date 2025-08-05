@@ -2,9 +2,9 @@ import 'dart:convert' as dart_convert;
 
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:themed_color_palette/src/themed_color_palette.dart';
-import 'package:themed_color_palette/src/utils/dart_define_context.dart';
-import 'package:themed_color_palette/src/utils/globals.dart';
+import 'package:themed_color_palette/src/utils/utils.dart';
 import 'package:yaml/yaml.dart';
 
 /// Themed color palette.
@@ -36,12 +36,16 @@ class ThemedColorPaletteBuilder implements Builder {
 
     final buffer = StringBuffer()
       ..writeln('// ! GENERATED CODE - DO NOT MANUALLY EDIT')
+      ..writeln('// ignore_for_file: type=lint')
+      ..writeln('// dart format off')
       ..writeln()
       ..writeln(
           "part of '${inputId.changeExtension('').changeExtension('.dart').pathSegments.last}';")
       ..writeln()
       ..write(colorPalette.dartDefine(const DartDefineContext()));
-    final formatted = DartFormatter().format(buffer.toString());
+    final formatted = DartFormatter(
+      languageVersion: Version(3, 6, 0),
+    ).format(buffer.toString());
     // Write out the new asset
     await buildStep.writeAsString(copyAssetId, formatted);
 

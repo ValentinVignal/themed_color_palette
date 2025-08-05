@@ -83,7 +83,6 @@ abstract class Value {
       case ValueType.brightness:
         return Brightness.fromJson(brightness: value, path: path, theme: theme);
       case ValueType.color:
-      default:
         return Color.fromJson(color: value, path: path, theme: theme);
     }
   }

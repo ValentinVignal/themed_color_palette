@@ -1,4 +1,6 @@
 // ! GENERATED CODE - DO NOT MANUALLY EDIT
+// ignore_for_file: type=lint
+// dart format off
 
 part of 'theme.dart';
 

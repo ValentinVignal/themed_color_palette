@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:build/build.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
 import 'package:themed_color_palette/themed_color_palette.dart';
 
 // ignore: subtype_of_sealed_class
@@ -13,11 +13,12 @@ void main() {
     registerFallbackValue(AssetId('package', 'path'));
   });
   test('It should generate test.theme.g.dart', () async {
-    final yamlContent = await File('test/e2e/test.theme.yaml').readAsString();
+    final yamlContent =
+        await File('example/lib/theme.theme.yaml').readAsString();
     final buildStep = _MockBuildStep();
 
     final builder = ThemedColorPaletteBuilder();
-    final assetId = AssetId('package', 'path');
+    final assetId = AssetId('package', 'theme');
     when(() => buildStep.inputId).thenReturn(assetId);
     when(() => buildStep.readAsString(any())).thenAnswer(
       (_) async => yamlContent,
@@ -33,12 +34,9 @@ void main() {
         .first as String;
 
     final generatedContent = await File(
-      'test/e2e/test.theme.g.dart',
+      'example/lib/theme.theme.g.dart',
     ).readAsString();
 
-    expect(
-      generated.split('\n').skip(3).join('\n'),
-      generatedContent.split('\n').skip(1).join('\n'),
-    );
+    expect(generated, generatedContent);
   });
 }

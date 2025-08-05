@@ -35,7 +35,6 @@ extension BrightnessEnumExtension on BrightnessEnum {
       case BrightnessEnum.dark:
         return 'dark';
       case BrightnessEnum.light:
-      default:
         return 'light';
     }
   }
