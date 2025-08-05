@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:themed_color_palette/src/themed_color_palette.dart';
 import 'package:themed_color_palette/src/utils/utils.dart';
 
@@ -57,10 +57,13 @@ void main() {
         'platform2',
       ]);
       final themedJsonToDart = _TestThemedJsonToDart(
-        json: {},
+        json: const {},
         context: BuildContext(
-          names: ['parentNames'],
-          platforms: ['platform0', 'platform1'], // platform2 is not included.
+          names: const ['parentNames'],
+          platforms: const [
+            'platform0',
+            'platform1'
+          ], // platform2 is not included.
         ),
       );
 

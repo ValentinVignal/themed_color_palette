@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:themed_color_palette/src/themed_color_palette.dart';
 import 'package:themed_color_palette/src/utils/theme.dart';
 import 'package:themed_color_palette/src/utils/utils.dart';
@@ -11,14 +11,14 @@ void main() {
         ThemeDefinition(name: 'dark')
       ]);
       final themedValue = ThemedValue(
-        json: {
+        json: const {
           '.type': 'double',
           '.toIgnore': 'ignoredValue',
           '.description': 'description',
           'light': 2,
           'dark': 3,
         },
-        context: BuildContext(names: ['name1', 'name2']),
+        context: BuildContext(names: const ['name1', 'name2']),
       );
 
       expect(themedValue.type, ValueType.doubleNumber);

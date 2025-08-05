@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:themed_color_palette/src/themed_color_palette.dart';
 import 'package:themed_color_palette/src/utils/utils.dart';
 
@@ -7,13 +7,13 @@ void main() {
   test(
     'When the children does not have any platforms specified, it should take the same ones as the parents',
     () {
-      Themes.platforms.addAll([
+      Themes.platforms.addAll(const [
         'platform0',
         'platform1',
         'platform2',
       ]);
       final parent = ThemedCollection.fromJson(
-        json: {
+        json: const {
           '.platforms': [
             'platform0',
             'platform1',
@@ -21,8 +21,8 @@ void main() {
           'child': <String, dynamic>{}
         },
         context: BuildContext(
-          names: ['parentName'],
-          platforms: [
+          names: const ['parentName'],
+          platforms: const [
             'platform0',
             'platform1',
             'platform2',
@@ -31,13 +31,13 @@ void main() {
       );
       expect(
         parent.context.platforms,
-        orderedEquals(['platform0', 'platform1']),
+        orderedEquals(const ['platform0', 'platform1']),
         reason:
             'The constructed collection should only contain the platforms that were specified',
       );
       expect(
         parent.collections.first.context.platforms,
-        orderedEquals(['platform0', 'platform1']),
+        orderedEquals(const ['platform0', 'platform1']),
         reason:
             'The child collection should only contain the platforms that were specified in its parent',
       );
