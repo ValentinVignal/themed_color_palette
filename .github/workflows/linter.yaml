@@ -1,6 +1,10 @@
 name: Tests
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   analyze:
@@ -8,10 +12,12 @@ jobs:
     name: Code Analyze
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up Flutter
         # cSpell:ignore subosito
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
       - run: flutter pub get
+      - run: dart analyze
+
       - name: Analyze dart code
-        uses: ValentinVignal/action-dart-analyze@v0.12
+        uses: ValentinVignal/action-dart-analyze@v1.1
