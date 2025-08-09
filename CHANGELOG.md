@@ -1,4 +1,4 @@
-## NEXT
+## [1.0.0] 09/08/2024
 
 - **BREAKING CHANGE**: `platform` is not longer supported. Create different color palettes from different files instead.
 - Add `lerp`.

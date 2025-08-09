@@ -2,7 +2,7 @@ name: themed_color_palette
 description: A code generator to create a themed color palette from a yaml file.
 repository: https://github.com/ValentinVignal/theme_color_palette
 issue_tracker: https://github.com/ValentinVignal/theme_color_palette/issues
-version: 0.4.2
+version: 1.0.0
 dependencies:
   build: ^3.0.0
   dart_style: ^3.1.1
