@@ -26,4 +26,9 @@ class Bool extends Value {
   String get dartConstructor {
     return value.toString();
   }
+
+  @override
+  String lerp({required String value, required String other}) {
+    return 't < 0.5 ? $value : $other';
+  }
 }

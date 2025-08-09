@@ -88,4 +88,9 @@ class Brightness extends Value {
     required String value,
   }) =>
       '$value.name';
+
+  @override
+  String lerp({required String value, required String other}) {
+    return 't < 0.5 ? $value : $other';
+  }
 }

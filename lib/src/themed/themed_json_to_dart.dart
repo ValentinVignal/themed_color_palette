@@ -37,303 +37,299 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// }
   /// ```
   String dartDefine(DartDefineContext dartDefineContext) {
-    final buffer = StringBuffer();
-    for (final platform in <String>['', ...context.platforms]) {
-      final isAllPlatformGenericClass = platform.isEmpty;
-
+    final buffer = StringBuffer()
+      ..writeLine(
+        0,
+        '// -------------------- $className --------------------',
+      )
+      ..writeln()
+      ..writeLine(0, comment);
+    if (isPrivate) {
       buffer
-        ..writeLine(
-          0,
-          '// -------------------- ${classNameWithPlatform(platform: platform)} --------------------',
-        )
-        ..writeln()
-        ..writeLine(0, comment);
-      if (isPrivate) {
-        buffer
-          ..writeLine(0, '///')
-          ..writeLine(0, privacyComment);
-      }
+        ..writeLine(0, '///')
+        ..writeLine(0, privacyComment);
+    }
 
-      if (isDeprecated) {
-        buffer.writeLine(0, '@Deprecated(\'$deprecationMessage\')');
-      }
-      var classLine = 'class ${classNameWithPlatform(platform: platform)}';
-      if (!isAllPlatformGenericClass) {
-        classLine += ' implements $className';
-      }
-      classLine += ' {';
-      buffer
-        ..writeLine(0, classLine)
+    if (isDeprecated) {
+      buffer.writeLine(0, '@Deprecated(\'$deprecationMessage\')');
+    }
+    buffer
+      ..writeLine(0, 'class $className extends ThemeExtension<$className> {')
 
-        /// Unnamed constructor
-        ..writeLine(1, comment);
+      // Unnamed constructor
+      ..writeLine(1, comment);
 
-      final platformValues = values.where(
-        (value) => value.context.includesPlatform(platform),
-      );
-      if (platformValues.isEmpty) {
-        buffer.writeLine(
-          1,
-          'const ${classNameWithPlatform(platform: platform)}();',
-        );
-      } else {
-        buffer.writeLine(
-          1,
-          'const ${classNameWithPlatform(platform: platform)}({',
-        );
-        for (final value in platformValues) {
-          if (value.isPrivate) {
-            buffer.writeLine(
-              2,
-              'required ${value.classNameWithPlatform(platform: platform)} ${value.context.name},',
-            );
-          } else {
-            buffer.writeLine(2, 'required this.${value.instanceName},');
-          }
-        }
-        if (platformValues.any((value) => value.isPrivate)) {
-          buffer.writeLine(1, '}):');
-          final privateValues = values.where(
-            (value) =>
-                value.isPrivate && value.context.includesPlatform(platform),
-          );
-          for (final entry in privateValues.toList().asMap().entries) {
-            final initializer =
-                '${entry.value.instanceName} = ${entry.value.context.name.firstLowerCase}' +
-                    (entry.key == privateValues.length - 1 ? ';' : ',');
-            buffer.writeLine(2, initializer);
-          }
-        } else {
-          buffer.writeLine(1, '});');
-        }
-      }
-
-      // Themed constructor.
-      for (final theme in Themes.themes) {
-        buffer.writeln();
-        final initializers = platformValues.map((value) {
-          return '${value.instanceName} = ${value.dartConstructor(theme: theme.name, platform: platform)}';
-        });
-
-        buffer.writeLine(1, comment);
-        if (initializers.isEmpty) {
-          buffer.writeLine(
-            1,
-            [
-              dartConstructor(theme: theme.name, platform: platform),
-              if (initializers.isNotEmpty) ': ',
-              initializers.join(', '),
-              ';',
-            ].join(),
-          );
-        } else {
-          buffer.writeLine(
-            1,
-            dartConstructor(theme: theme.name, platform: platform) + ':',
-          );
-          for (final entry in initializers.toList().asMap().entries) {
-            final initializer = entry.value +
-                (entry.key == initializers.length - 1 ? ';' : ',');
-            buffer.writeLine(2, initializer);
-          }
-        }
-      }
-
-      // fromJson constructor
-      buffer
-        ..writeln()
-        ..writeLine(1, '/// From json.');
-      final fromJsonConstructorLine = '${classNameWithPlatform(
-        platform: platform,
-      )}.fromJson(Map<String, dynamic> json)';
-      if (platformValues.isEmpty) {
-        buffer.writeLine(1, '$fromJsonConstructorLine;');
-      } else {
-        buffer.writeLine(1, '$fromJsonConstructorLine:');
-        for (final entry in platformValues.toList().asMap().entries) {
-          final endLine = entry.key == platformValues.length - 1 ? ';' : ',';
-          final value = entry.value;
-          final jsonValue = 'json[\'${value.context.name}\']';
-          buffer.writeLine(
-            2,
-            '${value.instanceName} = ${value.fromJsonString(value: jsonValue, platform: platform)}$endLine',
-          );
-        }
-      }
-
-      // fromYamlJson constructor
-      buffer
-        ..writeln()
-        ..writeLine(1, '/// From yaml.');
-
-      final fromYamlConstructorLine = '${classNameWithPlatform(
-        platform: platform,
-      )}.fromYaml(Map<String, dynamic> yaml)';
-      if (platformValues.isEmpty) {
-        buffer.writeLine(1, '$fromYamlConstructorLine;');
-      } else {
-        buffer.writeLine(1, '$fromYamlConstructorLine:');
-        for (final entry in platformValues.toList().asMap().entries) {
-          final endLine = entry.key == platformValues.length - 1 ? ';' : ',';
-          final value = entry.value;
-          final yamlValue = 'yaml[\'${value.context.name}\']';
-          buffer.writeLine(
-            2,
-            '${value.instanceName} = ${value.fromYamlString(value: yamlValue, platform: platform)}$endLine',
-          );
-        }
-      }
-
-      if (dartDefineContext.body != null) {
-        buffer.write(dartDefineContext.body!(platform: platform));
-      }
-
-      // Themed attributes
-      for (final value in platformValues) {
-        buffer
-          ..writeln()
-          ..writeLine(1, value.comment);
-        if (value.isPrivate) {
-          buffer
-            ..writeLine(1, '///')
-            ..writeLine(1, value.privacyComment);
-        }
-        if (value.isDeprecated) {
-          buffer.writeLine(1, '@Deprecated(\'${value.deprecationMessage}\')');
-        }
-        if (!isAllPlatformGenericClass && value.context.includesPlatform('')) {
-          buffer.writeLine(1, '@override');
-        }
-        buffer.writeLine(1, value.dartParameter(platform: platform));
-      }
-
-      // Copy with
-      buffer.writeln();
-      if (!isAllPlatformGenericClass) {
-        buffer.writeLine(1, '@override');
-      } else {
-        buffer.writeLine(1, '/// Copy with.');
-      }
-
+    if (values.isEmpty) {
       buffer.writeLine(
         1,
-        '${classNameWithPlatform(platform: platform)} copyWith(${platformValues.isEmpty ? ')' : ''}{',
+        'const $className();',
       );
-      if (platformValues.isNotEmpty) {
-        for (final value in platformValues) {
-          if (value.isDeprecated) {
-            buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
-          }
+    } else {
+      buffer.writeLine(
+        1,
+        'const $className({',
+      );
+      for (final value in values) {
+        if (value.isPrivate) {
           buffer.writeLine(
             2,
-            '${value.classNameWithPlatform(platform: platform, withCovariant: true)}? ${value.context.name},',
+            'required ${value.className} ${value.context.name},',
           );
+        } else {
+          buffer.writeLine(2, 'required this.${value.instanceName},');
         }
-        buffer.writeLine(1, '}) {');
       }
-      buffer.writeLine(
-        2,
-        'return ${classNameWithPlatform(platform: platform)}(',
-      );
-      for (final value in platformValues) {
+      if (values.any((value) => value.isPrivate)) {
+        buffer.writeLine(1, '}):');
+        final privateValues = values.where(
+          (value) => value.isPrivate,
+        );
+        for (final entry in privateValues.toList().asMap().entries) {
+          final initializer =
+              '${entry.value.instanceName} = ${entry.value.context.name.firstLowerCase}' +
+                  (entry.key == privateValues.length - 1 ? ';' : ',');
+          buffer.writeLine(2, initializer);
+        }
+      } else {
+        buffer.writeLine(1, '});');
+      }
+    }
+
+    // Themed constructor.
+    for (final theme in Themes.themes) {
+      buffer.writeln();
+      final initializers = values.map((value) {
+        return '${value.instanceName} = ${value.dartConstructor(theme: theme.name)}';
+      });
+
+      buffer.writeLine(1, comment);
+      if (initializers.isEmpty) {
         buffer.writeLine(
-          3,
-          '${value.context.name}: ${value.context.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},',
+          1,
+          [
+            dartConstructor(theme: theme.name),
+            if (initializers.isNotEmpty) ': ',
+            initializers.join(', '),
+            ';',
+          ].join(),
+        );
+      } else {
+        buffer.writeLine(
+          1,
+          dartConstructor(theme: theme.name) + ':',
+        );
+        for (final entry in initializers.toList().asMap().entries) {
+          final initializer =
+              entry.value + (entry.key == initializers.length - 1 ? ';' : ',');
+          buffer.writeLine(2, initializer);
+        }
+      }
+    }
+
+    // fromJson constructor
+    buffer
+      ..writeln()
+      ..writeLine(1, '/// From json.');
+    final fromJsonConstructorLine =
+        '$className.fromJson(Map<String, dynamic> json)';
+    if (values.isEmpty) {
+      buffer.writeLine(1, '$fromJsonConstructorLine;');
+    } else {
+      buffer.writeLine(1, '$fromJsonConstructorLine:');
+      for (final entry in values.toList().asMap().entries) {
+        final endLine = entry.key == values.length - 1 ? ';' : ',';
+        final value = entry.value;
+        final jsonValue = 'json[\'${value.context.name}\']';
+        buffer.writeLine(
+          2,
+          '${value.instanceName} = ${value.fromJsonString(value: jsonValue)}$endLine',
         );
       }
+    }
 
-      buffer
-        ..writeLine(2, ');')
-        ..writeLine(1, '}')
+    // fromYamlJson constructor
+    buffer
+      ..writeln()
+      ..writeLine(1, '/// From yaml.');
 
-        // copyWithJson
-        ..writeln();
-      if (!isAllPlatformGenericClass) {
-        buffer.writeLine(1, '@override');
-      } else {
-        buffer.writeLine(1, '/// Copy with json.');
+    final fromYamlConstructorLine =
+        '$className.fromYaml(Map<String, dynamic> yaml)';
+    if (values.isEmpty) {
+      buffer.writeLine(1, '$fromYamlConstructorLine;');
+    } else {
+      buffer.writeLine(1, '$fromYamlConstructorLine:');
+      for (final entry in values.toList().asMap().entries) {
+        final endLine = entry.key == values.length - 1 ? ';' : ',';
+        final value = entry.value;
+        final yamlValue = 'yaml[\'${value.context.name}\']';
+        buffer.writeLine(
+          2,
+          '${value.instanceName} = ${value.fromYamlString(value: yamlValue)}$endLine',
+        );
       }
-      buffer.write('''
-  ${classNameWithPlatform(platform: platform)} copyWithJson([Map<String, dynamic>? json]) {
+    }
+
+    if (dartDefineContext.body != null) {
+      buffer.write(dartDefineContext.body!());
+    }
+
+    // Themed attributes
+    for (final value in values) {
+      buffer
+        ..writeln()
+        ..writeLine(1, value.comment);
+      if (value.isPrivate) {
+        buffer
+          ..writeLine(1, '///')
+          ..writeLine(1, value.privacyComment);
+      }
+      if (value.isDeprecated) {
+        buffer.writeLine(1, '@Deprecated(\'${value.deprecationMessage}\')');
+      }
+      buffer.writeLine(1, value.dartParameter());
+    }
+
+    // Copy with
+    buffer
+      ..writeln()
+      ..writeLine(1, '@override')
+      ..writeLine(
+        1,
+        '$className copyWith(${values.isEmpty ? ')' : ''}{',
+      );
+    if (values.isNotEmpty) {
+      for (final value in values) {
+        if (value.isDeprecated) {
+          buffer.writeLine(2, '@Deprecated(\'${value.deprecationMessage}\')');
+        }
+        buffer.writeLine(
+          2,
+          'covariant ${value.className}? ${value.context.name},',
+        );
+      }
+      buffer.writeLine(1, '}) {');
+    }
+    buffer.writeLine(
+      2,
+      'return $className(',
+    );
+    for (final value in values) {
+      buffer.writeLine(
+        3,
+        '${value.context.name}: ${value.context.name} ?? ${value.isPrivate ? '' : 'this.'}${value.instanceName},',
+      );
+    }
+
+    buffer
+      ..writeLine(2, ');')
+      ..writeLine(1, '}')
+
+      // copyWithJson
+      ..writeln()
+      ..writeLine(1, '/// Copy with json.')
+      ..write('''
+  $className copyWithJson([Map<String, dynamic>? json]) {
     if (json == null || json.isEmpty) {
       return this;
     }
     return copyWith(
 ''');
-      for (final value in platformValues) {
-        buffer.writeLine(
-          3,
-          '${value.context.name}: ${value.copyWithJsonString(value: 'json[\'${value.context.name}\']', platform: platform)},',
-        );
-      }
+    for (final value in values) {
+      buffer.writeLine(
+        3,
+        '${value.context.name}: ${value.copyWithJsonString(value: 'json[\'${value.context.name}\']')},',
+      );
+    }
 
-      buffer
-        ..writeLine(2, ');')
-        ..writeLine(1, '}')
+    buffer
+      ..writeLine(2, ');')
+      ..writeLine(1, '}')
 
-        // copyWithYaml
-        ..writeln();
-      if (!isAllPlatformGenericClass) {
-        buffer.writeLine(1, '@override');
-      } else {
-        buffer.writeLine(1, '/// Copy with yaml.');
-      }
-      buffer.write('''
-  ${classNameWithPlatform(platform: platform)} copyWithYaml([Map<String, dynamic>? yaml]) {
+      // copyWithYaml
+      ..writeln()
+      ..writeLine(1, '/// Copy with yaml.')
+      ..write('''
+  $className copyWithYaml([Map<String, dynamic>? yaml]) {
     if (yaml == null || yaml.isEmpty) {
       return this;
     }
     return copyWith(
 ''');
-      for (final value in platformValues) {
-        buffer.writeLine(
-          3,
-          '${value.context.name}: ${value.copyWithYamlString(value: 'yaml[\'${value.context.name}\']', platform: platform)},',
-        );
-      }
-      buffer
-        ..writeLine(2, ');')
-        ..writeLine(1, '}')
-
-        // toJson
-        ..writeln();
-      if (!isAllPlatformGenericClass) {
-        buffer.writeLine(1, '@override');
-      } else {
-        buffer.writeLine(1, '/// To json.');
-      }
-      buffer.writeLine(1, 'Map<String, dynamic> toJson() => {');
-      for (final value in platformValues) {
-        buffer.writeLine(
-          2,
-          '\'${value.context.name}\': ${value.toJsonString()},',
-        );
-      }
-      buffer
-        ..writeLine(1, '};')
-
-        // To yaml
-        ..writeln();
-      if (!isAllPlatformGenericClass) {
-        buffer.writeLine(1, '@override');
-      } else {
-        buffer.writeLine(1, '/// To yaml.');
-      }
-      buffer.writeLine(1, 'Map<String, dynamic> toYaml() => {');
-      for (final value in platformValues) {
-        buffer.writeLine(
-          2,
-          '\'${value.context.name}\': ${value.toYamlString()},',
-        );
-      }
-      buffer
-        ..writeLine(1, '};')
-
-        // Ends the class
-        ..writeLine(0, '}')
-        ..writeln()
-        ..writeln();
+    for (final value in values) {
+      buffer.writeLine(
+        3,
+        '${value.context.name}: ${value.copyWithYamlString(value: 'yaml[\'${value.context.name}\']')},',
+      );
     }
+    buffer
+      ..writeLine(2, ');')
+      ..writeLine(1, '}')
+
+      // toJson
+      ..writeln()
+      ..writeLine(1, '/// To json.')
+      ..writeLine(1, 'Map<String, dynamic> toJson() => {');
+    for (final value in values) {
+      buffer.writeLine(
+        2,
+        '\'${value.context.name}\': ${value.toJsonString()},',
+      );
+    }
+    buffer
+      ..writeLine(1, '};')
+
+      // To yaml
+      ..writeln()
+      ..writeLine(1, '/// To yaml.')
+      ..writeLine(1, 'Map<String, dynamic> toYaml() => {');
+    for (final value in values) {
+      buffer.writeLine(
+        2,
+        '\'${value.context.name}\': ${value.toYamlString()},',
+      );
+    }
+    buffer
+      ..writeLine(1, '};')
+
+      // lerp
+      ..writeln()
+      ..writeLine(1, '@override')
+      ..writeLine(1, '$className lerp($className other, double t) {')
+      ..writeLine(2, 'return $className(');
+
+    for (final value in values) {
+      buffer.writeLine(
+        3,
+        '${value.context.name}: ${value.lerp(value: 'this.${value.instanceName}', other: 'other.${value.instanceName}')},',
+      );
+    }
+
+    buffer
+      ..writeLine(2, ');')
+      ..writeLine(1, '}')
+
+      // Operator ==
+
+      ..writeln()
+      ..writeLine(1, '@override')
+      ..writeLine(1, 'bool operator ==(Object other) {')
+      ..writeLine(2, 'if (identical(this, other)) return true;')
+      ..writeLine(2, 'return other is $className')
+      ..writeLine(3, '&& other.runtimeType == runtimeType');
+    for (final value in values) {
+      buffer.writeLine(
+        3,
+        '&& other.${value.instanceName} == ${value.instanceName}',
+      );
+    }
+    buffer
+      ..writeLine(2, ';')
+      ..writeLine(1, '}')
+
+      // Ends the class
+      ..writeLine(0, '}')
+      ..writeln()
+      ..writeln();
 
     // Instance the used values
     for (final value in values) {
@@ -345,23 +341,23 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// ```dart
   /// const ParentName1$ParentName2$ObjectName.theme()
   /// ```
-  String dartConstructor({required String theme, required String platform}) {
-    return 'const ${classNameWithPlatform(platform: platform)}.${theme.firstLowerCase}()';
+  String dartConstructor({required String theme}) {
+    return 'const $className.${theme.firstLowerCase}()';
   }
 
   /// ```dart
   /// objectName = const ParentName1$ParentName2$ObjectName.theme()
   /// ```
-  String dartInstance({required String theme, required String platform}) {
-    return '$instanceName = ${dartConstructor(theme: theme, platform: platform)}';
+  String dartInstance({required String theme}) {
+    return '$instanceName = ${dartConstructor(theme: theme)}';
   }
 
   /// ```dart
   /// final ParentName1$ParentName2$ObjectName objectName;
   /// ```
   @override
-  String dartParameter({required String platform}) {
-    return 'final ${classNameWithPlatform(platform: platform)} $instanceName;';
+  String dartParameter() {
+    return 'final $className $instanceName;';
   }
 
   /// Override this getter to return the parameters
@@ -380,7 +376,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// ```
   ///
   /// This method should return the string that handles this value.
-  String fromJsonString({required String value, required String platform});
+  String fromJsonString({required String value});
 
   /// Copy with json string method.
   ///
@@ -390,7 +386,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// ```
   ///
   /// This method should return the string that handles this value.
-  String copyWithJsonString({required String value, required String platform});
+  String copyWithJsonString({required String value});
 
   /// From yaml string method.
   ///
@@ -400,7 +396,7 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// ```
   ///
   /// This method should return the string that handles this value.
-  String fromYamlString({required String value, required String platform});
+  String fromYamlString({required String value});
 
   /// Copy with yaml string method.
   ///
@@ -410,8 +406,42 @@ abstract class ThemedJsonToDart extends JsonToDart {
   /// ```
   ///
   /// This method should return the string that handles this value.
-  String copyWithYamlString({required String value, required String platform});
+  String copyWithYamlString({required String value});
 
   /// To yaml string method.
   String toYamlString();
+
+  /// Return the lerp method for the object.
+  ///
+  /// `value` is the name of the variable of the current object.
+  /// `other` is the name of the variable of the other object to lerp with.
+  ///
+  /// `double t` is assumed to be an available parameter.
+  ///
+  /// ```dart
+  /// value.lerp(other, t),
+  /// ```
+  ///
+  /// or
+  ///
+  /// ```dart
+  /// Color.lerp(value, other, t),
+  /// ```
+  String lerp({
+    required String value,
+    required String other,
+  });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    return other is ThemedJsonToDart && other.className == className;
+  }
+
+  @override
+  int get hashCode => className.hashCode;
+
+  @override
+  String toString() => 'ThemedJsonToDart(className: $className)';
 }

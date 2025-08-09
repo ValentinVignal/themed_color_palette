@@ -11,15 +11,12 @@ abstract class JsonToDart {
   /// Get the common parameters.
   JsonToDart({
     required Map<String, dynamic> json,
-    required BuildContext context,
+    required this.context,
   })  : description = json['.description'] as String? ?? '',
         // Those are not unnecessary parenthesis.
         // If we remove them, the linter take `?` from `String?` as a conditional operator
         flutterValue = json['.flutter'] as String? ?? '',
-        deprecationMessage = json['.deprecated'] as String? ?? '',
-        context = context.extendsWith(
-          platforms: List<String>.from(json['.platforms'] as List? ?? []),
-        );
+        deprecationMessage = json['.deprecated'] as String? ?? '';
 
   /// The context of the current object from its parents.
   final BuildContext context;
@@ -37,20 +34,6 @@ abstract class JsonToDart {
 
   /// The class name of the object.
   String get className;
-
-  /// ```dart
-  /// ParentName1$ParentName2$ObjectName_web
-  /// ```
-  String classNameWithPlatform(
-      {required String platform, bool withCovariant = false}) {
-    final platformSuffix = platform.isEmpty ? '' : '$platformDivider$platform';
-    final covariantString = withCovariant &&
-            context.includesPlatform('') &&
-            Themes.platforms.isNotEmpty
-        ? 'covariant '
-        : '';
-    return covariantString + className + platformSuffix;
-  }
 
   /// ```dart
   /// 'objectName';
@@ -85,7 +68,7 @@ abstract class JsonToDart {
   // *  ---------- static ----------
 
   /// The string defined in the body of the class of the parent object.
-  String dartParameter({required String platform}) {
-    return 'final ${classNameWithPlatform(platform: platform)} $instanceName;';
+  String dartParameter() {
+    return 'final $className $instanceName;';
   }
 }

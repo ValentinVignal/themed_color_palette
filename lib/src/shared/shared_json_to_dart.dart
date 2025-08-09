@@ -26,5 +26,5 @@ abstract class SharedJsonToDart extends JsonToDart {
   List<SharedJsonToDart> get constants => [];
 
   @override
-  String dartParameter({required String platform});
+  String dartParameter();
 }

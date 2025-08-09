@@ -4,9 +4,6 @@ import 'package:themed_color_palette/src/utils/theme.dart';
 /// Divider for class names.
 const divider = r'$';
 
-/// Divider for the class name with the platform.
-const platformDivider = '_';
-
 /// Themes.
 mixin Themes {
   /// The list of themes.
@@ -16,9 +13,6 @@ mixin Themes {
 
   /// The default theme is the first one in the list of themes.
   static String get defaultTheme => themes.first.name;
-
-  /// The different supported platforms.
-  static final List<String> platforms = [];
 }
 
 /// All the values.

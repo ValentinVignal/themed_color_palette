@@ -26,4 +26,9 @@ class Double extends Value {
   String get dartConstructor {
     return value.toString();
   }
+
+  @override
+  String lerp({required String value, required String other}) {
+    return 'lerpDouble($value, $other, t)!';
+  }
 }

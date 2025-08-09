@@ -126,4 +126,10 @@ abstract class Value {
   }) {
     return value;
   }
+
+  /// The lerp method to override.
+  String lerp({
+    required String value,
+    required String other,
+  });
 }

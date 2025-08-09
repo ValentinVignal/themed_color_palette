@@ -54,7 +54,7 @@ class ThemedValue extends ThemedJsonToDart {
   String get className => themedValues.values.first.className;
 
   @override
-  String dartConstructor({required String theme, required String platform}) {
+  String dartConstructor({required String theme}) {
     return themedValues[theme]!.dartConstructor;
   }
 
@@ -67,24 +67,14 @@ class ThemedValue extends ThemedJsonToDart {
   @override
   String fromJsonString({
     required String value,
-    required String platform,
   }) =>
       '$value as $className';
 
   @override
   String copyWithJsonString({
     required String value,
-    required String platform,
   }) =>
       '$value as $className?';
-
-  @override
-  String classNameWithPlatform({
-    required String platform,
-    bool withCovariant = false,
-  }) {
-    return className;
-  }
 
   String _castFromYamlString({required String value, required bool nullable}) {
     return themedValues.values.first
@@ -94,18 +84,21 @@ class ThemedValue extends ThemedJsonToDart {
   @override
   String fromYamlString({
     required String value,
-    required String platform,
   }) =>
       _castFromYamlString(value: value, nullable: false);
 
   @override
   String copyWithYamlString({
     required String value,
-    required String platform,
   }) =>
       _castFromYamlString(value: value, nullable: true);
 
   @override
   String toYamlString() =>
       themedValues.values.first.castToYamlString(value: instanceName);
+
+  @override
+  String lerp({required String value, required String other}) {
+    return themedValues.values.first.lerp(value: value, other: other);
+  }
 }

@@ -58,10 +58,6 @@
   - dark
   - darkCopy:
       import: dark
-.platforms:
-  # Those are themes not handle by the generator.
-  - mobile
-  - web
 .name: themeColorPalette
 .description: The Theme Color Palette
 .shared:
@@ -72,8 +68,6 @@
     .type: double
     .value: 4
   defaultPadding:
-    .platforms:
-      - web
     .description: Default padding
     .type: double
     .value: 16
@@ -99,8 +93,6 @@
       .type: double
       .value: 0.04
   elevation:
-    .platforms:
-      - mobile
     high:
       .description: High elevation
       .type: double
@@ -208,8 +200,6 @@
         withOpacity:
           import: .shared.opacity.disabled
     reversedMobile:
-      .platforms:
-        - mobile
       .description: Reversed text emphasis
       high:
         .description: Reversed high emphasis
@@ -238,8 +228,6 @@
           withOpacity:
             import: .shared.opacity.disabled
     reversedWeb:
-      .platforms:
-        - web
       .description: Reversed text emphasis
       high:
         .description: Reversed high emphasis

@@ -4,7 +4,7 @@ repository: https://github.com/ValentinVignal/theme_color_palette
 issue_tracker: https://github.com/ValentinVignal/theme_color_palette/issues
 version: 0.4.2
 dependencies:
-  build: ^2.5.4
+  build: ^3.0.0
   dart_style: ^3.1.1
   pub_semver: ^2.2.0
   yaml: ^3.1.3

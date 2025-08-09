@@ -29,7 +29,6 @@ class ColorPalette extends ThemedJsonToDart {
     // Themes.
     _addThemes(json['.themes'] as List);
     BaseName.colorPalette = (json['.name'] as String).firstUpperCase;
-    _addPlatforms(List<String>.from(json['.platforms'] as List? ?? const []));
     return ColorPalette._fromJson(json: json);
   }
 
@@ -40,8 +39,6 @@ class ColorPalette extends ThemedJsonToDart {
           json: json,
           context: BuildContext(
             names: [json['.name'] as String],
-            platforms:
-                List<String>.from(json['.platforms'] as List? ?? const []),
           ),
         ) {
     // Check the themes have valid names (camelCase)
@@ -52,7 +49,6 @@ class ColorPalette extends ThemedJsonToDart {
             json: entry.value as Map<String, dynamic>,
             context: BuildContext(
               names: [entry.key as String],
-              platforms: Themes.platforms,
             ),
           ),
         )
@@ -64,7 +60,6 @@ class ColorPalette extends ThemedJsonToDart {
             json: entry.value as Map<String, dynamic>,
             context: context.copyWith(
               names: [entry.key as String],
-              platforms: Themes.platforms,
             ),
           ),
         )
@@ -93,17 +88,6 @@ class ColorPalette extends ThemedJsonToDart {
     }
   }
 
-  static void _addPlatforms(List<String> platforms) {
-    // Add it to the global variable.
-    Themes.platforms.addAll(platforms);
-    // Check the names.
-    for (final platform in platforms) {
-      if (!camelCaseRegExp.hasMatch(platform)) {
-        errors.add('Platform "$platform" is not in camelCase');
-      }
-    }
-  }
-
   /// List of collections (themed).
   final List<ThemedJsonToDart> collections = [];
 
@@ -123,17 +107,15 @@ class ColorPalette extends ThemedJsonToDart {
   String get className => context.className;
 
   /// The `body` callback to five to the [DartDefineContext].
-  String body({required String platform}) {
+  String body() {
     final superContextBodyBuffer = StringBuffer();
 
     // Shared attributes
     if (constants.isNotEmpty) {
-      for (final value in constants.where(
-        (value) => value.context.includesPlatform(platform),
-      )) {
+      for (final value in constants) {
         superContextBodyBuffer
           ..writeln()
-          ..write(value.dartParameter(platform: ''));
+          ..write(value.dartParameter());
       }
     }
     return superContextBodyBuffer.toString();
@@ -165,33 +147,22 @@ class ColorPalette extends ThemedJsonToDart {
       // Extension on the enum
       ..writeLine(0, '/// Extension on [Themes].')
       ..writeLine(0, 'extension ThemesExtension on Themes {');
-    for (final platform in ['', ...Themes.platforms]) {
-      final platformWithSpace = platform.isNotEmpty ? ' $platform' : '';
-      final extensionGetterBody = StringBuffer();
-      for (final theme in Themes.themes.sublist(1)) {
-        extensionGetterBody
-          ..writeLine(3, 'case Themes.${theme.name.firstLowerCase}:')
-          ..writeLine(4,
-              'return ${dartConstructor(theme: theme.name, platform: platform)};');
-      }
+    final extensionGetterBody = StringBuffer();
+    for (final theme in Themes.themes) {
       extensionGetterBody
-        ..writeLine(3, 'case Themes.${Themes.defaultTheme.firstLowerCase}:')
-        ..writeLine(3, 'default:')
-        ..write(
-          '  ' * 4 +
-              'return ${dartConstructor(theme: Themes.defaultTheme, platform: platform)};',
-        );
-      buffer.write('''
+        ..writeLine(3, 'case Themes.${theme.name.firstLowerCase}:')
+        ..writeLine(4, 'return ${dartConstructor(theme: theme.name)};');
+    }
+    buffer
+      ..write('''
 
-  /// Returns the$platformWithSpace theme color palette.
-  ${classNameWithPlatform(platform: platform)} get colorPalette${platform.firstUpperCase} {
+  /// Returns the theme color palette.
+  $className get colorPalette {
     switch (this) {
 $extensionGetterBody
     }
   }
-''');
-    }
-    buffer
+''')
       ..writeLine(0, '}')
       ..writeln()
       ..write(valueExtensions)
@@ -210,31 +181,32 @@ $extensionGetterBody
   @override
   String fromJsonString({
     required String value,
-    required String platform,
   }) =>
       throw Exception('This should not have been called');
 
   @override
   String copyWithJsonString({
     required String value,
-    required String platform,
   }) =>
       throw Exception('This should not have been called');
 
   @override
   String fromYamlString({
     required String value,
-    required String platform,
   }) =>
       throw Exception('This should not have been called');
 
   @override
   String copyWithYamlString({
     required String value,
-    required String platform,
   }) =>
       throw Exception('This should not have been called');
 
   @override
   String toYamlString() => throw Exception('This should not have been called');
+
+  @override
+  String lerp({required String value, required String other}) {
+    throw Exception('This should not have been called');
+  }
 }
