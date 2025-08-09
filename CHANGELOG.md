@@ -1,3 +1,10 @@
+## NEXT
+
+- **BREAKING CHANGE**: `platform` is not longer supported. Create different color palettes from different files instead.
+- Add `lerp`.
+- Add `==` support.
+- The generated color palette now extends `ThemeExtension`.
+
 ## [0.4.2] 09/08/2024
 
 - Fixes a bug when no version was provided.
