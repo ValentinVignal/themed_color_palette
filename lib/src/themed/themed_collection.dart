@@ -40,27 +40,35 @@ class ThemedCollection extends ThemedJsonToDart {
   }
 
   @override
-  String fromJsonString({required String value, required String platform}) {
-    return '${classNameWithPlatform(platform: platform)}.fromJson(Map<String, dynamic>.from($value as Map))';
+  String fromJsonString({required String value}) {
+    return '$className.fromJson(Map<String, dynamic>.from($value as Map))';
   }
 
   @override
-  String copyWithJsonString({required String value, required String platform}) {
+  String copyWithJsonString({required String value}) {
     return '$instanceName.copyWithJson($value == null ? null : Map<String, dynamic>.from($value as Map))';
   }
 
   @override
-  String fromYamlString({required String value, required String platform}) {
-    return '${classNameWithPlatform(platform: platform)}.fromYaml(Map<String, dynamic>.from($value as Map))';
+  String fromYamlString({required String value}) {
+    return '$className.fromYaml(Map<String, dynamic>.from($value as Map))';
   }
 
   @override
-  String copyWithYamlString({required String value, required String platform}) {
+  String copyWithYamlString({required String value}) {
     return '$instanceName.copyWithYaml($value == null ? null : Map<String, dynamic>.from($value as Map))';
   }
 
   @override
   String toYamlString() {
     return '$instanceName.toYaml()';
+  }
+
+  @override
+  String lerp({
+    required String value,
+    required String other,
+  }) {
+    return '$value.lerp($other, t)';
   }
 }

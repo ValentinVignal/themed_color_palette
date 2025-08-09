@@ -92,4 +92,9 @@ class Color extends Value {
     required String value,
   }) =>
       '$value.stringValue';
+
+  @override
+  String lerp({required String value, required String other}) {
+    return 'Color.lerp($value, $other, t)!';
+  }
 }

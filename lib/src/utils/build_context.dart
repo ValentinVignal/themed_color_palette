@@ -7,7 +7,6 @@ class BuildContext {
   /// {@macro valentin_vignal.themed_color_palette.build_context}
   BuildContext({
     this.names = const [],
-    this.platforms = const [],
   }) {
     // Check the names
     // Only check the last one as the previous ones have already been checked
@@ -26,24 +25,9 @@ class BuildContext {
   /// ```
   final List<String> names;
 
-  /// The different platforms the object is available on.
-  final List<String> platforms;
-
-  /// `true` if the object is available on all the platforms.
-  bool get onAllPlatforms => setEquals(
-        Themes.platforms.toSet(),
-        platforms.toSet(),
-      );
-
-  /// Whether or not the object is available on the given platform.
-  bool includesPlatform(String platform) {
-    if (platform.isEmpty) return onAllPlatforms;
-    return platforms.contains(platform);
-  }
-
   @override
   String toString() {
-    return 'Context(names: "${names.join(divider)}", platforms: $platforms)';
+    return 'Context(names: "${names.join(divider)}")';
   }
 
   /// The base name for themed values.
@@ -66,61 +50,21 @@ class BuildContext {
   /// Extends the current context with new values.
   BuildContext extendsWith({
     String name = '',
-    List<String> platforms = const [],
   }) {
-    final _platforms = <String>[];
-    if (platforms.isEmpty) {
-      _platforms.addAll(this.platforms);
-    } else {
-      // Check the platforms are valid.
-      for (final platform in platforms) {
-        if (!Themes.platforms.contains(platform)) {
-          errors.add('''
-Error doing:
-$this
-  .extendsWith($name, $platforms);
-Platform $platform is not a valid platform.
-The list of platforms are ${Themes.platforms}.
-''');
-        }
-        if (!this.platforms.contains(platform)) {
-          errors.add('''
-Error doing:
-$this
-  .extendsWith($name, $platforms);
-Platform $platform is not a valid platform for context $this.
-''');
-        } else {
-          _platforms.add(platform);
-        }
-      }
-      if (_platforms.isEmpty && Themes.platforms.isNotEmpty) {
-        errors.add('''
-Error doing:
-$this
-  .extendsWith($name, $platforms);
-There is no valid platform.
-''');
-      }
-    }
-
     return BuildContext(
       names: [
         ...names,
         if (name.isNotEmpty) name,
       ],
-      platforms: _platforms,
     );
   }
 
   /// Copy with method.
   BuildContext copyWith({
     List<String> names = const [],
-    List<String> platforms = const [],
   }) {
     return BuildContext(
       names: names.isNotEmpty ? names : this.names,
-      platforms: platforms.isNotEmpty ? platforms : this.platforms,
     );
   }
 }
